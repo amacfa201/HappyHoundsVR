@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 44befed713093994ba5286dd97c7d3e0
-timeCreated: 1509714818
+guid: f7bbdfdcaaff04b4b849602b5a002344
+timeCreated: 1510826757
 licenseType: Pro
 ModelImporter:
   serializedVersion: 21
@@ -29,23 +29,25 @@ ModelImporter:
     100042: Bip002 Spine2
     100044: Bip002 Tail
     100046: Bip003
-    100048: Bip003 HeadNub
-    100050: Bip003 L Toe0
-    100052: Bip003 L Toe0Nub
-    100054: Bip003 Ponytail1
-    100056: Bip003 Ponytail1Nub
-    100058: Bip003 Ponytail2
-    100060: Bip003 Ponytail2Nub
-    100062: Bip003 R Toe0
-    100064: Bip003 R Toe0Nub
-    100066: Bip003 TailNub
-    100068: Bone005
-    100070: Bone006
-    100072: //RootNode
-    100074: EarRightBase001
-    100076: EarRightBase002
-    100078: EarRightMiddle001
-    100080: EarRightMiddle002
+    100048: Bip003 Footsteps
+    100050: Bip003 HeadNub
+    100052: Bip003 L Toe0
+    100054: Bip003 L Toe0Nub
+    100056: Bip003 Ponytail1
+    100058: Bip003 Ponytail1Nub
+    100060: Bip003 Ponytail2
+    100062: Bip003 Ponytail2Nub
+    100064: Bip003 R Toe0
+    100066: Bip003 R Toe0Nub
+    100068: Bip003 TailNub
+    100070: Bone005
+    100072: Bone006
+    100074: Corgi
+    100076: //RootNode
+    100078: EarRightBase001
+    100080: EarRightBase002
+    100082: EarRightMiddle001
+    100084: EarRightMiddle002
     400000: Bip002 Head
     400002: Bip002 L Calf
     400004: Bip002 L Clavicle
@@ -70,25 +72,29 @@ ModelImporter:
     400042: Bip002 Spine2
     400044: Bip002 Tail
     400046: Bip003
-    400048: Bip003 HeadNub
-    400050: Bip003 L Toe0
-    400052: Bip003 L Toe0Nub
-    400054: Bip003 Ponytail1
-    400056: Bip003 Ponytail1Nub
-    400058: Bip003 Ponytail2
-    400060: Bip003 Ponytail2Nub
-    400062: Bip003 R Toe0
-    400064: Bip003 R Toe0Nub
-    400066: Bip003 TailNub
-    400068: Bone005
-    400070: Bone006
-    400072: //RootNode
-    400074: EarRightBase001
-    400076: EarRightBase002
-    400078: EarRightMiddle001
-    400080: EarRightMiddle002
-    7400000: CorgiLayIdleV2
+    400048: Bip003 Footsteps
+    400050: Bip003 HeadNub
+    400052: Bip003 L Toe0
+    400054: Bip003 L Toe0Nub
+    400056: Bip003 Ponytail1
+    400058: Bip003 Ponytail1Nub
+    400060: Bip003 Ponytail2
+    400062: Bip003 Ponytail2Nub
+    400064: Bip003 R Toe0
+    400066: Bip003 R Toe0Nub
+    400068: Bip003 TailNub
+    400070: Bone005
+    400072: Bone006
+    400074: Corgi
+    400076: //RootNode
+    400078: EarRightBase001
+    400080: EarRightBase002
+    400082: EarRightMiddle001
+    400084: EarRightMiddle002
+    4300000: Corgi
+    7400000: Take 001
     9500000: //RootNode
+    13700000: Corgi
   materials:
     importMaterials: 1
     materialName: 0
@@ -114,7 +120,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: CorgiLayIdleV2
+      name: Take 001
       takeName: Take 001
       firstFrame: 1
       lastFrame: 20

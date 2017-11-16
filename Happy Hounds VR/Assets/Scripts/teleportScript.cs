@@ -6,30 +6,23 @@ public class teleportScript : MonoBehaviour {
 
     private SteamVR_TrackedObject trackedObj;
 
-    // 1
+ 
     public Transform cameraRigTransform;
-    // 2
     public GameObject teleportReticlePrefab;
-    // 3
     private GameObject reticle;
-    // 4
     private Transform teleportReticleTransform;
-    // 5
     public Transform headTransform;
-    // 6
+  
     public Vector3 teleportReticleOffset;
-    // 7
     public LayerMask teleportMask;
-    // 8
+  
     private bool shouldTeleport;
 
-    // 1
     public GameObject laserPrefab;
-    // 2
-    private GameObject laser;
-    // 3
+     private GameObject laser;
+    
     private Transform laserTransform;
-    // 4
+    
     private Vector3 hitPoint;
 
     private SteamVR_Controller.Device Controller
@@ -45,26 +38,19 @@ public class teleportScript : MonoBehaviour {
 
     private void ShowLaser(RaycastHit hit)
     {
-        // 1
+        
         laser.SetActive(true);
-        // 2
         laserTransform.position = Vector3.Lerp(trackedObj.transform.position, hitPoint, .5f);
-        // 3
         laserTransform.LookAt(hitPoint);
-        // 4
-        //laserTransform.localScale = new Vector3(laserTransform.localScale.x, laserTransform.localScale.y,
-           // hit.distance);
+        
     }
 
     // Use this for initialization
     void Start () {
-        // 1
+     
         laser = Instantiate(laserPrefab);
-        // 2
         laserTransform = laser.transform;
-
         reticle = Instantiate(teleportReticlePrefab);
-        // 2
         teleportReticleTransform = reticle.transform;
 
     }
@@ -75,20 +61,17 @@ public class teleportScript : MonoBehaviour {
         {
             RaycastHit hit;
 
-            // 2
+           
             if (Physics.Raycast(trackedObj.transform.position, transform.forward, out hit, 100, teleportMask))
             {
                 hitPoint = hit.point;
                 ShowLaser(hit);
-                // 1
                 reticle.SetActive(true);
-                // 2
                 teleportReticleTransform.position = hitPoint + teleportReticleOffset;
-                // 3
                 shouldTeleport = true;
             }
         }
-        else // 3
+        else 
         {
             laser.SetActive(false);
         }
@@ -101,15 +84,10 @@ public class teleportScript : MonoBehaviour {
 
     private void Teleport()
     {
-        // 1
         shouldTeleport = false;
-        // 2
         reticle.SetActive(false);
-        // 3
         Vector3 difference = cameraRigTransform.position - headTransform.position;
-        // 4
         difference.y = 0;
-        // 5
         cameraRigTransform.position = hitPoint + difference;
     }
 

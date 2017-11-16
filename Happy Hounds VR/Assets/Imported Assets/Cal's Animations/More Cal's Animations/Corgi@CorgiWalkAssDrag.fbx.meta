@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 44befed713093994ba5286dd97c7d3e0
-timeCreated: 1509714818
+guid: 380f1aab18787214aad96c74873ff736
+timeCreated: 1510826757
 licenseType: Pro
 ModelImporter:
   serializedVersion: 21
@@ -87,7 +87,7 @@ ModelImporter:
     400076: EarRightBase002
     400078: EarRightMiddle001
     400080: EarRightMiddle002
-    7400000: CorgiLayIdleV2
+    7400000: CorgiWalkAssDrag
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -114,7 +114,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: CorgiLayIdleV2
+      name: CorgiWalkAssDrag
       takeName: Take 001
       firstFrame: 1
       lastFrame: 20
