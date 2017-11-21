@@ -8,7 +8,8 @@ public class HoseScript : MonoBehaviour {
     public GameObject spawnPoint;
 
     public bool holdingHose;
-
+    public bool triggerDown;
+    public float timeSinceSpawn;
 	// Use this for initialization
 	void Start () {
 		
@@ -16,7 +17,8 @@ public class HoseScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (holdingHose)
+        timeSinceSpawn += Time.deltaTime;
+        if (holdingHose && triggerDown)
         {
             SpawnWaterDrops();
         }
@@ -24,7 +26,11 @@ public class HoseScript : MonoBehaviour {
 
     void SpawnWaterDrops()
     {
-        GameObject water = (GameObject)Instantiate(waterPrefab, spawnPoint.transform.position, Quaternion.identity);
+        if (timeSinceSpawn > 0.05f)
+        {
+            timeSinceSpawn = 0;
+            GameObject water = (GameObject)Instantiate(waterPrefab, spawnPoint.transform.position, Quaternion.identity);
+        }
     }
 
 

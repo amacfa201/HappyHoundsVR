@@ -36,7 +36,9 @@ public class objectPickup : MonoBehaviour {
     public AudioClip foodinBowl;
 
     private bool thrown;
+    public bool petting;
     private Rigidbody rigid;
+
 
 
     HoseScript _hoseScript;
@@ -80,6 +82,7 @@ public class objectPickup : MonoBehaviour {
             print("button down");
             testScript.stopRadius = 1.25f;
             testScript.calledDog = true;
+            FindObjectOfType<AudioManager>().PlayOnce("DogWhistle");
         }
 
 
@@ -134,6 +137,9 @@ public class objectPickup : MonoBehaviour {
             thrown = false;
 
         }
+
+       
+
     }
 
    
@@ -151,28 +157,30 @@ public class objectPickup : MonoBehaviour {
             obj = other.gameObject;
             holdingBox = true;
         }
+        //bfdgbfgd
 
         if(other.tag == "Hose") {
             obj = other.gameObject;
             _hoseScript.holdingHose = true;
         }
 
+        if (other.tag == "corgi")
+        {
+            petting = true;
+            //SteamVR_Controller.Input((int)trackedObj.index).TriggerHapticPulse(1000);
+
+            controller.TriggerHapticPulse(500);
+        }
+
+
 
     }
-
-    void OnTriggerExit(Collider other)
-    {
-        obj = null;
-        holdingBox = false;
-        _hoseScript.holdingHose = false;
-
-    }
-
 
     void PickupObj() {
 
         if (obj != null)
         {
+            _hoseScript.triggerDown = true;
             fixedJoint.connectedBody = obj.GetComponent<Rigidbody>();
             thrown = false;
             rigid = null;
@@ -186,6 +194,7 @@ public class objectPickup : MonoBehaviour {
     {
         if (fixedJoint.connectedBody != null)
         {
+            _hoseScript.triggerDown = false;
             rigid = fixedJoint.connectedBody;
             fixedJoint.connectedBody = null;
             thrown = true;
@@ -193,12 +202,32 @@ public class objectPickup : MonoBehaviour {
             
     }
 
-
-
     IEnumerator spawnFood() {
         yield return new WaitForSeconds(2f);
         createFood();
         
     }
+
+
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.tag == "corgi") {
+    //        petting = true;
+    //    }
+    //}
+
+    void OnTriggerExit(Collider other)
+    {
+        obj = null;
+        holdingBox = false;
+        _hoseScript.holdingHose = false;
+
+        if (other.gameObject.tag == "corgi")
+        {
+            petting = false;
+        }
+
+    }
+
 
 }

@@ -70,6 +70,7 @@ public class testCorgiScript : MonoBehaviour {
         dogAudioSource = GetComponent<AudioSource>();
         rigidbody = GetComponent<Rigidbody>();
         audioManager = FindObjectOfType<AudioManager>();
+        //dogAudioSource.PlayOneShot(dogWhistle);
 
     }
 
@@ -84,8 +85,8 @@ public class testCorgiScript : MonoBehaviour {
         //Animation ENums
         if (animState == dogState.Idle)
         {
-            audioManager.StopAllSFX();
-            audioManager.PlaySound("DogPanting");
+            //audioManager.StopAllSFX();
+            audioManager.PlayOnce("DogPanting");
             anim.SetFloat("Move", 0.0f);
             anim.SetBool("eating", false);
             anim.SetBool("drinking", false);
@@ -93,15 +94,15 @@ public class testCorgiScript : MonoBehaviour {
         }
         if (animState == dogState.Walking)
         {
-            audioManager.StopAllSFX();
-            audioManager.PlaySound("DogFootsteps");
+            //audioManager.StopAllSFX();
+            audioManager.PlayOnce("DogFootsteps");
             anim.SetFloat("Move", 2.5f);
            
         }
         if (animState == dogState.Eating)
         {
-            audioManager.StopAllSFX();
-            audioManager.PlaySound("DogEating");
+            //audioManager.StopAllSFX();
+            audioManager.PlayOnce("DogEating");
             anim.CrossFade("Corgi@CorgiEatV2", crossfadeVal);
             anim.SetFloat("Move", 0.0f);
             anim.SetBool("eating", true);
@@ -114,10 +115,6 @@ public class testCorgiScript : MonoBehaviour {
             anim.SetBool("drinking", true);
 
         }
-
-
-
-
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -149,7 +146,7 @@ public class testCorgiScript : MonoBehaviour {
             
             inMotion = true;
             //dogAudioSource.PlayOneShot(dogWhistle);
-            audioManager.PlaySound("DogWhistle");
+
             Vector3 steeringVelocity = Vector3.zero;
             DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z));
             transform.position += desiredVelocity * Time.deltaTime;
@@ -162,7 +159,6 @@ public class testCorgiScript : MonoBehaviour {
             transform.position += desiredVelocity * Time.deltaTime;
         }
     }
-
     //void CallDog()
     //{
     //    called = true;
@@ -182,8 +178,8 @@ public class testCorgiScript : MonoBehaviour {
 
     private void DogMovement(Vector3 agent, Vector3 target)
     {
-        print("bool =  " + (Vector3.Distance(agent, target) < stopRadius));
-        print("float = " + Vector3.Distance(agent, target));
+        //print("bool =  " + (Vector3.Distance(agent, target) < stopRadius));
+        //print("float = " + Vector3.Distance(agent, target));
         if (Vector3.Distance(agent, target) > arrivalRadius)
             {
                 animState = dogState.Walking;

@@ -11,9 +11,10 @@ public class AudioManager : MonoBehaviour {
 	void Awake () {
         foreach (Sound _sound in soundArray)
         {
-            _sound.audioSource.gameObject.AddComponent<AudioSource>();
-            _sound.audioSource.clip = _sound.clip;
-            _sound.audioSource.loop = _sound.loop;
+            _sound.source = gameObject.AddComponent<AudioSource>();
+            _sound.source.clip = _sound.clip;
+            _sound.source.loop = _sound.loop;
+            _sound.source.playOnAwake = false;
         }
 	}
 	
@@ -24,39 +25,60 @@ public class AudioManager : MonoBehaviour {
 
     public void PlaySound(string soundName)
     {
-       Sound s = Array.Find(soundArray, sound => sound.name == name);
+       Sound s = Array.Find(soundArray, sound => sound.name == soundName);
         if (s == null)
         {
+            print("null");
             return;
         }
         else
         {
-            s.audioSource.Play();
+            print("sound should play");
+            s.source.Play();
         }
     }
 
     public void StopSound(string soundName)
     {
-        Sound s = Array.Find(soundArray, sound => sound.name == name);
+        Sound s = Array.Find(soundArray, sound => sound.name == soundName);
         if (s == null)
         {
             return;
         }
         else
         {
-            s.audioSource.Stop();
+            s.source.Stop();
         }
     }
 
-    public void StopAllSFX()
+    public void PlayOnce(string soundName)
     {
-        foreach (Sound _sound in soundArray)
+        Sound s = Array.Find(soundArray, sound => sound.name == soundName);
+        if (s == null)
         {
-            _sound.audioSource.gameObject.AddComponent<AudioSource>();
-            _sound.audioSource.Stop();   
+            print("null");
+            return;
         }
-
+        else
+        {
+            print("sound should play");
+            if (!s.source.isPlaying)
+            {
+                s.source.PlayOneShot(s.clip);
+            }
+           
+        }
     }
+
+    //public void StopAllSFX()
+    //{
+    //    foreach (Sound _sound in soundArray)
+    //    {
+    //        _sound.audioSource.gameObject.AddComponent<AudioSource>();
+    //        _sound.audioSource.Stop();   
+    //    }
+
+    //}
 
 
 
