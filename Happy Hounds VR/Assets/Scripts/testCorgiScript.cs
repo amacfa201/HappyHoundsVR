@@ -47,16 +47,19 @@ public class testCorgiScript : MonoBehaviour {
     public AudioClip dogFootsteps;
     public AudioClip dogWhistle;
 
+    public AudioManager audioManager;
+
     //private SteamVR_TrackedObject trackedObj;
     //private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
-    protected enum dogState
+    public enum dogState
     {
         Walking,
         Eating,
         Idle, 
-        Sitting
+        Sitting,
+        Drinking
     }
-    private dogState animState;
+    public dogState animState;
 
     // Use this for initialization
     void Start() {
@@ -66,6 +69,7 @@ public class testCorgiScript : MonoBehaviour {
         animState = dogState.Idle;
         dogAudioSource = GetComponent<AudioSource>();
         rigidbody = GetComponent<Rigidbody>();
+        audioManager = FindObjectOfType<AudioManager>();
 
     }
 
@@ -80,25 +84,41 @@ public class testCorgiScript : MonoBehaviour {
         //Animation ENums
         if (animState == dogState.Idle)
         {
-           
+            audioManager.StopAllSFX();
+            audioManager.PlaySound("DogPanting");
             anim.SetFloat("Move", 0.0f);
             anim.SetBool("eating", false);
+            anim.SetBool("drinking", false);
             
         }
         if (animState == dogState.Walking)
         {
+            audioManager.StopAllSFX();
+            audioManager.PlaySound("DogFootsteps");
             anim.SetFloat("Move", 2.5f);
            
         }
         if (animState == dogState.Eating)
         {
+            audioManager.StopAllSFX();
+            audioManager.PlaySound("DogEating");
             anim.CrossFade("Corgi@CorgiEatV2", crossfadeVal);
             anim.SetFloat("Move", 0.0f);
             anim.SetBool("eating", true);
            
         }
-       
-       
+
+        if (animState == dogState.Drinking)
+        {
+           
+            anim.SetBool("drinking", true);
+
+        }
+
+
+
+
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             print("Mouse0");
@@ -128,7 +148,8 @@ public class testCorgiScript : MonoBehaviour {
         {
             
             inMotion = true;
-            dogAudioSource.PlayOneShot(dogWhistle);
+            //dogAudioSource.PlayOneShot(dogWhistle);
+            audioManager.PlaySound("DogWhistle");
             Vector3 steeringVelocity = Vector3.zero;
             DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z));
             transform.position += desiredVelocity * Time.deltaTime;

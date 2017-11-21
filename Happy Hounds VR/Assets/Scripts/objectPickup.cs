@@ -28,7 +28,7 @@ public class objectPickup : MonoBehaviour {
     List<GameObject> foodList;
     private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
 
-
+   
     public bool holdingBox;
     public AudioSource foodSource;
     public AudioClip thud; // when box is dropped
@@ -38,12 +38,16 @@ public class objectPickup : MonoBehaviour {
     private bool thrown;
     private Rigidbody rigid;
 
+
+    HoseScript _hoseScript;
+
     // Use this for initialization
     void Start() {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
         //controller = SteamVR_Controller.Input((int)trackedObj.index);
         fixedJoint = GetComponent<FixedJoint>();
         testScript = GameObject.FindGameObjectWithTag("corgi").GetComponent<testCorgiScript>();
+        _hoseScript = GameObject.FindGameObjectWithTag("Hose").GetComponent<HoseScript>();
         
     }
 
@@ -86,6 +90,7 @@ public class objectPickup : MonoBehaviour {
             {
                 if ((Mathf.Abs(foodBox.transform.rotation.x) > 0.5f || Mathf.Abs(foodBox.transform.rotation.z) > 0.5f))
                 {
+                    FindObjectOfType<AudioManager>().PlaySound("FoodLeaveBox");
                     pouring = true;
                     createFood();
                     pourTime = 0.5f;
@@ -146,12 +151,20 @@ public class objectPickup : MonoBehaviour {
             obj = other.gameObject;
             holdingBox = true;
         }
+
+        if(other.tag == "Hose") {
+            obj = other.gameObject;
+            _hoseScript.holdingHose = true;
+        }
+
+
     }
 
     void OnTriggerExit(Collider other)
     {
         obj = null;
         holdingBox = false;
+        _hoseScript.holdingHose = false;
 
     }
 

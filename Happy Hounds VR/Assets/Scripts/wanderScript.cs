@@ -46,7 +46,7 @@ public class wanderScript : MonoBehaviour {
         Vector3 randPoint = Random.insideUnitCircle * circleRadius;
 
         randPoint += transform.position + new Vector3((transform.forward.x * circleDistance), 0.0f, (transform.forward.z * circleDistance));
-        print("point = " + Physics.OverlapSphere(randPoint, overlapRadius, untraversableMask));
+        //print("point = " + Physics.OverlapSphere(randPoint, overlapRadius, untraversableMask));
 
         //for(int i= 0; i < (Physics.OverlapSphere(randPoint, overlapRadius, untraversableMask)).Length; i++)
 
@@ -66,6 +66,7 @@ public class wanderScript : MonoBehaviour {
 
         while (Physics2D.OverlapCircle(randPoint, overlapRadius, untraversableMask) == true)
         {
+            print("1");
             randPoint += transform.position + new Vector3((transform.forward.x * circleDistance), 0.0f, (transform.forward.z * circleDistance));
         }
         
