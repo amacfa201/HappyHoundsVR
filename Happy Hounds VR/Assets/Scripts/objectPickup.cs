@@ -19,6 +19,7 @@ public class objectPickup : MonoBehaviour {
     public GameObject foodPellet;
     public GameObject SpawnPoint;
     public GameObject foodBox;
+    public GameObject musicButton;
     //public int numPellets;
     public int maxPellets = 20;
     public int DisNumPellets;
@@ -28,6 +29,7 @@ public class objectPickup : MonoBehaviour {
     List<GameObject> foodList;
     private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
 
+    public float buttonDist = 0.45f;
    
     public bool holdingBox;
     public AudioSource foodSource;
@@ -55,6 +57,16 @@ public class objectPickup : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+
+        if (Vector3.Distance(transform.position, musicButton.transform.position) < buttonDist)
+        {
+            GetComponent<SphereCollider>().isTrigger = true;
+        }
+        else
+        {
+            GetComponent<SphereCollider>().isTrigger = false;
+        }
+
 
         DisNumPellets = testScript.numPellets;
         if (controller == null)
