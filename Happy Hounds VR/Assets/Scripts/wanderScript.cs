@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class wanderScript : MonoBehaviour {
+public class wanderScript : MonoBehaviour
+{
     public float circleRadius = 5.0f;
     public float circleDistance = 5.0f;
     Vector3 desiredVelocity = Vector3.zero;
     public float maxSpeed = 0.75f;
+    public float pointOffset = 2.2f;
     bool waiting;
     public Vector3 testVec3;
     float overlapRadius = 0.5f;
     public LayerMask untraversableMask;
     // Use this for initialization
-    void Start () {    
+    void Start()
+    {
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         testVec3 = desiredVelocity;
         if (!waiting)
         {
@@ -64,12 +68,43 @@ public class wanderScript : MonoBehaviour {
         //    desiredVelocity = Vector3.Normalize(randPoint - transform.position) * 1.25f;
         //}
 
-        while (Physics2D.OverlapCircle(randPoint, overlapRadius, untraversableMask) == true)
+        //Vector3[] points = null;
+        //RaycastHit hit;
+        //points[0] = randPoint;
+        //points[1] = new Vector3(randPoint.x += pointOffset, randPoint.y, randPoint.z);
+        //points[2] = new Vector3(randPoint.x -= pointOffset, randPoint.y, randPoint.z);
+        //points[3] = new Vector3(randPoint.x, randPoint.y, randPoint.z += pointOffset);
+        //points[4] = new Vector3(randPoint.x, randPoint.y, randPoint.z += pointOffset);
+        //int clearPoints = 0;
+
+        //if (clearPoints != points.Length)
+        //{
+        //    for (int i = 0; i < points.Length; i++)
+        //    {
+
+        //        Physics.Raycast(points[i], Vector3.down, out hit, 15);
+        //        if (hit.collider.gameObject.tag == "floor")
+        //        {
+        //            clearPoints++;
+        //        }
+        //    }
+
+        //}
+
+
+
+
+
+
+
+
+        while (!CheckPoints(randPoint))
         {
-            print("1");
+            randPoint = Random.insideUnitCircle * circleRadius;
             randPoint += transform.position + new Vector3((transform.forward.x * circleDistance), 0.0f, (transform.forward.z * circleDistance));
+            //CheckPoints(randPoint);
         }
-        
+
         desiredVelocity = Vector3.Normalize(randPoint - transform.position) * 1.25f;
         return desiredVelocity;
     }
@@ -80,4 +115,40 @@ public class wanderScript : MonoBehaviour {
         yield return new WaitForSeconds(2f);
         waiting = false;
     }
+
+    bool CheckPoints(Vector3 randPoint)
+    {
+        Vector3[] points = null;
+        RaycastHit hit = new RaycastHit();
+        points[0] = new Vector3(randPoint.x, randPoint.y, randPoint.z);
+        points[1] = new Vector3(randPoint.x += pointOffset, randPoint.y, randPoint.z);
+        points[2] = new Vector3(randPoint.x -= pointOffset, randPoint.y, randPoint.z);
+        points[3] = new Vector3(randPoint.x, randPoint.y, randPoint.z += pointOffset);
+        points[4] = new Vector3(randPoint.x, randPoint.y, randPoint.z -= pointOffset);
+        int clearPoints = 0;
+
+
+        for (int i = 0; i < points.Length; i++)
+        {
+            Physics.Raycast(new Vector3(points[i].x, points[i].y += 10, points[i].z), Vector3.down, out hit, 15);
+            if (hit.collider.gameObject.tag == "plane")
+            {
+                clearPoints++;
+            }
+        }
+
+        if (clearPoints == points.Length)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
+
+
+    }
+
 }

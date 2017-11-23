@@ -56,7 +56,7 @@ public class objectPickup : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-        DisNumPellets = testScript.numPellets;
+        //DisNumPellets = testScript.numPellets;
         if (controller == null)
         {
             Debug.Log("Controller Not Initilalised");
