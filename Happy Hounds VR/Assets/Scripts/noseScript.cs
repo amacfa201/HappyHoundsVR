@@ -9,7 +9,7 @@ public class noseScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        testScript = GameObject.FindGameObjectWithTag("corgi").GetComponent<testCorgiScript>();
+        testScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<testCorgiScript>();
     }
 
     // Update is called once per frame

@@ -13,6 +13,7 @@ public class wanderScript : MonoBehaviour
     public Vector3 testVec3;
     float overlapRadius = 0.5f;
     public LayerMask untraversableMask;
+    Vector3[] points = null;
     // Use this for initialization
     void Start()
     {
@@ -118,7 +119,7 @@ public class wanderScript : MonoBehaviour
 
     bool CheckPoints(Vector3 randPoint)
     {
-        Vector3[] points = null;
+       
         RaycastHit hit = new RaycastHit();
         points[0] = new Vector3(randPoint.x, randPoint.y, randPoint.z);
         points[1] = new Vector3(randPoint.x += pointOffset, randPoint.y, randPoint.z);

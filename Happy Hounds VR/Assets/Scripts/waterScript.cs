@@ -5,7 +5,7 @@ using UnityEngine;
 public class waterScript : MonoBehaviour {
 
     private Rigidbody rigid;
-    testCorgiScript corgiScript;
+    public testCorgiScript corgiScript;
     float timeSinceHit;
     float timeAlive;
     private GameObject spawnPoint;
@@ -14,7 +14,7 @@ public class waterScript : MonoBehaviour {
     void Start () {
         spawnPoint = GameObject.FindGameObjectWithTag("waterSpawn");
         rigid = GetComponent<Rigidbody>();
-        corgiScript = GameObject.FindGameObjectWithTag("corgi").GetComponent<testCorgiScript>();
+        corgiScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<testCorgiScript>();
     }
 	
 	// Update is called once per frame

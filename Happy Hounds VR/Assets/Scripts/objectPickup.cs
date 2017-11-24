@@ -30,10 +30,10 @@ public class objectPickup : MonoBehaviour {
 
    
     public bool holdingBox;
-    public AudioSource foodSource;
-    public AudioClip thud; // when box is dropped
-    public AudioClip boxShake;
-    public AudioClip foodinBowl;
+    //public AudioSource foodSource;
+    //public AudioClip thud; // when box is dropped
+    //public AudioClip boxShake;
+    //public AudioClip foodinBowl;
 
     private bool thrown;
     public bool petting;
@@ -48,7 +48,7 @@ public class objectPickup : MonoBehaviour {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
         //controller = SteamVR_Controller.Input((int)trackedObj.index);
         fixedJoint = GetComponent<FixedJoint>();
-        testScript = GameObject.FindGameObjectWithTag("corgi").GetComponent<testCorgiScript>();
+        //testScript = GameObject.FindGameObjectWithTag("corgi").GetComponent<testCorgiScript>();
         _hoseScript = GameObject.FindGameObjectWithTag("Hose").GetComponent<HoseScript>();
         
     }
@@ -170,6 +170,7 @@ public class objectPickup : MonoBehaviour {
             //SteamVR_Controller.Input((int)trackedObj.index).TriggerHapticPulse(1000);
 
             controller.TriggerHapticPulse(500);
+            testScript.animState = testCorgiScript.dogState.Petting;
         }
 
 
@@ -222,9 +223,10 @@ public class objectPickup : MonoBehaviour {
         holdingBox = false;
         _hoseScript.holdingHose = false;
 
-        if (other.gameObject.tag == "corgi")
+        if (other.gameObject.tag == "Corgi")
         {
             petting = false;
+            testScript.animState = testCorgiScript.dogState.Petting;
         }
 
     }

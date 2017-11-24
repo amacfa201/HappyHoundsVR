@@ -11,10 +11,8 @@ public class testCorgiScript : MonoBehaviour {
     private float crossfadeVal = 0.001f;
 
     public GameObject headSetTarget;
-    public GameObject dogBowlWaypoint;
     public GameObject agent;
     public GameObject nose;
-    public GameObject rayPoint;
     public GameObject bowlWaypoint;
     public float arrivalRadius;
     public float MaxSpeed = 3.5f;
@@ -30,7 +28,7 @@ public class testCorgiScript : MonoBehaviour {
     bool inMotion;
     public bool currentlyEating;
 
-    public GameObject dogParent;
+   
     public GameObject foodBox;
 
     public GameObject ball;
@@ -40,12 +38,8 @@ public class testCorgiScript : MonoBehaviour {
 
     public float bowlNum = 0.75f;
     public float eatNum = 0.38f;
-    public AudioSource dogAudioSource;
-    public AudioClip bark;
-    public AudioClip dogEatingSound;
-    public AudioClip dogPanting;
-    public AudioClip dogFootsteps;
-    public AudioClip dogWhistle;
+
+    public pettingScript _pettingScript;
 
     public AudioManager audioManager;
 
@@ -57,7 +51,8 @@ public class testCorgiScript : MonoBehaviour {
         Eating,
         Idle, 
         Sitting,
-        Drinking
+        Drinking,
+        Petting
     }
     public dogState animState;
 
@@ -67,10 +62,10 @@ public class testCorgiScript : MonoBehaviour {
         anim = GetComponent<Animator>();
         animatorName = anim.name;
         animState = dogState.Idle;
-        dogAudioSource = GetComponent<AudioSource>();
         rigidbody = GetComponent<Rigidbody>();
         audioManager = FindObjectOfType<AudioManager>();
         //dogAudioSource.PlayOneShot(dogWhistle);
+        _pettingScript = GetComponent<pettingScript>();
 
     }
 
@@ -111,8 +106,29 @@ public class testCorgiScript : MonoBehaviour {
 
         if (animState == dogState.Drinking)
         {
-           
             anim.SetBool("drinking", true);
+        }
+
+
+        if (animState == dogState.Petting)
+        {
+            anim.SetFloat("Move", 0.0f);
+            anim.SetBool("eating", false);
+            anim.SetBool("drinking", false);
+
+            if (_pettingScript.currentAnim == "corgipettingstand1")
+            {
+                anim.SetFloat("petting", 0.5f);
+            }
+            if (_pettingScript.currentAnim == "corgibackscratch")
+            {
+                anim.SetFloat("petting", 1f);
+            }
+            if (_pettingScript.currentAnim == "Take 001")
+            {
+                anim.SetFloat("petting", 1.5f);
+            }
+
 
         }
 
