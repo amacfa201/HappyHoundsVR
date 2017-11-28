@@ -185,7 +185,8 @@ public class objectPickup : MonoBehaviour {
             thrown = false;
             rigid = null;
         }
-        else {
+        else
+        {
             fixedJoint.connectedBody = null;
         }
     }
@@ -240,6 +241,4 @@ public class objectPickup : MonoBehaviour {
         }
 
     }
-
-
 }

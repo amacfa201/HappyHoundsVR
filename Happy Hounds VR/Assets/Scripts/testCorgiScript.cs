@@ -221,16 +221,21 @@ public class testCorgiScript : MonoBehaviour {
             ResetRand();
             ball.transform.position = nose.transform.position;
             inMotion = true;
-            DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z));
+            DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.5f, headSetTarget.transform.position.z));
             transform.position += desiredVelocity * Time.deltaTime;
             ballDropped = true;
         }
-
+        if (ballDropped && Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) < stopRadius)
+        {
+            lastInteraction = 0;
+            ResetRand();
+            ball.transform.position = new Vector3(nose.transform.position.x +1.0f, 0.0f, nose.transform.position.z);
+        }
         if (Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) < ballRadius)
         {
             animState = dogState.Idle;
+            ball.transform.position = new Vector2(nose.transform.position.x + 0.5f, 0.0f);
             ballCollected = false;
-            ballDropped = true;
         }
 
         ///////////////////////////////////////////////////
