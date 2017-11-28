@@ -7,21 +7,22 @@ public class pettingScript : MonoBehaviour {
     public string currentAnim = null;
     // Use this for initialization
     void Start () {
-        RandomizePettingAnims();
+		//currentAnim = "corgipettingstand1";
+		RandomizePettingAnims();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        currentAnim = "corgipettingstand1";
-
+        
+		//RandAnimTime ();
     }
 
     void RandomizePettingAnims()
     {
 
         timeSinceChange = 0;
-        int animNum = Random.Range(1, 3);
-  
+        int animNum = Random.Range(1, 4);
+		print ("RandomNum: " + animNum);
         if (animNum == 1)
         {
             currentAnim = "corgibackscratch";
@@ -40,9 +41,10 @@ public class pettingScript : MonoBehaviour {
     }
 
 
-    void RandAnimTime() {
+   public void RandAnimTime() {
         timeSinceChange += Time.deltaTime;
-        if (timeSinceChange > Random.Range(4.5f, 10))
+		float randTime = Random.Range (4.5f, 10);
+        if (timeSinceChange > randTime)
         {
             RandomizePettingAnims();
         }

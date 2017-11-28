@@ -166,9 +166,9 @@ public class objectPickup : MonoBehaviour {
 
         if (other.tag == "corgi")
         {
+            testScript.lastInteration = 0f;
             petting = true;
             //SteamVR_Controller.Input((int)trackedObj.index).TriggerHapticPulse(1000);
-
             controller.TriggerHapticPulse(500);
             testScript.animState = testCorgiScript.dogState.Petting;
         }

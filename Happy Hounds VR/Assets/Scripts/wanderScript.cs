@@ -8,12 +8,17 @@ public class wanderScript : MonoBehaviour
     public float circleDistance = 5.0f;
     Vector3 desiredVelocity = Vector3.zero;
     public float maxSpeed = 0.75f;
-    public float pointOffset = 2.2f;
+    public float pointOffset = 0.5f;
     bool waiting;
     public Vector3 testVec3;
     float overlapRadius = 0.5f;
     public LayerMask untraversableMask;
-    Vector3[] points = null;
+	Vector3[] points = new Vector3[5];
+    bool checking;
+    bool useWhile; //testing only
+    public GameObject resetPoint;
+    RaycastHit hit = new RaycastHit();
+
     // Use this for initialization
     void Start()
     {
@@ -23,7 +28,7 @@ public class wanderScript : MonoBehaviour
     void Update()
     {
         testVec3 = desiredVelocity;
-        if (!waiting)
+        if (!waiting && !checking )
         {
             FindNewPoint();
             StartCoroutine(temp());
@@ -43,14 +48,17 @@ public class wanderScript : MonoBehaviour
             waiting = false;
         }
 
+       // print("hit = " + hit.collider);
     }
 
 
     public Vector3 FindNewPoint()
     {
+        int numLoops = 0;
         Vector3 randPoint = Random.insideUnitCircle * circleRadius;
 
         randPoint += transform.position + new Vector3((transform.forward.x * circleDistance), 0.0f, (transform.forward.z * circleDistance));
+        #region
         //print("point = " + Physics.OverlapSphere(randPoint, overlapRadius, untraversableMask));
 
         //for(int i= 0; i < (Physics.OverlapSphere(randPoint, overlapRadius, untraversableMask)).Length; i++)
@@ -93,21 +101,77 @@ public class wanderScript : MonoBehaviour
         //}
 
 
+        //bool pointClear = CheckPoints (randPoint);
 
 
 
 
+        //int loops = 0;
+
+        //while (pointClear == false || loops < 3)
+        //{
+        //    loops++;
+        //    print("loops: " + loops);
+        //    randPoint = Random.insideUnitCircle * circleRadius;
+        //    randPoint += transform.position + new Vector3((transform.forward.x * circleDistance), 0.0f, (transform.forward.z * circleDistance));
+        //    print("while loop");
+        //    if (CheckPoints(randPoint))
+        //    {
+        //        print("while if stat");
+        //        pointClear = true;
+        //    }
+        //}
 
 
-        while (!CheckPoints(randPoint))
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    bool pointClear = false;
+        //    randPoint = Random.insideUnitCircle * circleRadius;
+        //    randPoint += transform.position + new Vector3((transform.forward.x * circleDistance), 0.0f, (transform.forward.z * circleDistance));
+        //    //print("while loop");
+        //    if (CheckPoints(randPoint))
+        //    {
+        //        print("method returned true to for loop");
+        //        pointClear = true;
+        //        desiredVelocity = Vector3.Normalize(randPoint - transform.position) * 1.25f;
+        //        return desiredVelocity;
+        //    }
+        //    else
+        //    { break; }
+        //}
+#endregion
+        bool pointClear = CheckPoints(randPoint);
+
+        while (pointClear == false)
         {
+            numLoops++;
+            checking = true;
             randPoint = Random.insideUnitCircle * circleRadius;
             randPoint += transform.position + new Vector3((transform.forward.x * circleDistance), 0.0f, (transform.forward.z * circleDistance));
-            //CheckPoints(randPoint);
-        }
+            if (numLoops > 5)
+            {
+                randPoint = resetPoint.transform.position;
+                checking = false;
+                break;
+            }
+            if (CheckPoints(randPoint) == true)
+            {
+                pointClear = true;
+                checking = false;
+                break;
+            }
+            //break;
+            //if (CheckPoints(randPoint) == false)
+            //{
+            //    print("RET=F, setting rand to current pos");
+            //    randPoint = transform.position;
+            //    break;
+            //}
 
+        }
         desiredVelocity = Vector3.Normalize(randPoint - transform.position) * 1.25f;
         return desiredVelocity;
+
     }
 
     IEnumerator temp()
@@ -120,7 +184,7 @@ public class wanderScript : MonoBehaviour
     bool CheckPoints(Vector3 randPoint)
     {
        
-        RaycastHit hit = new RaycastHit();
+        
         points[0] = new Vector3(randPoint.x, randPoint.y, randPoint.z);
         points[1] = new Vector3(randPoint.x += pointOffset, randPoint.y, randPoint.z);
         points[2] = new Vector3(randPoint.x -= pointOffset, randPoint.y, randPoint.z);
@@ -128,22 +192,33 @@ public class wanderScript : MonoBehaviour
         points[4] = new Vector3(randPoint.x, randPoint.y, randPoint.z -= pointOffset);
         int clearPoints = 0;
 
-
+        
         for (int i = 0; i < points.Length; i++)
         {
-            Physics.Raycast(new Vector3(points[i].x, points[i].y += 10, points[i].z), Vector3.down, out hit, 15);
-            if (hit.collider.gameObject.tag == "plane")
-            {
-                clearPoints++;
-            }
+            Ray castDown = new Ray(new Vector3(points[i].x, 10, points[i].z), -Vector3.up);
+			if (Physics.Raycast (castDown, out hit)) {
+                if (hit.collider.gameObject.tag == "plane")
+                {
+                    print("raycast hit plane");
+                    clearPoints++;
+                }
+                else
+                {
+                    print("did not hit plane = " + hit.collider);
+                }
+			}
         }
 
         if (clearPoints == points.Length)
         {
+            print("return true");
+          
             return true;
+           
         }
         else
         {
+            print("return false");
             return false;
         }
 

@@ -38,6 +38,7 @@ public class waterScript : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
+        corgiScript.lastInteration = 0f;
         if (other.gameObject.tag == "plane" || other.gameObject.tag == "corgi")
         {
             Destroy(gameObject, 0.5f);

@@ -28,17 +28,20 @@ public class testCorgiScript : MonoBehaviour {
     bool inMotion;
     public bool currentlyEating;
 
+    public float lastInteration;
+
    
     public GameObject foodBox;
 
     public GameObject ball;
+    public bool idling;
 
     public bool dogEat;
     public bool calledDog;
 
     public float bowlNum = 0.75f;
     public float eatNum = 0.38f;
-
+    public LayerMask corgiMask;
     public pettingScript _pettingScript;
 
     public AudioManager audioManager;
@@ -72,7 +75,9 @@ public class testCorgiScript : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
+       
+            lastInteration += Time.deltaTime;
+        
        //print("thing = " + Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position));
 
         transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
@@ -112,6 +117,7 @@ public class testCorgiScript : MonoBehaviour {
 
         if (animState == dogState.Petting)
         {
+			_pettingScript.RandAnimTime ();
             anim.SetFloat("Move", 0.0f);
             anim.SetBool("eating", false);
             anim.SetBool("drinking", false);
@@ -131,14 +137,35 @@ public class testCorgiScript : MonoBehaviour {
 
 
         }
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (lastInteration > 2)
         {
-            print("Mouse0");
+            GetComponent<IdleBehaviours>().enabled = true;
         }
+        else
+        {
+            GetComponent<IdleBehaviours>().enabled = false;
+        }
+
+        if (!GetComponent<IdleBehaviours>().enabled)
+        {
+            anim.SetFloat("idle", 0f);
+        }
+
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    RaycastHit hit = new RaycastHit();
+        //    Vector3 temp = new Vector3(transform.position.x, 10 , transform.position.z);
+        //    Ray castDown = new Ray(temp, -Vector3.up);
+        //    if (Physics.Raycast(castDown, out hit, corgiMask))
+        //    {
+        //        print("coll: " + hit.collider.tag);
+        //        print("coll2: " + hit.collider.transform.position);
+        //    }
+        //}
        
         if (GameObject.FindGameObjectWithTag("foodPellet") != null)
         {
+            lastInteration = 0;
             StartCoroutine(WaitForPellets());
         }
         else if (Vector3.Distance(transform.position, bowlWaypoint.transform.position) < bowlNum && currentlyEating == true)
@@ -152,14 +179,14 @@ public class testCorgiScript : MonoBehaviour {
 
         if (inBowl >= 1 && currentlyEating == false)
         {
-
+            lastInteration = 0;
             dogEat = true;
 
         }
 
         if (calledDog && !dogEat && Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) > 1f)
         {
-            
+            lastInteration = 0;
             inMotion = true;
             //dogAudioSource.PlayOneShot(dogWhistle);
 
@@ -170,6 +197,7 @@ public class testCorgiScript : MonoBehaviour {
 
         if (dogEat && !calledDog)
         {
+            lastInteration = 0;
             stopRadius = eatNum;
             DogMovement(transform.position, bowlWaypoint.transform.position);
             transform.position += desiredVelocity * Time.deltaTime;
@@ -196,6 +224,7 @@ public class testCorgiScript : MonoBehaviour {
     {
         //print("bool =  " + (Vector3.Distance(agent, target) < stopRadius));
         //print("float = " + Vector3.Distance(agent, target));
+        lastInteration = 0;
         if (Vector3.Distance(agent, target) > arrivalRadius)
             {
                 animState = dogState.Walking;
@@ -245,6 +274,27 @@ public class testCorgiScript : MonoBehaviour {
             }
 
         
+    }
+
+
+
+    public void IdleAnimations(int randNum)
+    {
+        if (randNum == 1)
+        {
+            anim.SetFloat("idle", 0.5f);
+        }
+        if (randNum == 2)
+        {
+            anim.SetFloat("idle", 1f);
+        }
+
+    }
+
+
+     public void ResetAnimVal()
+    {
+        anim.SetFloat("idle", 0f);
     }
 
     IEnumerator WaitForPellets()
