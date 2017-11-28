@@ -138,12 +138,7 @@ public class objectPickup : MonoBehaviour {
 
         }
 
-       
-
     }
-
-   
-
     void createFood()
    {
         GameObject food = (GameObject)Instantiate(foodPellet, SpawnPoint.transform.position, transform.rotation);
@@ -157,13 +152,16 @@ public class objectPickup : MonoBehaviour {
             obj = other.gameObject;
             holdingBox = true;
         }
-        //bfdgbfgd
 
         if(other.tag == "Hose") {
             obj = other.gameObject;
             _hoseScript.holdingHose = true;
         }
 
+        if(other.tag =="Ball")
+        {
+            obj = other.gameObject;
+        }
         if (other.tag == "corgi")
         {
             testScript.lastInteration = 0f;

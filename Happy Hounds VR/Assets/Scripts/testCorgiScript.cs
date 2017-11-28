@@ -41,9 +41,14 @@ public class testCorgiScript : MonoBehaviour {
 
     public float bowlNum = 0.75f;
     public float eatNum = 0.38f;
+<<<<<<< HEAD
     public LayerMask corgiMask;
-    public pettingScript _pettingScript;
+=======
+    public float fetchNum = 0.20f;
 
+>>>>>>> 762a7049fe09132d87a8202db25047d58a58ce67
+    public pettingScript _pettingScript;
+    public ballScript _ballScript;
     public AudioManager audioManager;
 
     //private SteamVR_TrackedObject trackedObj;
@@ -55,7 +60,8 @@ public class testCorgiScript : MonoBehaviour {
         Idle, 
         Sitting,
         Drinking,
-        Petting
+        Petting,
+        Fetching
     }
     public dogState animState;
 
@@ -69,7 +75,7 @@ public class testCorgiScript : MonoBehaviour {
         audioManager = FindObjectOfType<AudioManager>();
         //dogAudioSource.PlayOneShot(dogWhistle);
         _pettingScript = GetComponent<pettingScript>();
-
+        _ballScript = GetComponent<ballScript>();
     }
 
     // Update is called once per frame
@@ -134,6 +140,7 @@ public class testCorgiScript : MonoBehaviour {
             {
                 anim.SetFloat("petting", 1.5f);
             }
+<<<<<<< HEAD
 
 
         }
@@ -149,6 +156,8 @@ public class testCorgiScript : MonoBehaviour {
         if (!GetComponent<IdleBehaviours>().enabled)
         {
             anim.SetFloat("idle", 0f);
+=======
+>>>>>>> 762a7049fe09132d87a8202db25047d58a58ce67
         }
 
         //if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -177,13 +186,39 @@ public class testCorgiScript : MonoBehaviour {
 
         }
 
+        
         if (inBowl >= 1 && currentlyEating == false)
         {
             lastInteration = 0;
             dogEat = true;
 
         }
+        ////////////////BALL//////////////////////
+        if(_ballScript.ballThrown)
+        {
+            inMotion = true;
 
+            Vector3 steeringVelocity = Vector3.zero;
+            DogMovement(transform.position, new Vector3(ball.transform.position.x, 0.0f, ball.transform.position.z));
+            transform.position += desiredVelocity * Time.deltaTime;
+
+            if(_ballScript.ballThrown && Vector3.Distance(transform.position, ball.transform.position) < fetchNum)
+            {
+                animState = dogState.Idle;
+                ball.transform.position = nose.transform.position;
+                _ballScript.ballCollected = true;
+            }
+        }
+        if (_ballScript.ballCollected)
+        {
+            inMotion = true;
+            Vector3 steeringVelocity = Vector3.zero;
+            DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z));
+            transform.position += desiredVelocity * Time.deltaTime;
+            _ballScript.ballDropped = true;
+        }
+
+        ///////////////////////////////////////////////////
         if (calledDog && !dogEat && Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) > 1f)
         {
             lastInteration = 0;
@@ -226,27 +261,27 @@ public class testCorgiScript : MonoBehaviour {
         //print("float = " + Vector3.Distance(agent, target));
         lastInteration = 0;
         if (Vector3.Distance(agent, target) > arrivalRadius)
+        {
+            animState = dogState.Walking;
+            if (inMotion)
             {
-                animState = dogState.Walking;
-                if (inMotion)
-                {
-                    target = new Vector3(target.x, 0f, target.z);
-                }
-                desiredVelocity = Vector3.Normalize(target - agent) * MaxSpeed;
+                target = new Vector3(target.x, 0f, target.z);
             }
-            else
+            desiredVelocity = Vector3.Normalize(target - agent) * MaxSpeed;
+        }
+        else
+        {
+            if (inMotion)
             {
-                if (inMotion)
-                {
-                    target = new Vector3(target.x, 0f, target.z);
-                }
-                desiredVelocity = Vector3.Normalize((target - agent) * (MaxSpeed * ((Vector3.Distance(agent, target)) / arrivalRadius)));
-                animState = dogState.Walking;
+                target = new Vector3(target.x, 0f, target.z);
+            }
+            desiredVelocity = Vector3.Normalize((target - agent) * (MaxSpeed * ((Vector3.Distance(agent, target)) / arrivalRadius)));
+            animState = dogState.Walking;
 
-            }
+        }
         if (Vector3.Distance(agent, target) < stopRadius)
         {
-            
+
             if (inMotion)
             {
                 animState = dogState.Idle;
@@ -268,12 +303,10 @@ public class testCorgiScript : MonoBehaviour {
             //print("agent/target =  " + Vector3.Distance(agent, target));
         }
 
-            if (desiredVelocity.sqrMagnitude > 0.0f)
-            {
-                transform.forward = Vector3.Normalize(new Vector3(desiredVelocity.x, desiredVelocity.y, desiredVelocity.z));
-            }
-
-        
+        if (desiredVelocity.sqrMagnitude > 0.0f)
+        {
+            transform.forward = Vector3.Normalize(new Vector3(desiredVelocity.x, desiredVelocity.y, desiredVelocity.z));
+        }
     }
 
 
