@@ -28,7 +28,7 @@ public class testCorgiScript : MonoBehaviour {
     bool inMotion;
     public bool currentlyEating;
 
-    public float lastInteration;
+    public float lastInteraction;
 
    
     public GameObject foodBox;
@@ -41,16 +41,15 @@ public class testCorgiScript : MonoBehaviour {
 
     public float bowlNum = 0.75f;
     public float eatNum = 0.38f;
-<<<<<<< HEAD
+    public float ballRadius = 0.45f;
     public LayerMask corgiMask;
-=======
-    public float fetchNum = 0.20f;
-
->>>>>>> 762a7049fe09132d87a8202db25047d58a58ce67
+    public float fetchNum = 0.48f;
     public pettingScript _pettingScript;
     public ballScript _ballScript;
     public AudioManager audioManager;
-
+    public bool ballThrown;
+    public bool ballCollected;
+    public bool ballDropped;
     //private SteamVR_TrackedObject trackedObj;
     //private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
     public enum dogState
@@ -75,14 +74,15 @@ public class testCorgiScript : MonoBehaviour {
         audioManager = FindObjectOfType<AudioManager>();
         //dogAudioSource.PlayOneShot(dogWhistle);
         _pettingScript = GetComponent<pettingScript>();
-        _ballScript = GetComponent<ballScript>();
+        _ballScript = GameObject.FindGameObjectWithTag("Ball").GetComponent<ballScript>();
     }
+
 
     // Update is called once per frame
     void Update()
     {
        
-            lastInteration += Time.deltaTime;
+            lastInteraction += Time.deltaTime;
         
        //print("thing = " + Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position));
 
@@ -93,6 +93,8 @@ public class testCorgiScript : MonoBehaviour {
         {
             //audioManager.StopAllSFX();
             audioManager.PlayOnce("DogPanting");
+
+            anim.SetFloat("petting", 0f);
             anim.SetFloat("Move", 0.0f);
             anim.SetBool("eating", false);
             anim.SetBool("drinking", false);
@@ -107,6 +109,8 @@ public class testCorgiScript : MonoBehaviour {
         }
         if (animState == dogState.Eating)
         {
+            lastInteraction = 0;
+            ResetRand();
             //audioManager.StopAllSFX();
             audioManager.PlayOnce("DogEating");
             anim.CrossFade("Corgi@CorgiEatV2", crossfadeVal);
@@ -140,11 +144,11 @@ public class testCorgiScript : MonoBehaviour {
             {
                 anim.SetFloat("petting", 1.5f);
             }
-<<<<<<< HEAD
-
-
         }
-        if (lastInteration > 2)
+
+
+        //RAND ANIM STUFF
+        if (lastInteraction > Random.Range(5, 12))
         {
             GetComponent<IdleBehaviours>().enabled = true;
         }
@@ -156,8 +160,6 @@ public class testCorgiScript : MonoBehaviour {
         if (!GetComponent<IdleBehaviours>().enabled)
         {
             anim.SetFloat("idle", 0f);
-=======
->>>>>>> 762a7049fe09132d87a8202db25047d58a58ce67
         }
 
         //if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -171,10 +173,11 @@ public class testCorgiScript : MonoBehaviour {
         //        print("coll2: " + hit.collider.transform.position);
         //    }
         //}
-       
+
         if (GameObject.FindGameObjectWithTag("foodPellet") != null)
         {
-            lastInteration = 0;
+            lastInteraction = 0;
+            ResetRand();
             StartCoroutine(WaitForPellets());
         }
         else if (Vector3.Distance(transform.position, bowlWaypoint.transform.position) < bowlNum && currentlyEating == true)
@@ -189,39 +192,52 @@ public class testCorgiScript : MonoBehaviour {
         
         if (inBowl >= 1 && currentlyEating == false)
         {
-            lastInteration = 0;
+            lastInteraction = 0;
+            ResetRand();
             dogEat = true;
 
         }
         ////////////////BALL//////////////////////
-        if(_ballScript.ballThrown)
+        if(ballThrown)
         {
+            lastInteraction = 0;
+            ResetRand();
             inMotion = true;
-
-            Vector3 steeringVelocity = Vector3.zero;
             DogMovement(transform.position, new Vector3(ball.transform.position.x, 0.0f, ball.transform.position.z));
             transform.position += desiredVelocity * Time.deltaTime;
-
-            if(_ballScript.ballThrown && Vector3.Distance(transform.position, ball.transform.position) < fetchNum)
-            {
-                animState = dogState.Idle;
-                ball.transform.position = nose.transform.position;
-                _ballScript.ballCollected = true;
-            }
         }
-        if (_ballScript.ballCollected)
+
+        if (ballThrown && Vector3.Distance(transform.position, ball.transform.position) < fetchNum)
         {
+            lastInteraction = 0;
+            ResetRand();
+            ball.transform.position = nose.transform.position;
+            ballThrown = false;
+            ballCollected = true;
+        }
+        if (ballCollected)
+        {
+            lastInteraction = 0;
+            ResetRand();
+            ball.transform.position = nose.transform.position;
             inMotion = true;
-            Vector3 steeringVelocity = Vector3.zero;
             DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z));
             transform.position += desiredVelocity * Time.deltaTime;
-            _ballScript.ballDropped = true;
+            ballDropped = true;
+        }
+
+        if (Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) < ballRadius)
+        {
+            animState = dogState.Idle;
+            ballCollected = false;
+            ballDropped = true;
         }
 
         ///////////////////////////////////////////////////
         if (calledDog && !dogEat && Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) > 1f)
         {
-            lastInteration = 0;
+            lastInteraction = 0;
+            ResetRand();
             inMotion = true;
             //dogAudioSource.PlayOneShot(dogWhistle);
 
@@ -232,7 +248,8 @@ public class testCorgiScript : MonoBehaviour {
 
         if (dogEat && !calledDog)
         {
-            lastInteration = 0;
+            lastInteraction = 0;
+            ResetRand();
             stopRadius = eatNum;
             DogMovement(transform.position, bowlWaypoint.transform.position);
             transform.position += desiredVelocity * Time.deltaTime;
@@ -259,7 +276,7 @@ public class testCorgiScript : MonoBehaviour {
     {
         //print("bool =  " + (Vector3.Distance(agent, target) < stopRadius));
         //print("float = " + Vector3.Distance(agent, target));
-        lastInteration = 0;
+        lastInteraction = 0;
         if (Vector3.Distance(agent, target) > arrivalRadius)
         {
             animState = dogState.Walking;
@@ -341,6 +358,14 @@ public class testCorgiScript : MonoBehaviour {
             //transform.LookAt(bowlWaypoint.transform.localPosition);
         }
         
+    }
+
+
+    public void ResetRand()
+    {
+        lastInteraction = 0f;
+        GetComponent<IdleBehaviours>().enabled = false;
+        GetComponent<wanderScript>().enabled = false;
     }
 
 }

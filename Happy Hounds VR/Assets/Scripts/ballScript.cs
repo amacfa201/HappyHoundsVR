@@ -16,7 +16,7 @@ public class ballScript : MonoBehaviour
     [SerializeField]
     private GameObject ball;
     private FixedJoint fixedJoint;
-    private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
+    //private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
     public bool holdingBall;
     public bool ballThrown;
     public bool ballCollected;
@@ -38,24 +38,24 @@ public class ballScript : MonoBehaviour
     {
 
 
-        if (controller == null)
-        {
-            Debug.Log("Controller Not Initilalised");
-            return;
-        }
+        //if (controller == null)
+        //{
+        //    Debug.Log("Controller Not Initilalised");
+        //    return;
+        //}
 
-        //var device = SteamVR
+        ////var device = SteamVR
 
-        if (controller.GetPressDown(triggerButton))
-        {
-            PickupObj();
-            //SpawnFood();
-        }
+        //if (controller.GetPressDown(triggerButton))
+        //{
+        //    PickupObj();
+        //    //SpawnFood();
+        //}
 
-        if (controller.GetPressUp(triggerButton))
-        {
-            DropObj();
-        }
+        //if (controller.GetPressUp(triggerButton))
+        //{
+        //    DropObj();
+        //}
 
 
     }
@@ -64,29 +64,29 @@ public class ballScript : MonoBehaviour
     {
         if (ballThrown)
         {
-            Transform origin;
-            if (trackedObj.origin != null)
-            {
-                origin = trackedObj.origin;
-            }
-            else
-            {
-                origin = trackedObj.transform.parent;
-            }
+            //Transform origin;
+            //if (trackedObj.origin != null)
+            //{
+            //    origin = trackedObj.origin;
+            //}
+            //else
+            //{
+            //    origin = trackedObj.transform.parent;
+            //}
 
-            if (origin != null)
-            {
-                rigid.velocity = origin.TransformVector(controller.velocity);
-                rigid.angularVelocity = origin.TransformVector(controller.angularVelocity * 0.25f);
-            }
-            else
-            {
-                rigid.velocity = controller.velocity;
-                rigid.angularVelocity = controller.angularVelocity * 0.25f;
-            }
+            //if (origin != null)
+            //{
+            //    rigid.velocity = origin.TransformVector(controller.velocity);
+            //    rigid.angularVelocity = origin.TransformVector(controller.angularVelocity * 0.25f);
+            //}
+            //else
+            //{
+            //    rigid.velocity = controller.velocity;
+            //    rigid.angularVelocity = controller.angularVelocity * 0.25f;
+            //}
 
-            rigid.maxAngularVelocity = rigid.angularVelocity.magnitude;
-            ballThrown = false;
+            //rigid.maxAngularVelocity = rigid.angularVelocity.magnitude;
+            //ballThrown = false;
 
         }
     }

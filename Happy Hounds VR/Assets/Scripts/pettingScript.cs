@@ -32,7 +32,6 @@ public class pettingScript : MonoBehaviour {
             currentAnim = "corgipettingstand1";
         }
 
-
         if (animNum == 3)
         {
             currentAnim = "Take 001";

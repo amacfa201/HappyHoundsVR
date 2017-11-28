@@ -37,9 +37,9 @@ public class objectPickup : MonoBehaviour {
 
     private bool thrown;
     public bool petting;
+    public bool holdingBall;
+    //public bool ballThrown;
     private Rigidbody rigid;
-
-
 
     HoseScript _hoseScript;
 
@@ -156,22 +156,23 @@ public class objectPickup : MonoBehaviour {
         if(other.tag == "Hose") {
             obj = other.gameObject;
             _hoseScript.holdingHose = true;
+            testScript.lastInteraction = 0;
+            testScript.ResetRand();
         }
 
         if(other.tag =="Ball")
         {
             obj = other.gameObject;
+            holdingBall = true;
         }
         if (other.tag == "corgi")
         {
-            testScript.lastInteration = 0f;
+            testScript.lastInteraction = 0f;
             petting = true;
             //SteamVR_Controller.Input((int)trackedObj.index).TriggerHapticPulse(1000);
-            controller.TriggerHapticPulse(500);
+            controller.TriggerHapticPulse(3999);
             testScript.animState = testCorgiScript.dogState.Petting;
         }
-
-
 
     }
 
@@ -191,14 +192,23 @@ public class objectPickup : MonoBehaviour {
 
     void DropObj()
     {
-        if (fixedJoint.connectedBody != null)
+        if (fixedJoint.connectedBody != null && !holdingBall)
         {
             _hoseScript.triggerDown = false;
             rigid = fixedJoint.connectedBody;
             fixedJoint.connectedBody = null;
             thrown = true;
         }
-            
+
+        if (fixedJoint.connectedBody != null && holdingBall)
+        {
+            rigid = fixedJoint.connectedBody;
+            fixedJoint.connectedBody = null;
+            thrown = true;
+            holdingBall = false;
+            testScript.ballThrown = true;
+        }
+
     }
 
     IEnumerator spawnFood() {
@@ -220,11 +230,13 @@ public class objectPickup : MonoBehaviour {
         obj = null;
         holdingBox = false;
         _hoseScript.holdingHose = false;
+        petting = false;
 
-        if (other.gameObject.tag == "Corgi")
+        if (other.gameObject.tag == "Corgi" || other.gameObject.tag == "corgi")
         {
             petting = false;
-            testScript.animState = testCorgiScript.dogState.Petting;
+            testScript.animState = testCorgiScript.dogState.Idle;
+            print("state back to idle");
         }
 
     }

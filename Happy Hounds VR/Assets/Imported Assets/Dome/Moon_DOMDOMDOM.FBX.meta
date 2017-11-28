@@ -1,0 +1,227 @@
+fileFormatVersion: 2
+guid: 1c411601f2b9d4843b58ff32c1234271
+timeCreated: 1511869964
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Box001
+    100002: button 009
+    100004: button 010
+    100006: button 011
+    100008: button 012
+    100010: Camera004
+    100012: Camera004.Target
+    100014: computer002
+    100016: dome ring002
+    100018: dome top door 009
+    100020: dome top door 010
+    100022: dome top door 011
+    100024: dome top door 012
+    100026: dome top door frame002
+    100028: dome002
+    100030: door frame005
+    100032: door frame006
+    100034: door left004
+    100036: door left005
+    100038: door right004
+    100040: door right005
+    100042: glass left004
+    100044: glass left005
+    100046: glass right004
+    100048: glass right005
+    100050: //RootNode
+    100052: Omni003
+    100054: Omni005
+    100056: Stars001
+    100058: walk way glass002
+    100060: walkway002
+    400000: Box001
+    400002: button 009
+    400004: button 010
+    400006: button 011
+    400008: button 012
+    400010: Camera004
+    400012: Camera004.Target
+    400014: computer002
+    400016: dome ring002
+    400018: dome top door 009
+    400020: dome top door 010
+    400022: dome top door 011
+    400024: dome top door 012
+    400026: dome top door frame002
+    400028: dome002
+    400030: door frame005
+    400032: door frame006
+    400034: door left004
+    400036: door left005
+    400038: door right004
+    400040: door right005
+    400042: glass left004
+    400044: glass left005
+    400046: glass right004
+    400048: glass right005
+    400050: //RootNode
+    400052: Omni003
+    400054: Omni005
+    400056: Stars001
+    400058: walk way glass002
+    400060: walkway002
+    2000000: Camera004
+    2300000: Box001
+    2300002: button 009
+    2300004: button 010
+    2300006: button 011
+    2300008: button 012
+    2300010: computer002
+    2300012: dome ring002
+    2300014: dome top door 009
+    2300016: dome top door 010
+    2300018: dome top door 011
+    2300020: dome top door 012
+    2300022: dome top door frame002
+    2300024: dome002
+    2300026: door frame005
+    2300028: door frame006
+    2300030: door left004
+    2300032: door left005
+    2300034: door right004
+    2300036: door right005
+    2300038: glass left004
+    2300040: glass left005
+    2300042: glass right004
+    2300044: glass right005
+    2300046: Stars001
+    2300048: walk way glass002
+    2300050: walkway002
+    3300000: Box001
+    3300002: button 009
+    3300004: button 010
+    3300006: button 011
+    3300008: button 012
+    3300010: computer002
+    3300012: dome ring002
+    3300014: dome top door 009
+    3300016: dome top door 010
+    3300018: dome top door 011
+    3300020: dome top door 012
+    3300022: dome top door frame002
+    3300024: dome002
+    3300026: door frame005
+    3300028: door frame006
+    3300030: door left004
+    3300032: door left005
+    3300034: door right004
+    3300036: door right005
+    3300038: glass left004
+    3300040: glass left005
+    3300042: glass right004
+    3300044: glass right005
+    3300046: Stars001
+    3300048: walk way glass002
+    3300050: walkway002
+    4300000: Box001
+    4300002: dome ring002
+    4300004: dome top door 009
+    4300006: dome top door 010
+    4300008: dome top door 011
+    4300010: dome top door 012
+    4300012: dome top door frame002
+    4300014: dome002
+    4300016: walkway002
+    4300018: computer002
+    4300020: door frame005
+    4300022: button 011
+    4300024: button 012
+    4300026: door left004
+    4300028: glass left004
+    4300030: door right004
+    4300032: glass right004
+    4300034: door frame006
+    4300036: button 009
+    4300038: button 010
+    4300040: door left005
+    4300042: glass left005
+    4300044: door right005
+    4300046: glass right005
+    4300048: walk way glass002
+    4300050: Stars001
+    7400000: Take 001
+    9500000: //RootNode
+    10800000: Omni003
+    10800002: Omni005
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

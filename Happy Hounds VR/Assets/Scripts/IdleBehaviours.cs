@@ -5,7 +5,7 @@ using UnityEngine;
 public class IdleBehaviours : MonoBehaviour {
     int actionNum;
     wanderScript _wander;
-    testCorgiScript _CorgiScript;
+    public testCorgiScript _CorgiScript;
 
     // Use this for initialization
     void Start () {
@@ -25,16 +25,11 @@ public class IdleBehaviours : MonoBehaviour {
         if (actionNum == 2)// RandomAnimation;
         {
             _wander.enabled = false;
-            int animNum = Random.Range(1, 2);
+            int animNum = Random.Range(1, 3);
             _CorgiScript.animState = testCorgiScript.dogState.Idle;
             _CorgiScript.IdleAnimations(animNum);
         }
 	}
-
-
-
-
-
 
     IEnumerator pickAction()
     {
