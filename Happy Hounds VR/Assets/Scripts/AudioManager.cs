@@ -33,7 +33,7 @@ public class AudioManager : MonoBehaviour {
         }
         else
         {
-            print("sound should play");
+            //print("sound should play");
             s.source.Play();
         }
     }
@@ -61,7 +61,7 @@ public class AudioManager : MonoBehaviour {
         }
         else
         {
-            print("sound should play");
+            //print("sound should play");
             if (!s.source.isPlaying)
             {
                 s.source.PlayOneShot(s.clip);

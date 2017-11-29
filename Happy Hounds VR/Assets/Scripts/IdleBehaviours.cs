@@ -6,15 +6,29 @@ public class IdleBehaviours : MonoBehaviour {
     int actionNum;
     wanderScript _wander;
     public testCorgiScript _CorgiScript;
+    public float timeSinceChange;
+    public float timeLimit;
+    float limiter = 0;
+    float limit;
+    int animNum;
 
-    // Use this for initialization
+// Use this for initialization
     void Start () {
         _wander = GetComponent<wanderScript>();
+        timeLimit = Random.Range(2, 6);
+        limit = Random.Range(1, 5);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        StartCoroutine(pickAction());
+        timeSinceChange += Time.deltaTime;
+        if (timeSinceChange > timeLimit)
+        {
+            timeSinceChange = 0;
+           actionNum = Random.Range(1, 3);
+        }
+        //StartCoroutine(pickAction());
+        print("AN = " + actionNum);
         if (actionNum == 1) // wander 
         {
             _CorgiScript.ResetAnimVal();
@@ -24,16 +38,22 @@ public class IdleBehaviours : MonoBehaviour {
 
         if (actionNum == 2)// RandomAnimation;
         {
+            
             _wander.enabled = false;
-            int animNum = Random.Range(1, 3);
-            _CorgiScript.animState = testCorgiScript.dogState.Idle;
+            if (limiter > limit)
+            {
+              limiter = 0;
+              animNum = Random.Range(1, 3);
+            }
+            
+            _CorgiScript.animState = testCorgiScript.dogState.Petting;
             _CorgiScript.IdleAnimations(animNum);
         }
 	}
 
-    IEnumerator pickAction()
-    {
-        yield return new WaitForSeconds(8f);
-        actionNum = Random.Range(1, 2);
-    }
+    //IEnumerator pickAction()
+    //{
+    //    yield return new WaitForSeconds(8f);
+    //    actionNum = Random.Range(1, 3);
+    //}
 }
