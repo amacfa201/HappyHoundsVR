@@ -50,6 +50,8 @@ public class testCorgiScript : MonoBehaviour {
     public bool ballThrown;
     public bool ballCollected;
     public bool ballDropped;
+    public bool fetching;
+    public float randInteractionTime;
     //private SteamVR_TrackedObject trackedObj;
     //private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
     public enum dogState
@@ -75,6 +77,7 @@ public class testCorgiScript : MonoBehaviour {
         //dogAudioSource.PlayOneShot(dogWhistle);
         _pettingScript = GetComponent<pettingScript>();
         _ballScript = GameObject.FindGameObjectWithTag("Ball").GetComponent<ballScript>();
+        randInteractionTime = Random.Range(5, 12);
     }
 
 
@@ -146,9 +149,8 @@ public class testCorgiScript : MonoBehaviour {
             }
         }
 
-
         //RAND ANIM STUFF
-        if (lastInteraction > Random.Range(5, 12))
+        if (lastInteraction > randInteractionTime)
         {
             GetComponent<IdleBehaviours>().enabled = true;
         }
@@ -190,7 +192,7 @@ public class testCorgiScript : MonoBehaviour {
         }
 
         
-        if (inBowl >= 1 && currentlyEating == false)
+        if (inBowl >= 1 && !currentlyEating && !fetching)
         {
             lastInteraction = 0;
             ResetRand();
@@ -200,6 +202,7 @@ public class testCorgiScript : MonoBehaviour {
         ////////////////BALL//////////////////////
         if(ballThrown)
         {
+            fetching = true;
             lastInteraction = 0;
             ResetRand();
             inMotion = true;
@@ -209,6 +212,8 @@ public class testCorgiScript : MonoBehaviour {
 
         if (ballThrown && Vector3.Distance(transform.position, ball.transform.position) < fetchNum)
         {
+            fetching = true;
+            ballRadius = 0.45f;
             lastInteraction = 0;
             ResetRand();
             ball.transform.position = nose.transform.position;
@@ -217,6 +222,7 @@ public class testCorgiScript : MonoBehaviour {
         }
         if (ballCollected)
         {
+            fetching = true;
             lastInteraction = 0;
             ResetRand();
             ball.transform.position = nose.transform.position;
@@ -227,19 +233,21 @@ public class testCorgiScript : MonoBehaviour {
         }
         if (ballDropped && Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) < stopRadius)
         {
+            fetching = false;
             lastInteraction = 0;
             ResetRand();
-            ball.transform.position = new Vector3(nose.transform.position.x +1.0f, 0.0f, nose.transform.position.z);
         }
-        if (Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) < ballRadius)
+        if (Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) < ballRadius && ballDropped == true)
         {
-            animState = dogState.Idle;
-            ball.transform.position = new Vector2(nose.transform.position.x + 0.5f, 0.0f);
+            ball.transform.position = new Vector3(headSetTarget.transform.position.x + 0.05f, 0.05f, headSetTarget.transform.position.z);
+            ballRadius = 0;
             ballCollected = false;
+            ballThrown = false;
+            fetching = false;
         }
 
         ///////////////////////////////////////////////////
-        if (calledDog && !dogEat && Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) > 1f)
+        if (calledDog && !dogEat && !fetching && Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) > 1f)
         {
             lastInteraction = 0;
             ResetRand();
@@ -251,7 +259,7 @@ public class testCorgiScript : MonoBehaviour {
             transform.position += desiredVelocity * Time.deltaTime;
         }
 
-        if (dogEat && !calledDog)
+        if (dogEat && !calledDog && !fetching)
         {
             lastInteraction = 0;
             ResetRand();
@@ -331,8 +339,6 @@ public class testCorgiScript : MonoBehaviour {
         }
     }
 
-
-
     public void IdleAnimations(int randNum)
     {
         if (randNum == 1)
@@ -345,7 +351,6 @@ public class testCorgiScript : MonoBehaviour {
         }
 
     }
-
 
      public void ResetAnimVal()
     {

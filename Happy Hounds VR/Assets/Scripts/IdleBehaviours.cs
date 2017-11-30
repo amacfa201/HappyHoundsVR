@@ -38,7 +38,7 @@ public class IdleBehaviours : MonoBehaviour {
 
         if (actionNum == 2)// RandomAnimation;
         {
-            
+            limiter += Time.deltaTime;
             _wander.enabled = false;
             if (limiter > limit)
             {
@@ -46,7 +46,7 @@ public class IdleBehaviours : MonoBehaviour {
               animNum = Random.Range(1, 3);
             }
             
-            _CorgiScript.animState = testCorgiScript.dogState.Petting;
+            _CorgiScript.animState = testCorgiScript.dogState.Idle;
             _CorgiScript.IdleAnimations(animNum);
         }
 	}
