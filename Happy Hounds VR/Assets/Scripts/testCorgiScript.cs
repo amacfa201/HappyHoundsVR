@@ -83,8 +83,7 @@ public class testCorgiScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update()
-    {
-       
+    {  
             lastInteraction += Time.deltaTime;
         
        //print("thing = " + Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position));
@@ -134,6 +133,7 @@ public class testCorgiScript : MonoBehaviour {
             anim.SetFloat("Move", 0.0f);
             anim.SetBool("eating", false);
             anim.SetBool("drinking", false);
+            currentlyEating = false;
 
             if (_pettingScript.currentAnim == "corgipettingstand1")
             {
@@ -200,7 +200,7 @@ public class testCorgiScript : MonoBehaviour {
 
         }
         ////////////////BALL//////////////////////
-        if(ballThrown)
+        if(ballThrown && !currentlyEating)
         {
             fetching = true;
             lastInteraction = 0;

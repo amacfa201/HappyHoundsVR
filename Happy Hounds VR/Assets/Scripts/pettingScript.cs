@@ -39,7 +39,6 @@ public class pettingScript : MonoBehaviour {
 
     }
 
-
    public void RandAnimTime() {
         timeSinceChange += Time.deltaTime;
 		float randTime = Random.Range (4.5f, 10);

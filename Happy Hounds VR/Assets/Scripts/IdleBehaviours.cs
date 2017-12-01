@@ -28,7 +28,7 @@ public class IdleBehaviours : MonoBehaviour {
            actionNum = Random.Range(1, 3);
         }
         //StartCoroutine(pickAction());
-        print("AN = " + actionNum);
+        //print("AN = " + actionNum);
         if (actionNum == 1) // wander 
         {
             _CorgiScript.ResetAnimVal();
