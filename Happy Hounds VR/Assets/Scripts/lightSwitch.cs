@@ -20,7 +20,7 @@ public class lightSwitch : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-
+        //conall
 
         if (other.gameObject.tag == "GameController")
         {

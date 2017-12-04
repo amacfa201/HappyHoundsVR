@@ -54,6 +54,7 @@ public class testCorgiScript : MonoBehaviour {
     public float randInteractionTime;
     //private SteamVR_TrackedObject trackedObj;
     //private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
+    gravityButton gravScript;
     public enum dogState
     {
         Walking,
@@ -78,6 +79,7 @@ public class testCorgiScript : MonoBehaviour {
         _pettingScript = GetComponent<pettingScript>();
         _ballScript = GameObject.FindGameObjectWithTag("Ball").GetComponent<ballScript>();
         randInteractionTime = Random.Range(5, 12);
+        gravScript = GameObject.FindGameObjectWithTag("GravityButton").GetComponent<gravityButton>();
     }
 
 
@@ -85,10 +87,13 @@ public class testCorgiScript : MonoBehaviour {
     void Update()
     {  
             lastInteraction += Time.deltaTime;
-        
-       //print("thing = " + Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position));
 
-        transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+        //print("thing = " + Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position));
+
+        //transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+
+
+        
 
         //Animation ENums
         if (animState == dogState.Idle)
@@ -149,6 +154,9 @@ public class testCorgiScript : MonoBehaviour {
             }
         }
 
+        
+
+
         //RAND ANIM STUFF
         if (lastInteraction > randInteractionTime)
         {
@@ -206,7 +214,15 @@ public class testCorgiScript : MonoBehaviour {
             lastInteraction = 0;
             ResetRand();
             inMotion = true;
-            DogMovement(transform.position, new Vector3(ball.transform.position.x, 0.0f, ball.transform.position.z));
+            if (gravScript.grav) {
+                DogMovement(transform.position, new Vector3(ball.transform.position.x, 0.0f, ball.transform.position.z));
+            }
+            else
+            {
+                DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
+            }
+
+
             transform.position += desiredVelocity * Time.deltaTime;
         }
 
@@ -227,7 +243,14 @@ public class testCorgiScript : MonoBehaviour {
             ResetRand();
             ball.transform.position = nose.transform.position;
             inMotion = true;
-            DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.5f, headSetTarget.transform.position.z));
+            if (gravScript.grav)
+            {
+                DogMovement(transform.position, new Vector3(ball.transform.position.x, 0.5f, ball.transform.position.z));
+            }
+            else
+            {
+                DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
+            }
             transform.position += desiredVelocity * Time.deltaTime;
             ballDropped = true;
         }
@@ -267,6 +290,12 @@ public class testCorgiScript : MonoBehaviour {
             DogMovement(transform.position, bowlWaypoint.transform.position);
             transform.position += desiredVelocity * Time.deltaTime;
         }
+
+        //print("Grav = " + gravScript.grav);
+        //if (gravScript.grav)
+        //{
+        //    transform.position = new Vector3(transform.position.x, ball.transform.position.y, transform.position.z);
+        //}
     }
     //void CallDog()
     //{
@@ -303,7 +332,15 @@ public class testCorgiScript : MonoBehaviour {
         {
             if (inMotion)
             {
-                target = new Vector3(target.x, 0f, target.z);
+                if (gravScript.grav)
+                {
+                    target = new Vector3(target.x, 0f, target.z);
+                }
+                else
+                {
+                    target = new Vector3(target.x, target.y, target.z);
+                }
+                
             }
             desiredVelocity = Vector3.Normalize((target - agent) * (MaxSpeed * ((Vector3.Distance(agent, target)) / arrivalRadius)));
             animState = dogState.Walking;
@@ -378,6 +415,84 @@ public class testCorgiScript : MonoBehaviour {
         GetComponent<wanderScript>().enabled = false;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    void CorgiCheck()
+    {
+        Debug.Log("Conall");
+    }
 }
 
 

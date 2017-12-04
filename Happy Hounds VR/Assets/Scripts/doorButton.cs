@@ -1,43 +1,47 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class doorButton : MonoBehaviour {
+public class doorButton : MonoBehaviour
+{
 
-//    public doorScript doorScript1;
-//    public doorScript doorScript2;
+    //public doorScript doorScript;
+    //public doorScript doorScript2;
+    public GameObject doors;
 
-//    void Start()
-//    {
-        
-//    }
+    public GameObject doors2;
+    void Start()
+    {
 
-//    void Update()
-//    {
-        
-//    }
+    }
 
+    void Update()
+    {
 
-//    void OnTriggerEnter(Collider other)
-//    {
+    }
 
 
-//        if (other.gameObject.tag == "GameController")
-//        {
-//            if (doorScript1.doorState == false)
-//            {
-//                print("collided");
-//                doorScript1.opening = true;
-//                doorScript2.opening = true;
-//            }
-//            else
-//            {
-//                doorScript1.closing = true;
-//                doorScript2.closing = true;
-//            }
-//        }
+    void OnTriggerEnter(Collider other)
+    {
 
-//    }
+
+        if (other.gameObject.tag == "GameController")
+        {
+            if (doors.activeInHierarchy)
+            {
+
+
+                doors.SetActive(false);
+            }
+            else
+            {
+                doors.SetActive(true);
+
+            }
+        }
+
+    }
+}
 
 
 

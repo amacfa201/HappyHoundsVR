@@ -107,6 +107,9 @@ public class ballScript : MonoBehaviour
 
 
     }
+    /// <summary>
+    /// Conall wants a gobble
+    /// </summary>
     void PickupObj()
     {
         if (ball != null)

@@ -19,7 +19,7 @@ public class pettingScript : MonoBehaviour {
 
     void RandomizePettingAnims()
     {
-
+       
         timeSinceChange = 0;
         int animNum = Random.Range(1, 4);
 		print ("RandomNum: " + animNum);

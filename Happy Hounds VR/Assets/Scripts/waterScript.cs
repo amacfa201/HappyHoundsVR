@@ -61,6 +61,7 @@ public class waterScript : MonoBehaviour {
 
         if(timeSinceHit > 0.75f)
         {
+            //conall
             corgiScript.animState = testCorgiScript.dogState.Idle;
         }
 
