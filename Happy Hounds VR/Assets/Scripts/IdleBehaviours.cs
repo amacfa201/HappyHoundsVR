@@ -19,17 +19,17 @@ public class IdleBehaviours : MonoBehaviour {
     void Start () {
         gravScript = GameObject.FindGameObjectWithTag("GravityButton").GetComponent<gravityButton>();
         _wander = GetComponent<wanderScript>();
-        timeLimit = Random.Range(2, 6);
+        timeLimit = Random.Range(3.5f, 7);
         limit = Random.Range(1, 5);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        print("Grav = " + gravScript.grav);
+        //print("Grav = " + gravScript.grav);
         timeSinceChange += Time.deltaTime;
         if (timeSinceChange > timeLimit && gravScript.grav)
         {
-            timeSinceChange = 0;
+           timeSinceChange = 0;
            actionNum = Random.Range(1, 3);
         }
         //StartCoroutine(pickAction());

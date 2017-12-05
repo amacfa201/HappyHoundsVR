@@ -80,7 +80,7 @@ public class objectPickup : MonoBehaviour {
 
         if (controller.GetPressDown(squeezePads) && testScript.currentlyEating == false && Vector3.Distance(new Vector3(testScript.headSetTarget.transform.position.x, 0.0f, testScript.headSetTarget.transform.position.z), testScript.transform.position) > testScript.callRadius)
         {
-            print("button down");
+            //print("button down");
             testScript.stopRadius = 1.25f;
             testScript.calledDog = true;
             FindObjectOfType<AudioManager>().PlayOnce("DogWhistle");

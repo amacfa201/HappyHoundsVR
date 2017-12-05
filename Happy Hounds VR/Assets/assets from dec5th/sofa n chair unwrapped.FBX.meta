@@ -1,0 +1,502 @@
+fileFormatVersion: 2
+guid: fde80be11a056ae4e8d0d3334f93be03
+timeCreated: 1512464242
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Birth 001
+    100002: Birth 002
+    100004: Birth 003
+    100006: Birth 003 1
+    100008: Birth 003 2
+    100010: Birth 004
+    100012: Birth 005
+    100014: Birth 006
+    100016: Birth 007
+    100018: Birth 008
+    100020: Birth 009
+    100022: Birth 010
+    100024: Birth 011
+    100026: Birth 012
+    100028: Birth 013
+    100030: Birth 014
+    100032: Collision 001
+    100034: Collision 002
+    100036: Collision 003
+    100038: Collision 004
+    100040: Collision 005
+    100042: Collision 006
+    100044: Collision 007
+    100046: Collision 008
+    100048: Display 001
+    100050: Display 002
+    100052: Display 003
+    100054: Display 004
+    100056: Display 004 1
+    100058: Display 004 2
+    100060: Display 005
+    100062: Display 006
+    100064: Display 007
+    100066: Display 008
+    100068: Display 009
+    100070: Display 010
+    100072: Display 011
+    100074: Display 012
+    100076: Display 013
+    100078: Display 014
+    100080: Display 015
+    100082: Display 016
+    100084: Display 017
+    100086: Display 018
+    100088: Display 019
+    100090: Display 020
+    100092: Display 021
+    100094: Display 022
+    100096: Display 023
+    100098: Display 024
+    100100: Display 025
+    100102: Display 026
+    100104: Event 001
+    100106: Event 002
+    100108: Event 003
+    100110: Event 004
+    100112: Event 004 1
+    100114: Event 004 2
+    100116: Event 005
+    100118: Event 006
+    100120: Event 007
+    100122: Event 008
+    100124: Event 009
+    100126: Event 010
+    100128: Event 011
+    100130: Event 012
+    100132: Event 013
+    100134: Event 014
+    100136: Event 015
+    100138: Event 016
+    100140: Event 017
+    100142: Event 018
+    100144: Event 019
+    100146: Event 020
+    100148: Event 021
+    100150: Event 022
+    100152: Event 023
+    100154: Event 024
+    100156: Event 025
+    100158: Event 026
+    100160: Force 001
+    100162: Force 002
+    100164: Force 003
+    100166: Force 004
+    100168: Force 005
+    100170: Force 006
+    100172: Force 007
+    100174: Force 008
+    100176: Particle View 001
+    100178: Particle View 002
+    100180: Particle View 003
+    100182: Particle View 003 1
+    100184: Particle View 003 2
+    100186: Particle View 004
+    100188: Particle View 004 1
+    100190: Particle View 004 2
+    100192: Particle View 005
+    100194: Particle View 006
+    100196: Particle View 007
+    100198: Particle View 008
+    100200: Particle View 009
+    100202: Particle View 010
+    100204: Particle View 011
+    100206: Particle View 012
+    100208: Particle View 013
+    100210: Particle View 014
+    100212: Particle View 015
+    100214: Particle View 016
+    100216: Particle View 017
+    100218: Particle View 018
+    100220: Particle View 019
+    100222: Particle View 020
+    100224: pillo003
+    100226: pillo004
+    100228: pillo005
+    100230: Plane004
+    100232: Plane005
+    100234: Position Icon 001
+    100236: Position Icon 002
+    100238: Position Icon 003
+    100240: Position Icon 003 1
+    100242: Position Icon 003 2
+    100244: Position Icon 004
+    100246: Position Icon 005
+    100248: Position Icon 006
+    100250: Position Icon 007
+    100252: Position Icon 008
+    100254: Position Icon 009
+    100256: Position Icon 010
+    100258: Position Icon 011
+    100260: Position Icon 012
+    100262: Position Icon 013
+    100264: Position Icon 014
+    100266: Render 001
+    100268: Render 002
+    100270: Render 003
+    100272: Render 004
+    100274: Render 005
+    100276: Render 006
+    100278: Render 007
+    100280: Render 008
+    100282: Render 009
+    100284: Render 010
+    100286: Render 011
+    100288: Render 012
+    100290: Rotation 001
+    100292: Rotation 002
+    100294: Rotation 003
+    100296: Rotation 003 1
+    100298: Rotation 003 2
+    100300: Rotation 004
+    100302: Rotation 005
+    100304: Rotation 006
+    100306: Rotation 007
+    100308: Rotation 008
+    100310: Rotation 009
+    100312: Rotation 010
+    100314: Rotation 011
+    100316: Rotation 012
+    100318: Rotation 013
+    100320: Rotation 014
+    100322: Shape 002
+    100324: Shape 003
+    100326: Shape 004
+    100328: Shape 005
+    100330: Shape 006
+    100332: Shape 007
+    100334: Shape 008
+    100336: Shape 009
+    100338: Shape Instance 001
+    100340: Shape Instance 002
+    100342: Shape Instance 002 1
+    100344: Shape Instance 002 2
+    100346: Shape Instance 003
+    100348: Shape Instance 004
+    100350: Shape Instance 005
+    100352: Shape Instance 006
+    100354: Shape Instance 007
+    100356: Shape Instance 008
+    100358: Shape Instance 009
+    100360: Shape Instance 010
+    100362: Shape Instance 011
+    100364: Shape Instance 012
+    100366: Shape Instance 013
+    100368: Shape Instance 014
+    100370: //RootNode
+    100372: Speed 001
+    100374: Speed 002
+    100376: Speed 003
+    100378: Speed 003 1
+    100380: Speed 003 2
+    100382: Speed 004
+    100384: Speed 005
+    100386: Speed 006
+    100388: Speed 007
+    100390: Speed 008
+    100392: Speed 009
+    100394: Speed 010
+    100396: Speed 011
+    100398: Speed 012
+    100400: Speed 013
+    100402: Speed 014
+    400000: Birth 001
+    400002: Birth 002
+    400004: Birth 003
+    400006: Birth 003 1
+    400008: Birth 003 2
+    400010: Birth 004
+    400012: Birth 005
+    400014: Birth 006
+    400016: Birth 007
+    400018: Birth 008
+    400020: Birth 009
+    400022: Birth 010
+    400024: Birth 011
+    400026: Birth 012
+    400028: Birth 013
+    400030: Birth 014
+    400032: Collision 001
+    400034: Collision 002
+    400036: Collision 003
+    400038: Collision 004
+    400040: Collision 005
+    400042: Collision 006
+    400044: Collision 007
+    400046: Collision 008
+    400048: Display 001
+    400050: Display 002
+    400052: Display 003
+    400054: Display 004
+    400056: Display 004 1
+    400058: Display 004 2
+    400060: Display 005
+    400062: Display 006
+    400064: Display 007
+    400066: Display 008
+    400068: Display 009
+    400070: Display 010
+    400072: Display 011
+    400074: Display 012
+    400076: Display 013
+    400078: Display 014
+    400080: Display 015
+    400082: Display 016
+    400084: Display 017
+    400086: Display 018
+    400088: Display 019
+    400090: Display 020
+    400092: Display 021
+    400094: Display 022
+    400096: Display 023
+    400098: Display 024
+    400100: Display 025
+    400102: Display 026
+    400104: Event 001
+    400106: Event 002
+    400108: Event 003
+    400110: Event 004
+    400112: Event 004 1
+    400114: Event 004 2
+    400116: Event 005
+    400118: Event 006
+    400120: Event 007
+    400122: Event 008
+    400124: Event 009
+    400126: Event 010
+    400128: Event 011
+    400130: Event 012
+    400132: Event 013
+    400134: Event 014
+    400136: Event 015
+    400138: Event 016
+    400140: Event 017
+    400142: Event 018
+    400144: Event 019
+    400146: Event 020
+    400148: Event 021
+    400150: Event 022
+    400152: Event 023
+    400154: Event 024
+    400156: Event 025
+    400158: Event 026
+    400160: Force 001
+    400162: Force 002
+    400164: Force 003
+    400166: Force 004
+    400168: Force 005
+    400170: Force 006
+    400172: Force 007
+    400174: Force 008
+    400176: Particle View 001
+    400178: Particle View 002
+    400180: Particle View 003
+    400182: Particle View 003 1
+    400184: Particle View 003 2
+    400186: Particle View 004
+    400188: Particle View 004 1
+    400190: Particle View 004 2
+    400192: Particle View 005
+    400194: Particle View 006
+    400196: Particle View 007
+    400198: Particle View 008
+    400200: Particle View 009
+    400202: Particle View 010
+    400204: Particle View 011
+    400206: Particle View 012
+    400208: Particle View 013
+    400210: Particle View 014
+    400212: Particle View 015
+    400214: Particle View 016
+    400216: Particle View 017
+    400218: Particle View 018
+    400220: Particle View 019
+    400222: Particle View 020
+    400224: pillo003
+    400226: pillo004
+    400228: pillo005
+    400230: Plane004
+    400232: Plane005
+    400234: Position Icon 001
+    400236: Position Icon 002
+    400238: Position Icon 003
+    400240: Position Icon 003 1
+    400242: Position Icon 003 2
+    400244: Position Icon 004
+    400246: Position Icon 005
+    400248: Position Icon 006
+    400250: Position Icon 007
+    400252: Position Icon 008
+    400254: Position Icon 009
+    400256: Position Icon 010
+    400258: Position Icon 011
+    400260: Position Icon 012
+    400262: Position Icon 013
+    400264: Position Icon 014
+    400266: Render 001
+    400268: Render 002
+    400270: Render 003
+    400272: Render 004
+    400274: Render 005
+    400276: Render 006
+    400278: Render 007
+    400280: Render 008
+    400282: Render 009
+    400284: Render 010
+    400286: Render 011
+    400288: Render 012
+    400290: Rotation 001
+    400292: Rotation 002
+    400294: Rotation 003
+    400296: Rotation 003 1
+    400298: Rotation 003 2
+    400300: Rotation 004
+    400302: Rotation 005
+    400304: Rotation 006
+    400306: Rotation 007
+    400308: Rotation 008
+    400310: Rotation 009
+    400312: Rotation 010
+    400314: Rotation 011
+    400316: Rotation 012
+    400318: Rotation 013
+    400320: Rotation 014
+    400322: Shape 002
+    400324: Shape 003
+    400326: Shape 004
+    400328: Shape 005
+    400330: Shape 006
+    400332: Shape 007
+    400334: Shape 008
+    400336: Shape 009
+    400338: Shape Instance 001
+    400340: Shape Instance 002
+    400342: Shape Instance 002 1
+    400344: Shape Instance 002 2
+    400346: Shape Instance 003
+    400348: Shape Instance 004
+    400350: Shape Instance 005
+    400352: Shape Instance 006
+    400354: Shape Instance 007
+    400356: Shape Instance 008
+    400358: Shape Instance 009
+    400360: Shape Instance 010
+    400362: Shape Instance 011
+    400364: Shape Instance 012
+    400366: Shape Instance 013
+    400368: Shape Instance 014
+    400370: //RootNode
+    400372: Speed 001
+    400374: Speed 002
+    400376: Speed 003
+    400378: Speed 003 1
+    400380: Speed 003 2
+    400382: Speed 004
+    400384: Speed 005
+    400386: Speed 006
+    400388: Speed 007
+    400390: Speed 008
+    400392: Speed 009
+    400394: Speed 010
+    400396: Speed 011
+    400398: Speed 012
+    400400: Speed 013
+    400402: Speed 014
+    2300000: pillo003
+    2300002: pillo004
+    2300004: pillo005
+    2300006: Plane004
+    2300008: Plane005
+    3300000: pillo003
+    3300002: pillo004
+    3300004: pillo005
+    3300006: Plane004
+    3300008: Plane005
+    4300000: pillo003
+    4300002: pillo004
+    4300004: pillo005
+    4300006: Plane004
+    4300008: Plane005
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -199,12 +199,12 @@ public class wanderScript : MonoBehaviour
 			if (Physics.Raycast (castDown, out hit)) {
                 if (hit.collider.gameObject.tag == "plane")
                 {
-                    print("raycast hit plane");
+                    //print("raycast hit plane");
                     clearPoints++;
                 }
                 else
                 {
-                    print("did not hit plane = " + hit.collider);
+                    //print("did not hit plane = " + hit.collider);
                 }
 			}
         }
@@ -218,7 +218,7 @@ public class wanderScript : MonoBehaviour
         }
         else
         {
-            print("return false");
+            //print("return false");
             return false;
         }
 

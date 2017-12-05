@@ -13,6 +13,7 @@ public class testCorgiScript : MonoBehaviour {
     public GameObject headSetTarget;
     public GameObject agent;
     public GameObject nose;
+    public GameObject exterior;
     public GameObject bowlWaypoint;
     public float arrivalRadius;
     public float MaxSpeed = 3.5f;
@@ -21,7 +22,7 @@ public class testCorgiScript : MonoBehaviour {
     public float stopRadius = 1.25f; //0.375f;
     public Vector3 desiredVelocity = Vector3.zero;
     public Vector3 rayHitPos = Vector3.zero;
-    Rigidbody rigidbody;
+    Rigidbody myRigid;
     public int numPellets;
     public int inBowl;
     Vector3 targetPosition;
@@ -69,11 +70,11 @@ public class testCorgiScript : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        
+        exterior.SetActive(true);
         anim = GetComponent<Animator>();
         animatorName = anim.name;
         animState = dogState.Idle;
-        rigidbody = GetComponent<Rigidbody>();
+        //rigid = GetComponent<Rigidbody>();
         audioManager = FindObjectOfType<AudioManager>();
         //dogAudioSource.PlayOneShot(dogWhistle);
         _pettingScript = GetComponent<pettingScript>();
@@ -85,16 +86,16 @@ public class testCorgiScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update()
-    {  
+    {
+
+
+       
+
             lastInteraction += Time.deltaTime;
 
         //print("thing = " + Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position));
 
         //transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
-
-
-        
-
         //Animation ENums
         if (animState == dogState.Idle)
         {
@@ -154,9 +155,6 @@ public class testCorgiScript : MonoBehaviour {
             }
         }
 
-        
-
-
         //RAND ANIM STUFF
         if (lastInteraction > randInteractionTime)
         {
@@ -205,7 +203,6 @@ public class testCorgiScript : MonoBehaviour {
             lastInteraction = 0;
             ResetRand();
             dogEat = true;
-
         }
         ////////////////BALL//////////////////////
         if(ballThrown && !currentlyEating)
@@ -214,18 +211,19 @@ public class testCorgiScript : MonoBehaviour {
             lastInteraction = 0;
             ResetRand();
             inMotion = true;
-            if (gravScript.grav) {
-                DogMovement(transform.position, new Vector3(ball.transform.position.x, 0.0f, ball.transform.position.z));
-            }
-            else
+            if (gravScript.grav)
             {
                 DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
             }
-
+            else
+            {
+                
+                DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
+            }
 
             transform.position += desiredVelocity * Time.deltaTime;
         }
-
+        print("gravity = " + gravScript.grav);
         if (ballThrown && Vector3.Distance(transform.position, ball.transform.position) < fetchNum)
         {
             fetching = true;
@@ -245,11 +243,11 @@ public class testCorgiScript : MonoBehaviour {
             inMotion = true;
             if (gravScript.grav)
             {
-                DogMovement(transform.position, new Vector3(ball.transform.position.x, 0.5f, ball.transform.position.z));
+                DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.5f, headSetTarget.transform.position.z));
             }
             else
             {
-                DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
+                DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, headSetTarget.transform.position.y, headSetTarget.transform.position.z));
             }
             transform.position += desiredVelocity * Time.deltaTime;
             ballDropped = true;
@@ -340,7 +338,6 @@ public class testCorgiScript : MonoBehaviour {
                 {
                     target = new Vector3(target.x, target.y, target.z);
                 }
-                
             }
             desiredVelocity = Vector3.Normalize((target - agent) * (MaxSpeed * ((Vector3.Distance(agent, target)) / arrivalRadius)));
             animState = dogState.Walking;
@@ -348,7 +345,6 @@ public class testCorgiScript : MonoBehaviour {
         }
         if (Vector3.Distance(agent, target) < stopRadius)
         {
-
             if (inMotion)
             {
                 animState = dogState.Idle;

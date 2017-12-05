@@ -22,7 +22,7 @@ public class pettingScript : MonoBehaviour {
        
         timeSinceChange = 0;
         int animNum = Random.Range(1, 4);
-		print ("RandomNum: " + animNum);
+		//print ("RandomNum: " + animNum);
         if (animNum == 1)
         {
             currentAnim = "corgibackscratch";

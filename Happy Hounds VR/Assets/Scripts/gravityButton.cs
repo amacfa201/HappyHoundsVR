@@ -27,6 +27,8 @@ public class gravityButton : MonoBehaviour {
             if (grav)
             {
 
+                print("BUTTON");
+
                 grav = false;
                
             }

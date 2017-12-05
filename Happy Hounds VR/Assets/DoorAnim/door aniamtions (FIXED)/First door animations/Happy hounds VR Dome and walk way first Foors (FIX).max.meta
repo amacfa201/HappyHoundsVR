@@ -1,0 +1,260 @@
+fileFormatVersion: 2
+guid: 8b43f8633ffcd0a47bc753c175c1b889
+timeCreated: 1512470139
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: button 003
+    100002: button 004
+    100004: button 1
+    100006: button 2
+    100008: computer
+    100010: dome
+    100012: dome ring
+    100014: dome top door 1
+    100016: dome top door 2
+    100018: dome top door 3
+    100020: dome top door 4
+    100022: dome top door frame
+    100024: door frame
+    100026: door frame002
+    100028: door frame002 1
+    100030: door left
+    100032: door left001
+    100034: door left001 1
+    100036: door right
+    100038: door right001
+    100040: door right001 1
+    100042: door right1
+    100044: floor
+    100046: floor1
+    100048: floor2
+    100050: floor3
+    100052: glass left
+    100054: glass left001
+    100056: glass left001 1
+    100058: glass right
+    100060: glass right001
+    100062: glass right001 1
+    100064: //RootNode
+    100066: pPlane20
+    100068: transform60
+    100070: transform61
+    100072: transform62
+    100074: transform63
+    100076: transform64
+    100078: transform65
+    100080: transform66
+    100082: transform67
+    100084: transform68
+    100086: transform69
+    100088: transform70
+    100090: transform71
+    100092: transform72
+    100094: transform73
+    100096: transform74
+    100098: transform75
+    100100: transform76
+    100102: transform77
+    100104: transform78
+    100106: transform79
+    100108: transform80
+    100110: transform81
+    100112: transform82
+    100114: transform83
+    100116: transform84
+    100118: transform85
+    100120: transform86
+    100122: transform87
+    100124: transform88
+    100126: walk way glass
+    100128: walkway
+    400000: button 003
+    400002: button 004
+    400004: button 1
+    400006: button 2
+    400008: computer
+    400010: dome
+    400012: dome ring
+    400014: dome top door 1
+    400016: dome top door 2
+    400018: dome top door 3
+    400020: dome top door 4
+    400022: dome top door frame
+    400024: door frame
+    400026: door frame002
+    400028: door frame002 1
+    400030: door left
+    400032: door left001
+    400034: door left001 1
+    400036: door right
+    400038: door right001
+    400040: door right001 1
+    400042: door right1
+    400044: floor
+    400046: floor1
+    400048: floor2
+    400050: floor3
+    400052: glass left
+    400054: glass left001
+    400056: glass left001 1
+    400058: glass right
+    400060: glass right001
+    400062: glass right001 1
+    400064: //RootNode
+    400066: pPlane20
+    400068: transform60
+    400070: transform61
+    400072: transform62
+    400074: transform63
+    400076: transform64
+    400078: transform65
+    400080: transform66
+    400082: transform67
+    400084: transform68
+    400086: transform69
+    400088: transform70
+    400090: transform71
+    400092: transform72
+    400094: transform73
+    400096: transform74
+    400098: transform75
+    400100: transform76
+    400102: transform77
+    400104: transform78
+    400106: transform79
+    400108: transform80
+    400110: transform81
+    400112: transform82
+    400114: transform83
+    400116: transform84
+    400118: transform85
+    400120: transform86
+    400122: transform87
+    400124: transform88
+    400126: walk way glass
+    400128: walkway
+    2300000: door frame002
+    2300002: door left001
+    2300004: door right
+    2300006: door right001
+    2300008: glass left001
+    2300010: glass right001
+    3300000: door frame002
+    3300002: door left001
+    3300004: door right
+    3300006: door right001
+    3300008: glass left001
+    3300010: glass right001
+    4300000: door right
+    4300002: door frame002
+    4300004: door right001
+    4300006: glass right001
+    4300008: door left001
+    4300010: glass left001
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
