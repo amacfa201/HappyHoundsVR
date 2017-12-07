@@ -42,7 +42,7 @@ public class testCorgiScript : MonoBehaviour {
 
     public float bowlNum = 0.75f;
     public float eatNum = 0.38f;
-    public float ballRadius = 0.45f;
+    public float ballRadius = 0.24f;
     public LayerMask corgiMask;
     public float fetchNum = 0.48f;
     public pettingScript _pettingScript;
@@ -86,11 +86,7 @@ public class testCorgiScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update()
-    {
-
-
-       
-
+    { 
             lastInteraction += Time.deltaTime;
 
         //print("thing = " + Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position));
@@ -211,32 +207,31 @@ public class testCorgiScript : MonoBehaviour {
             lastInteraction = 0;
             ResetRand();
             inMotion = true;
-            if (gravScript.grav)
-            {
-                DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
-            }
-            else
-            {
-                
-                DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
-            }
+            //if (gravScript.grav)
+            //{
+            //    DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
+            //}
+            //else
+            //{
 
+            //    DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
+            //}
+            DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
             transform.position += desiredVelocity * Time.deltaTime;
         }
-        print("gravity = " + gravScript.grav);
-        if (ballThrown && Vector3.Distance(transform.position, ball.transform.position) < fetchNum)
+
+        if (ballThrown && Vector3.Distance(transform.position, ball.transform.position) <= fetchNum)
         {
-            fetching = true;
+            fetching = false;
             ballRadius = 0.45f;
             lastInteraction = 0;
             ResetRand();
-            ball.transform.position = nose.transform.position;
             ballThrown = false;
             ballCollected = true;
+            ball.transform.position = nose.transform.position;
         }
         if (ballCollected)
         {
-            fetching = true;
             lastInteraction = 0;
             ResetRand();
             ball.transform.position = nose.transform.position;
@@ -252,19 +247,22 @@ public class testCorgiScript : MonoBehaviour {
             transform.position += desiredVelocity * Time.deltaTime;
             ballDropped = true;
         }
-        if (ballDropped && Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) < stopRadius)
-        {
-            fetching = false;
-            lastInteraction = 0;
-            ResetRand();
-        }
+        //if (ballDropped && Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) < stopRadius)
+        //{
+        //    fetching = false;
+        //    lastInteraction = 0;
+        //    ResetRand();
+        //}
+
         if (Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) < ballRadius && ballDropped == true)
         {
-            ball.transform.position = new Vector3(headSetTarget.transform.position.x + 0.05f, 0.05f, headSetTarget.transform.position.z);
+            ball.transform.position = new Vector3(headSetTarget.transform.position.x, 0.05f, headSetTarget.transform.position.z);
             ballRadius = 0;
             ballCollected = false;
             ballThrown = false;
-            fetching = false;
+            lastInteraction = 0;
+            ResetRand();
+            ballDropped = false;
         }
 
         ///////////////////////////////////////////////////

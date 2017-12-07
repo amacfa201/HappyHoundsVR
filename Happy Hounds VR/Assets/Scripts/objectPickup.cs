@@ -92,7 +92,7 @@ public class objectPickup : MonoBehaviour {
         {
             if (testScript.currentlyEating == false && holdingBox == true)
             {
-                if ((Mathf.Abs(foodBox.transform.rotation.x) > 0.5f || Mathf.Abs(foodBox.transform.rotation.z) > 0.5f))
+                if ((Mathf.Abs(foodBox.transform.rotation.x) > 0.5f))
                 {
                     FindObjectOfType<AudioManager>().PlaySound("FoodLeaveBox");
                     pouring = true;

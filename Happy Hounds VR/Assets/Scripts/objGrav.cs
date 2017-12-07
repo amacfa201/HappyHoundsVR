@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class objGrav : MonoBehaviour {
+public class objGrav : MonoBehaviour
+{
 
     Rigidbody rigid;
     gravityButton gravScript;
@@ -10,22 +11,24 @@ public class objGrav : MonoBehaviour {
     //public bool onDog = false;
 
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
         gravScript = GameObject.FindGameObjectWithTag("GravityButton").GetComponent<gravityButton>();
         //if(!onDog)
         //{
         //    rigid = GetComponent<Rigidbody>();
         //}
         rigid = GetComponent<Rigidbody>();
-        print("start");
+       // print("start");
     }
 
     // Update is called once per frame
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         if (!gravScript.grav)// Gravity is turned off
         {
             LoseGrav();
-            print("grav = false");
+            //print("grav = false");
         }
         else
         {
@@ -41,23 +44,23 @@ public class objGrav : MonoBehaviour {
     {
         if (localGrav)
         {
-           // if (rigid != null)
+            // if (rigid != null)
             //{
 
-               // if (onDog)
-              //  {
-                    //Destroy(this.gameObject.GetComponent<Rigidbody>());
-               // }
+            // if (onDog)
+            //  {
+            //Destroy(this.gameObject.GetComponent<Rigidbody>());
+            // }
 
-                //rigid.mass = rigid.mass * 6f;
+            //rigid.mass = rigid.mass * 6f;
 
-                //if (!onDog)
-                //{
-                    rigid.useGravity = true;
-                //}
-                
-                localGrav = false;
-           // }
+            //if (!onDog)
+            //{
+            rigid.useGravity = true;
+            //}
+
+            localGrav = false;
+            // }
         }
 
     }
@@ -69,29 +72,28 @@ public class objGrav : MonoBehaviour {
             // rigid.mass = rigid.mass / 6f;
 
             //if (onDog)
-           // {
-                //if (gravScript.grav)
-                // {
+            // {
+            //if (gravScript.grav)
+            // {
 
-                // }
-               // if (rigid == null)
-                //{ 
-                    //this.gameObject.AddComponent<Rigidbody>();
-                    //rigid = GetComponent<Rigidbody>();
-                //}
-                
+            // }
+            // if (rigid == null)
+            //{ 
+            //this.gameObject.AddComponent<Rigidbody>();
+            //rigid = GetComponent<Rigidbody>();
+            //}
+
             //}
 
             //if (rigid != null)
             //{
-               // print("2");
-                rigid.useGravity = false;
-                rigid.AddForce(Vector3.up * 15f);
-                localGrav = true;
+            // print("2");
+            rigid.useGravity = false;
+            rigid.AddForce(Vector3.up * 15f);
+            localGrav = true;
             //}
 
         }
-    
+
     }
 }
-
