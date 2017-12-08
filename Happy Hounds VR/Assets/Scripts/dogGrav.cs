@@ -15,7 +15,6 @@ public class dogGrav : MonoBehaviour
     {
         gravScript = GameObject.FindGameObjectWithTag("GravityButton").GetComponent<gravityButton>();
 
-    
     }
 
     // Update is called once per frame
@@ -36,15 +35,13 @@ public class dogGrav : MonoBehaviour
         
     }
 
-
-
     public void ResetRigid()
     {
         if (localGrav)
         {
             
             rigid.useGravity = true;
-            Destroy(rigid, 0.5f);
+            Destroy(rigid, 3f);
             localGrav = false;
          
         }

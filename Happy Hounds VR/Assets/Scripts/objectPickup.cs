@@ -9,7 +9,6 @@ public class objectPickup : MonoBehaviour {
     private Valve.VR.EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
     private Valve.VR.EVRButtonId squeezePads = EVRButtonId.k_EButton_Grip;
     
-    //private SteamVR_Controller.Device controller;
     private SteamVR_TrackedObject trackedObj;
 
     [SerializeField]
@@ -19,7 +18,6 @@ public class objectPickup : MonoBehaviour {
     public GameObject foodPellet;
     public GameObject SpawnPoint;
     public GameObject foodBox;
-    //public int numPellets;
     public int maxPellets = 20;
     public int DisNumPellets;
     public bool pouring = false;
@@ -39,7 +37,6 @@ public class objectPickup : MonoBehaviour {
     private bool thrown;
     public bool petting;
     public bool holdingBall;
-    //public bool ballThrown;
     private Rigidbody rigid;
 
     HoseScript _hoseScript;
@@ -51,7 +48,6 @@ public class objectPickup : MonoBehaviour {
         fixedJoint = GetComponent<FixedJoint>();
         //testScript = GameObject.FindGameObjectWithTag("corgi").GetComponent<testCorgiScript>();
         _hoseScript = GameObject.FindGameObjectWithTag("Hose").GetComponent<HoseScript>();
-        
     }
 
     // Update is called once per frame
@@ -71,8 +67,6 @@ public class objectPickup : MonoBehaviour {
             PickupObj();
             //SpawnFood();
         }
-
-
         if (controller.GetPressUp(triggerButton))
         {
             DropObj();
@@ -85,14 +79,12 @@ public class objectPickup : MonoBehaviour {
             testScript.calledDog = true;
             FindObjectOfType<AudioManager>().PlayOnce("DogWhistle");
         }
-
-
         pourTime -= Time.deltaTime;
         if (pourTime <= 0)
         {
             if (testScript.currentlyEating == false && holdingBox == true)
             {
-                if ((Mathf.Abs(foodBox.transform.rotation.x) > 0.5f))
+                if ((Mathf.Abs(foodBox.transform.rotation.x) > 0.75f))
                 {
                     FindObjectOfType<AudioManager>().PlaySound("FoodLeaveBox");
                     pouring = true;
@@ -102,12 +94,7 @@ public class objectPickup : MonoBehaviour {
                 }
             }
         }
-        //spawnFood();
-       
-        //print("x = " + Mathf.Abs(foodBox.transform.rotation.x) + "z = " + Mathf.Abs(foodBox.transform.rotation.z));
     }
-
-
 
     void FixedUpdate()
     {
@@ -136,7 +123,6 @@ public class objectPickup : MonoBehaviour {
 
             rigid.maxAngularVelocity = rigid.angularVelocity.magnitude;
             thrown = false;
-
         }
 
     }
@@ -144,7 +130,6 @@ public class objectPickup : MonoBehaviour {
    {
         GameObject food = (GameObject)Instantiate(foodPellet, SpawnPoint.transform.position, transform.rotation);
     }
-
 
     void OnTriggerStay(Collider other)
     {
@@ -170,7 +155,6 @@ public class objectPickup : MonoBehaviour {
         {
             testScript.lastInteraction = 0f;
             petting = true;
-            //SteamVR_Controller.Input((int)trackedObj.index).TriggerHapticPulse(1000);
             controller.TriggerHapticPulse(3999);
             testScript.animState = testCorgiScript.dogState.Petting;
         }
@@ -218,7 +202,6 @@ public class objectPickup : MonoBehaviour {
         createFood();
         
     }
-
 
     //void OnTriggerEnter(Collider other)
     //{

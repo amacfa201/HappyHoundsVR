@@ -47,6 +47,7 @@ public class testCorgiScript : MonoBehaviour {
     public float fetchNum = 0.48f;
     public pettingScript _pettingScript;
     public ballScript _ballScript;
+    public objectPickup _objectPickup;
     public AudioManager audioManager;
     public bool ballThrown;
     public bool ballCollected;
@@ -64,7 +65,9 @@ public class testCorgiScript : MonoBehaviour {
         Sitting,
         Drinking,
         Petting,
-        Fetching
+        Fetching,
+        Floating,
+        Aggro1
     }
     public dogState animState;
 
@@ -102,7 +105,7 @@ public class testCorgiScript : MonoBehaviour {
             anim.SetFloat("Move", 0.0f);
             anim.SetBool("eating", false);
             anim.SetBool("drinking", false);
-            
+            anim.SetBool("isFloating", false);
         }
         if (animState == dogState.Walking)
         {
@@ -120,7 +123,6 @@ public class testCorgiScript : MonoBehaviour {
             anim.CrossFade("Corgi@CorgiEatV2", crossfadeVal);
             anim.SetFloat("Move", 0.0f);
             anim.SetBool("eating", true);
-           
         }
 
         if (animState == dogState.Drinking)
@@ -128,6 +130,10 @@ public class testCorgiScript : MonoBehaviour {
             anim.SetBool("drinking", true);
         }
 
+        if (animState == dogState.Floating)
+        {
+            anim.SetBool("isFloating", true);
+        }
 
         if (animState == dogState.Petting)
         {
@@ -190,10 +196,8 @@ public class testCorgiScript : MonoBehaviour {
             currentlyEating = false;
             animState = dogState.Idle;
             inBowl = 0;
-
         }
 
-        
         if (inBowl >= 1 && !currentlyEating && !fetching)
         {
             lastInteraction = 0;
@@ -207,31 +211,30 @@ public class testCorgiScript : MonoBehaviour {
             lastInteraction = 0;
             ResetRand();
             inMotion = true;
-            //if (gravScript.grav)
-            //{
-            //    DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
-            //}
-            //else
-            //{
-
-            //    DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
-            //}
+            if (gravScript.grav)
+            {
+                DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
+            }
+            else
+            {
+                DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
+            }
             DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
             transform.position += desiredVelocity * Time.deltaTime;
         }
 
         if (ballThrown && Vector3.Distance(transform.position, ball.transform.position) <= fetchNum)
         {
-            fetching = false;
+            ball.transform.position = nose.transform.position;
             ballRadius = 0.45f;
             lastInteraction = 0;
             ResetRand();
             ballThrown = false;
             ballCollected = true;
-            ball.transform.position = nose.transform.position;
         }
         if (ballCollected)
         {
+            fetching = false;
             lastInteraction = 0;
             ResetRand();
             ball.transform.position = nose.transform.position;
@@ -242,7 +245,7 @@ public class testCorgiScript : MonoBehaviour {
             }
             else
             {
-                DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, headSetTarget.transform.position.y, headSetTarget.transform.position.z));
+                DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.5f, headSetTarget.transform.position.z));
             }
             transform.position += desiredVelocity * Time.deltaTime;
             ballDropped = true;
@@ -400,7 +403,6 @@ public class testCorgiScript : MonoBehaviour {
         }
         
     }
-
 
     public void ResetRand()
     {
