@@ -36,6 +36,7 @@ public class objectPickup : MonoBehaviour {
 
     private bool thrown;
     public bool petting;
+    public bool aggro;
     public bool holdingBall;
     private Rigidbody rigid;
 
@@ -53,6 +54,7 @@ public class objectPickup : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
+        print("eating = " + testScript.currentlyEating + " box = " +  holdingBox);
         //DisNumPellets = testScript.numPellets;
         if (controller == null)
         {
@@ -84,7 +86,7 @@ public class objectPickup : MonoBehaviour {
         {
             if (testScript.currentlyEating == false && holdingBox == true)
             {
-                if ((Mathf.Abs(foodBox.transform.rotation.x) > 0.75f))
+                if ((Mathf.Abs(foodBox.transform.rotation.x) > 0.60f))
                 {
                     FindObjectOfType<AudioManager>().PlaySound("FoodLeaveBox");
                     pouring = true;
@@ -133,10 +135,14 @@ public class objectPickup : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        
-        if (other.tag == "Pickupable") {
+        if (other.tag == "FoodBox")
+        {
             obj = other.gameObject;
             holdingBox = true;
+        }
+        if (other.tag == "Pickupable")
+        {
+            obj = other.gameObject;
         }
 
         if(other.tag == "Hose") {
@@ -151,12 +157,22 @@ public class objectPickup : MonoBehaviour {
             obj = other.gameObject;
             holdingBall = true;
         }
-        if (other.tag == "corgi")
+        if (other.gameObject.tag == "Corgi" || other.gameObject.tag == "corgi")
         {
+            print("CorgiCollision");
+            if (!testScript.currentlyEating)
+            {
+                petting = true;
+                controller.TriggerHapticPulse(3999);
+                testScript.animState = testCorgiScript.dogState.Petting;
+            }
+            else
+            {
+                aggro = true;
+                controller.TriggerHapticPulse(3999);
+                testScript.animState = testCorgiScript.dogState.Aggro;
+            }
             testScript.lastInteraction = 0f;
-            petting = true;
-            controller.TriggerHapticPulse(3999);
-            testScript.animState = testCorgiScript.dogState.Petting;
         }
 
     }
@@ -216,9 +232,11 @@ public class objectPickup : MonoBehaviour {
         holdingBox = false;
         _hoseScript.holdingHose = false;
         petting = false;
+        aggro = false;
 
         if (other.gameObject.tag == "Corgi" || other.gameObject.tag == "corgi")
         {
+            aggro = false;
             petting = false;
             testScript.animState = testCorgiScript.dogState.Idle;
             print("state back to idle");

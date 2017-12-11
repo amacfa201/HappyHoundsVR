@@ -8,11 +8,15 @@ public class doorControl : MonoBehaviour
     //public doorScript doorScript;
     //public doorScript doorScript2;
     public GameObject doors;
-
+    Animator doorAnim;
     public GameObject doors2;
+    public AudioManager audioManager;
+
+   
     void Start()
     {
-
+        audioManager = FindObjectOfType<AudioManager>();
+        doorAnim = GameObject.FindGameObjectWithTag("InnerDoorScript").GetComponent<Animator>();
     }
 
     void Update()
@@ -27,16 +31,16 @@ public class doorControl : MonoBehaviour
 
         if (other.gameObject.tag == "GameController")
         {
-            if (doors.activeInHierarchy)
+            if (doorAnim.GetBool("InnerDoorOpen") == true)
             {
-
-
-                doors.SetActive(false);
+                doorAnim.SetBool("InnerDoorOpen", false);
+                audioManager.PlayOnce("DoorOpening");
             }
             else
             {
-                doors.SetActive(true);
+                doorAnim.SetBool("InnerDoorOpen", true);
 
+                audioManager.PlayOnce("DoorOpening");
             }
         }
 

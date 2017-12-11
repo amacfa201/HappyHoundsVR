@@ -24,10 +24,16 @@ public class noseScript : MonoBehaviour
         if (other.gameObject.tag == "foodPellet")
         {
             Destroy(other.gameObject, Random.Range(4.5f, 12.0f));
+            if (testScript.animState == testCorgiScript.dogState.Eating)
+            {
+                testScript.currentlyEating = true;
+                
+            }
             if (testScript.inBowl > 0)
             {
                 testScript.inBowl--;
             }
+
         }
     }
 }
