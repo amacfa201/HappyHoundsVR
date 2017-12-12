@@ -22,7 +22,7 @@ public class objectPickup : MonoBehaviour {
     public int DisNumPellets;
     public bool pouring = false;
     public float pourTime = 0.5f;
-    public testCorgiScript testScript;
+    public corgiScript testScript;
     List<GameObject> foodList;
     private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
 
@@ -164,13 +164,13 @@ public class objectPickup : MonoBehaviour {
             {
                 petting = true;
                 controller.TriggerHapticPulse(3999);
-                testScript.animState = testCorgiScript.dogState.Petting;
+                testScript.animState = corgiScript.dogState.Petting;
             }
             else
             {
                 aggro = true;
                 controller.TriggerHapticPulse(3999);
-                testScript.animState = testCorgiScript.dogState.Aggro;
+                testScript.animState = corgiScript.dogState.Aggro;
             }
             testScript.lastInteraction = 0f;
         }
@@ -238,7 +238,7 @@ public class objectPickup : MonoBehaviour {
         {
             aggro = false;
             petting = false;
-            testScript.animState = testCorgiScript.dogState.Idle;
+            testScript.animState = corgiScript.dogState.Idle;
             print("state back to idle");
         }
 

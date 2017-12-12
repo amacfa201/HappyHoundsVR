@@ -5,7 +5,7 @@ using UnityEngine;
 public class waterScript : MonoBehaviour {
 
     private Rigidbody rigid;
-    public testCorgiScript corgiScript;
+    public corgiScript corgiScript;
     float timeSinceHit;
     float timeAlive;
     private GameObject spawnPoint;
@@ -14,7 +14,7 @@ public class waterScript : MonoBehaviour {
     void Start () {
         spawnPoint = GameObject.FindGameObjectWithTag("waterSpawn");
         rigid = GetComponent<Rigidbody>();
-        corgiScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<testCorgiScript>();
+        corgiScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<corgiScript>();
     }
 	
 	// Update is called once per frame
@@ -42,9 +42,9 @@ public class waterScript : MonoBehaviour {
         if (other.gameObject.tag == "plane" || other.gameObject.tag == "corgi")
         {
             Destroy(gameObject, 0.5f);
-            if (corgiScript.animState == testCorgiScript.dogState.Walking || corgiScript.animState == testCorgiScript.dogState.Idle)
+            if (corgiScript.animState == corgiScript.dogState.Walking || corgiScript.animState == corgiScript.dogState.Idle)
             {
-                corgiScript.animState = testCorgiScript.dogState.Drinking;
+                corgiScript.animState = corgiScript.dogState.Drinking;
                 timeSinceHit = 0;
             }
         }
@@ -62,7 +62,7 @@ public class waterScript : MonoBehaviour {
         if(timeSinceHit > 0.75f)
         {
             //conall
-            corgiScript.animState = testCorgiScript.dogState.Idle;
+            corgiScript.animState = corgiScript.dogState.Idle;
         }
 
         

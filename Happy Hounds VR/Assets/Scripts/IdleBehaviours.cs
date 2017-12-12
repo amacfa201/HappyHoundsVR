@@ -5,7 +5,7 @@ using UnityEngine;
 public class IdleBehaviours : MonoBehaviour {
     int actionNum;
     wanderScript _wander;
-    public testCorgiScript _CorgiScript;
+    public corgiScript _CorgiScript;
     public float timeSinceChange;
     public float timeLimit;
     float limiter = 0;
@@ -38,7 +38,7 @@ public class IdleBehaviours : MonoBehaviour {
         {
             _CorgiScript.ResetAnimVal();
             _wander.enabled = true;
-            _CorgiScript.animState = testCorgiScript.dogState.Walking;
+            _CorgiScript.animState = corgiScript.dogState.Walking;
         }
 
         if (actionNum == 2)// RandomAnimation;
@@ -51,7 +51,7 @@ public class IdleBehaviours : MonoBehaviour {
               animNum = Random.Range(1, 3);
             }
             
-            _CorgiScript.animState = testCorgiScript.dogState.Idle;
+            _CorgiScript.animState = corgiScript.dogState.Idle;
             _CorgiScript.IdleAnimations(animNum);
         }
 	}
