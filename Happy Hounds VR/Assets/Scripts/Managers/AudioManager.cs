@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
 
-    public Sound[] soundArray;
+    public Sound[] soundFXArray;
 
 	// Use this for initialization
 	void Awake () {
-        foreach (Sound _sound in soundArray)
+        foreach (Sound _sound in soundFXArray)
         {
-            _sound.source = gameObject.AddComponent<AudioSource>();
-            _sound.source.clip = _sound.clip;
-            _sound.source.loop = _sound.loop;
-            _sound.source.playOnAwake = false;
+            _sound.audioSource = gameObject.AddComponent<AudioSource>();
+            _sound.audioSource.clip = _sound.audioClip;
+            _sound.audioSource.loop = _sound.loopSound;
+            _sound.audioSource.playOnAwake = false;
         }
 	}
 	
@@ -23,46 +23,49 @@ public class AudioManager : MonoBehaviour {
 		
 	}
 
-    public void PlaySound(string soundName)
+    
+
+    //public void StopSound(string soundName)
+    //{
+    //    Sound s = Array.Find(soundFXArray, sound => sound.clipName == soundName);
+    //    if (s == null)
+    //    {
+    //        return;
+    //    }
+    //    else
+    //    {
+    //        s.audioSource.Stop();
+    //    }
+    //}
+
+    public void PlayOnce(string soundName)
     {
-       Sound s = Array.Find(soundArray, sound => sound.name == soundName);
-        if (s == null)
+        Sound currentSound = Array.Find(soundFXArray, mySound => mySound.clipName == soundName);
+        if (currentSound == null)
+        {
+            return;
+        }
+        else
+        {
+            if (!currentSound.audioSource.isPlaying)
+            {
+                currentSound.audioSource.PlayOneShot(currentSound.audioClip);
+            }  
+        }
+    }
+
+
+    public void PlaySoundFX(string soundName)
+    {
+        Sound currentSound = Array.Find(soundFXArray, mySound => mySound.clipName == soundName);
+        if (currentSound == null)
         {
             print("null");
             return;
         }
         else
         {
-            s.source.Play();
-        }
-    }
-
-    public void StopSound(string soundName)
-    {
-        Sound s = Array.Find(soundArray, sound => sound.name == soundName);
-        if (s == null)
-        {
-            return;
-        }
-        else
-        {
-            s.source.Stop();
-        }
-    }
-
-    public void PlayOnce(string soundName)
-    {
-        Sound s = Array.Find(soundArray, sound => sound.name == soundName);
-        if (s == null)
-        {
-            return;
-        }
-        else
-        {
-            if (!s.source.isPlaying)
-            {
-                s.source.PlayOneShot(s.clip);
-            }  
+            currentSound.audioSource.Play();
         }
     }
 
@@ -73,5 +76,5 @@ public class AudioManager : MonoBehaviour {
     //        _sound.audioSource.gameObject.AddComponent<AudioSource>();
     //        _sound.audioSource.Stop();   
     //    }
-//}
+    //}
 }

@@ -4,18 +4,19 @@ using UnityEngine;
 using Valve.VR;
 
 public class ObjectPickupScript: MonoBehaviour {
-    private Valve.VR.EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
+    private Valve.VR.EVRButtonId controllerTrigger = EVRButtonId.k_EButton_SteamVR_Trigger;
     private Valve.VR.EVRButtonId squeezePads = EVRButtonId.k_EButton_Grip;
-    private SteamVR_TrackedObject trackedObj;
+    private SteamVR_TrackedObject steamVRTrackedObject;
 
     [SerializeField]
-    private FixedJoint fixedJoint;
-    private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
+    private FixedJoint viveJoint;
+    private SteamVR_Controller.Device viveCont { get { return SteamVR_Controller.Input((int)steamVRTrackedObject.index); } }
 
-    private GameObject obj;
+    private GameObject interactObject;
     public GameObject foodPellet;
     public GameObject SpawnPoint;
     public GameObject foodBox;
+   
 
     public CorgiScript testScript;
     List<GameObject> foodList;
@@ -33,7 +34,7 @@ public class ObjectPickupScript: MonoBehaviour {
     //public AudioClip foodinBowl;
     public bool pouring = false;
     public bool holdingBox;
-    private bool thrown;
+    private bool objThrown;
     public bool petting;
     public bool aggro;
     public bool holdingBall;
@@ -41,9 +42,9 @@ public class ObjectPickupScript: MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        trackedObj = GetComponent<SteamVR_TrackedObject>();
+        steamVRTrackedObject = GetComponent<SteamVR_TrackedObject>();
         //controller = SteamVR_Controller.Input((int)trackedObj.index);
-        fixedJoint = GetComponent<FixedJoint>();
+        viveJoint = GetComponent<FixedJoint>();
         //testScript = GameObject.FindGameObjectWithTag("corgi").GetComponent<testCorgiScript>();
     }
 
@@ -52,23 +53,23 @@ public class ObjectPickupScript: MonoBehaviour {
     {
         print("eating = " + testScript.currentlyEating + " box = " +  holdingBox);
         //DisNumPellets = testScript.numPellets;
-        if (controller == null)
+        if (viveCont == null)
         {
             Debug.Log("Controller Not Initilalised");
             return;
         }
         //print(Vector3.Distance(new Vector3(testScript.headSetTarget.transform.position.x, 0.0f, testScript.headSetTarget.transform.position.z), testScript.transform.position) );
         //var device = SteamVR
-        if (controller.GetPressDown(triggerButton))
+        if (viveCont.GetPressDown(controllerTrigger))
         {
             PickupObj();
             //SpawnFood();
         }
-        if (controller.GetPressUp(triggerButton))
+        if (viveCont.GetPressUp(controllerTrigger))
         {
             DropObj();
         }
-        if (controller.GetPressDown(squeezePads) && testScript.currentlyEating == false && Vector3.Distance(new Vector3(testScript.headSetTarget.transform.position.x, 0.0f, testScript.headSetTarget.transform.position.z), testScript.transform.position) > testScript.callRadius)
+        if (viveCont.GetPressDown(squeezePads) && testScript.currentlyEating == false && Vector3.Distance(new Vector3(testScript.headSetTarget.transform.position.x, 0.0f, testScript.headSetTarget.transform.position.z), testScript.transform.position) > testScript.callRadius)
         {
             //print("button down");
             testScript.stopRadius = 1.25f;
@@ -82,7 +83,7 @@ public class ObjectPickupScript: MonoBehaviour {
             {
                 if ((Mathf.Abs(foodBox.transform.rotation.x) > 0.60f))
                 {
-                    FindObjectOfType<AudioManager>().PlaySound("FoodLeaveBox");
+                    FindObjectOfType<AudioManager>().PlaySoundFX("FoodLeaveBox");
                     pouring = true;
                     createFood();
                     pourTime = 0.5f;
@@ -94,31 +95,31 @@ public class ObjectPickupScript: MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (thrown)
+        if (objThrown)
         {
-            Transform origin;
-            if (trackedObj.origin != null)
+            Transform contTransform;
+            if (steamVRTrackedObject.origin != null)
             {
-                origin = trackedObj.origin;
+                contTransform = steamVRTrackedObject.origin;
             }
             else
             {
-                origin = trackedObj.transform.parent;
+                contTransform = steamVRTrackedObject.transform.parent;
             }
 
-            if (origin != null)
+            if (contTransform != null)
             {
-                rigid.velocity = origin.TransformVector(controller.velocity);
-                rigid.angularVelocity = origin.TransformVector(controller.angularVelocity * 0.25f);
+                rigid.velocity = contTransform.TransformVector(viveCont.velocity);
+                rigid.angularVelocity = contTransform.TransformVector(viveCont.angularVelocity * 0.25f);
             }
             else
             {
-                rigid.velocity = controller.velocity;
-                rigid.angularVelocity = controller.angularVelocity * 0.25f;
+                rigid.velocity = viveCont.velocity;
+                rigid.angularVelocity = viveCont.angularVelocity * 0.25f;
             }
 
             rigid.maxAngularVelocity = rigid.angularVelocity.magnitude;
-            thrown = false;
+            objThrown = false;
         }
 
     }
@@ -131,17 +132,17 @@ public class ObjectPickupScript: MonoBehaviour {
     {
         if (other.tag == "FoodBox")
         {
-            obj = other.gameObject;
+            interactObject = other.gameObject;
             holdingBox = true;
         }
         if (other.tag == "Pickupable")
         {
-            obj = other.gameObject;
+            interactObject = other.gameObject;
         }
 
         if(other.tag =="Ball")
         {
-            obj = other.gameObject;
+            interactObject = other.gameObject;
             holdingBall = true;
         }
         if (other.gameObject.tag == "Corgi" || other.gameObject.tag == "corgi")
@@ -150,13 +151,13 @@ public class ObjectPickupScript: MonoBehaviour {
             if (!testScript.currentlyEating)
             {
                 petting = true;
-                controller.TriggerHapticPulse(3999);
+                viveCont.TriggerHapticPulse(3999);
                 testScript.animState = CorgiScript.dogState.Petting;
             }
             else
             {
                 aggro = true;
-                controller.TriggerHapticPulse(3999);
+                viveCont.TriggerHapticPulse(3999);
                 testScript.animState = CorgiScript.dogState.Aggro;
             }
             testScript.lastInteraction = 0f;
@@ -166,32 +167,32 @@ public class ObjectPickupScript: MonoBehaviour {
     void PickupObj()
     {
 
-        if (obj != null)
+        if (interactObject != null)
         {
-            fixedJoint.connectedBody = obj.GetComponent<Rigidbody>();
-            thrown = false;
+            viveJoint.connectedBody = interactObject.GetComponent<Rigidbody>();
+            objThrown = false;
             rigid = null;
         }
         else
         {
-            fixedJoint.connectedBody = null;
+            viveJoint.connectedBody = null;
         }
     }
 
     void DropObj()
     {
-        if (fixedJoint.connectedBody != null && !holdingBall)
+        if (viveJoint.connectedBody != null && !holdingBall)
         {
-            rigid = fixedJoint.connectedBody;
-            fixedJoint.connectedBody = null;
-            thrown = true;
+            rigid = viveJoint.connectedBody;
+            viveJoint.connectedBody = null;
+            objThrown = true;
         }
 
-        if (fixedJoint.connectedBody != null && holdingBall)
+        if (viveJoint.connectedBody != null && holdingBall)
         {
-            rigid = fixedJoint.connectedBody;
-            fixedJoint.connectedBody = null;
-            thrown = true;
+            rigid = viveJoint.connectedBody;
+            viveJoint.connectedBody = null;
+            objThrown = true;
             holdingBall = false;
             testScript.ballThrown = true;
         }
@@ -207,7 +208,7 @@ public class ObjectPickupScript: MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
-        obj = null;
+        interactObject = null;
         holdingBox = false;
         petting = false;
         aggro = false;

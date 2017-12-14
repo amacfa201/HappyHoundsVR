@@ -4,82 +4,83 @@ using UnityEngine;
 
 public class TeleportScript : MonoBehaviour {
 
-    private SteamVR_TrackedObject trackedObj;
-    private SteamVR_Controller.Device Controller
+    private SteamVR_TrackedObject steamVRTrackedObj;
+    private SteamVR_Controller.Device viveCont
     {
-        get { return SteamVR_Controller.Input((int)trackedObj.index); }
+        get { return SteamVR_Controller.Input((int)steamVRTrackedObj.index); }
     }
 
-    public Transform headTransform;
-    public Transform cameraRigTransform;
-    private Transform teleportReticleTransform;
-    private Transform laserTransform;
+    public Transform headsetTransPos;
+    public Transform cameraRigPos;
+    private Transform teleportReticlePos;
+    private Transform laserPos;
 
-    public GameObject laserPrefab;
-    public GameObject teleportReticlePrefab;
     private GameObject laser;
-    private GameObject reticle;
-   
-    public Vector3 teleportReticleOffset;
-    private Vector3 hitPoint;
+    private GameObject teleportPad;
+    public GameObject laserPrefab;
+    public GameObject teleportPadPrefab;
 
-    public LayerMask teleportMask;
+    private Vector3 hitPoint;
+    public Vector3 teleportReticleOffset;
+    
+
+    public LayerMask teleportingMask;
   
-    private bool shouldTeleport;
+    private bool teleport;
 
    
     void Awake()
     {
-        trackedObj = GetComponent<SteamVR_TrackedObject>();
+        steamVRTrackedObj = GetComponent<SteamVR_TrackedObject>();
     }
 
-    private void ShowLaser(RaycastHit hit)
+    private void SpawnLaser(RaycastHit hitPosition)
     {        
         laser.SetActive(true);
-        laserTransform.position = Vector3.Lerp(trackedObj.transform.position, hitPoint, .5f);
-        laserTransform.LookAt(hitPoint);
+        laserPos.position = Vector3.Lerp(steamVRTrackedObj.transform.position, hitPoint, .5f);
+        laserPos.LookAt(hitPoint);
     }
 
     // Use this for initialization
     void Start ()
     {
         laser = Instantiate(laserPrefab);
-        laserTransform = laser.transform;
-        reticle = Instantiate(teleportReticlePrefab);
-        teleportReticleTransform = reticle.transform;
+        laserPos = laser.transform;
+        teleportPad = Instantiate(teleportPadPrefab);
+        teleportReticlePos = teleportPad.transform;
     }
 
     // Update is called once per frame
     void Update ()
     {
-        if (Controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
+        if (viveCont.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
         {
-            RaycastHit hit;
-            if (Physics.Raycast(trackedObj.transform.position, transform.forward, out hit, 100, teleportMask))
+            RaycastHit hitPosition;
+            if (Physics.Raycast(steamVRTrackedObj.transform.position, transform.forward, out hitPosition, 100, teleportingMask))
             {
-                hitPoint = hit.point;
-                ShowLaser(hit);
-                reticle.SetActive(true);
-                teleportReticleTransform.position = hitPoint + teleportReticleOffset;
-                shouldTeleport = true;
+                hitPoint = hitPosition.point;
+                SpawnLaser(hitPosition);
+                teleportPad.SetActive(true);
+                teleportReticlePos.position = hitPoint + teleportReticleOffset;
+                teleport = true;
             }
         }
         else 
         {
             laser.SetActive(false);
         }
-        if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad) && shouldTeleport)
+        if (viveCont.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad) && teleport)
         {
-            Teleport();
+            TeleportToPoint();
         }
     }
 
-    private void Teleport()
+    private void TeleportToPoint()
     {
-        shouldTeleport = false;
-        reticle.SetActive(false);
-        Vector3 difference = cameraRigTransform.position - headTransform.position;
+        teleport = false;
+        teleportPad.SetActive(false);
+        Vector3 difference = cameraRigPos.position - headsetTransPos.position;
         difference.y = 0;
-        cameraRigTransform.position = hitPoint + difference;
+        cameraRigPos.position = hitPoint + difference;
     }
 }

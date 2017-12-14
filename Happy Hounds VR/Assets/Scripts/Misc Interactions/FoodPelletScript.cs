@@ -37,7 +37,7 @@ public class FoodPelletScript : MonoBehaviour {
         if (other.gameObject.tag == "dogBowl")
         {
             testScript.inBowl++;
-            FindObjectOfType<AudioManager>().PlaySound("FoodHitBowl");
+            FindObjectOfType<AudioManager>().PlaySoundFX("FoodHitBowl");
         }
 
         //if (other.gameObject.tag == "noseCollider")
