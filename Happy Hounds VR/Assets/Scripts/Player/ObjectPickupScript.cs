@@ -45,13 +45,13 @@ public class ObjectPickupScript: MonoBehaviour {
         steamVRTrackedObject = GetComponent<SteamVR_TrackedObject>();
         //controller = SteamVR_Controller.Input((int)trackedObj.index);
         viveJoint = GetComponent<FixedJoint>();
-        //testScript = GameObject.FindGameObjectWithTag("corgi").GetComponent<testCorgiScript>();
+        testScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<CorgiScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        print("eating = " + testScript.currentlyEating + " box = " +  holdingBox);
+        //print("eating = " + testScript.currentlyEating + " box = " +  holdingBox);
         //DisNumPellets = testScript.numPellets;
         if (viveCont == null)
         {

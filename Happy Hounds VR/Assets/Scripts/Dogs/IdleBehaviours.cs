@@ -17,6 +17,7 @@ public class IdleBehaviours : MonoBehaviour {
 // Use this for initialization
     void Start () {
         gravScript = GameObject.FindGameObjectWithTag("GravityButton").GetComponent<GravityButton>();
+        _CorgiScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<CorgiScript>();
         _wander = GetComponent<WanderScript>();
         timeLimit = Random.Range(3.5f, 7);
         limit = Random.Range(1, 5);
