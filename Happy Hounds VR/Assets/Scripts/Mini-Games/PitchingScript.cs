@@ -9,7 +9,7 @@ public class PitchingScript : MonoBehaviour {
     PitchingButtonScript _pitchingButton;
 
     public float timer;
-    public float timeLimited = 2f;
+    public float timeLimited = 0.002f;
 	// Use this for initialization
 	void Start ()
     {
