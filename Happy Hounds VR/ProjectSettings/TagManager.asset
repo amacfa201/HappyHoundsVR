@@ -22,6 +22,9 @@ TagManager:
   - OuterDoorScript
   - FoodBox
   - pitchingButton
+  - ExcludeFromTeleport
+  - PlayerHelmet
+  - Bin
   layers:
   - Default
   - TransparentFX

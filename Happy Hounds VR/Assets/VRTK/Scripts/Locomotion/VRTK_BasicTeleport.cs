@@ -221,6 +221,7 @@ namespace VRTK
             teleportArgs.distance = (ValidRigObjects() ? Vector3.Distance(new Vector3(headset.position.x, playArea.position.y, headset.position.z), destinationPosition) : 0f);
             teleportArgs.target = target;
             teleportArgs.raycastHit = new RaycastHit();
+            print("Item Hit: " + teleportArgs.raycastHit.rigidbody.tag);
             teleportArgs.destinationPosition = destinationPosition;
             teleportArgs.destinationRotation = destinationRotation;
             teleportArgs.forceDestinationPosition = forceDestinationPosition;
