@@ -540,7 +540,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &56888137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc7b07cb05243f24c97c7373df5092a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 10, y: 10}
+  gridSize: {x: 39.17, y: 38.19}
   nodeRadius: 0.5
   untraversableMask:
     serializedVersion: 2
@@ -564,7 +564,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 56888136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.489002, y: 0.0034753988, z: -0.08499861}
+  m_LocalPosition: {x: 8.94, y: 0.92, z: -1.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -926,7 +926,7 @@ GameObject:
   - component: {fileID: 118873255}
   - component: {fileID: 118873254}
   - component: {fileID: 118873259}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (19)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -1086,6 +1086,10 @@ Prefab:
     - target: {fileID: 1868965098611466, guid: 871bc0566e8b3dd4a9eb66b2d1b979da, type: 2}
       propertyPath: m_Name
       value: BattingPad
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868965098611466, guid: 871bc0566e8b3dd4a9eb66b2d1b979da, type: 2}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 871bc0566e8b3dd4a9eb66b2d1b979da, type: 2}
@@ -2491,7 +2495,7 @@ GameObject:
   - component: {fileID: 300163631}
   - component: {fileID: 300163630}
   - component: {fileID: 300163635}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (27)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -2881,7 +2885,7 @@ GameObject:
   - component: {fileID: 314693176}
   - component: {fileID: 314693175}
   - component: {fileID: 314693180}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -3638,7 +3642,7 @@ GameObject:
   - component: {fileID: 386846866}
   - component: {fileID: 386846865}
   - component: {fileID: 386846870}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (8)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -3945,7 +3949,7 @@ GameObject:
   - component: {fileID: 444590847}
   - component: {fileID: 444590846}
   - component: {fileID: 444590851}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (21)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -4128,7 +4132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &468395905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5374,7 +5378,7 @@ GameObject:
   - component: {fileID: 658558561}
   - component: {fileID: 658558560}
   - component: {fileID: 658558565}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (26)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -5868,7 +5872,7 @@ GameObject:
   - component: {fileID: 709459579}
   - component: {fileID: 709459578}
   - component: {fileID: 709459583}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (11)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -6349,7 +6353,7 @@ GameObject:
   - component: {fileID: 742149189}
   - component: {fileID: 742149188}
   - component: {fileID: 742149193}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (14)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -8850,7 +8854,7 @@ GameObject:
   - component: {fileID: 941359012}
   - component: {fileID: 941359011}
   - component: {fileID: 941359016}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (17)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -9848,7 +9852,7 @@ GameObject:
   - component: {fileID: 1062327860}
   - component: {fileID: 1062327859}
   - component: {fileID: 1062327864}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (28)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -10217,6 +10221,18 @@ Prefab:
     - target: {fileID: 100000, guid: a41aa889bddbe2a4fa2b70267019aff8, type: 3}
       propertyPath: m_TagString
       value: GravityButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: a41aa889bddbe2a4fa2b70267019aff8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: a41aa889bddbe2a4fa2b70267019aff8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a41aa889bddbe2a4fa2b70267019aff8, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a41aa889bddbe2a4fa2b70267019aff8, type: 3}
@@ -11281,7 +11297,7 @@ GameObject:
   - component: {fileID: 1170332735}
   - component: {fileID: 1170332734}
   - component: {fileID: 1170332739}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (9)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -11420,7 +11436,7 @@ GameObject:
   - component: {fileID: 1198920494}
   - component: {fileID: 1198920493}
   - component: {fileID: 1198920498}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (15)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -11733,7 +11749,7 @@ GameObject:
   - component: {fileID: 1230437951}
   - component: {fileID: 1230437950}
   - component: {fileID: 1230437955}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (24)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -12142,7 +12158,7 @@ GameObject:
   - component: {fileID: 1270694027}
   - component: {fileID: 1270694026}
   - component: {fileID: 1270694031}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (13)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -13486,7 +13502,7 @@ GameObject:
   - component: {fileID: 1476416317}
   - component: {fileID: 1476416316}
   - component: {fileID: 1476416321}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (22)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -13847,7 +13863,7 @@ GameObject:
   - component: {fileID: 1504364812}
   - component: {fileID: 1504364811}
   - component: {fileID: 1504364816}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (6)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -14376,7 +14392,7 @@ GameObject:
   - component: {fileID: 1565653390}
   - component: {fileID: 1565653389}
   - component: {fileID: 1565653394}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (12)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -14486,7 +14502,7 @@ GameObject:
   - component: {fileID: 1565970169}
   - component: {fileID: 1565970168}
   - component: {fileID: 1565970173}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (18)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -15207,6 +15223,10 @@ Prefab:
       propertyPath: m_Name
       value: MainPlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b65d85b09da46a44eb286b8143f48d22, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b65d85b09da46a44eb286b8143f48d22, type: 3}
   m_IsPrefabParent: 0
@@ -15482,7 +15502,7 @@ GameObject:
   - component: {fileID: 1680230555}
   - component: {fileID: 1680230554}
   - component: {fileID: 1680230559}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (20)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -15687,7 +15707,7 @@ GameObject:
   - component: {fileID: 1691971881}
   - component: {fileID: 1691971880}
   - component: {fileID: 1691971885}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (10)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -17014,7 +17034,7 @@ GameObject:
   - component: {fileID: 1848576698}
   - component: {fileID: 1848576697}
   - component: {fileID: 1848576702}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (16)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -18010,7 +18030,7 @@ GameObject:
   - component: {fileID: 1993727680}
   - component: {fileID: 1993727679}
   - component: {fileID: 1993727684}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (7)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -18383,7 +18403,7 @@ GameObject:
   - component: {fileID: 2022135643}
   - component: {fileID: 2022135642}
   - component: {fileID: 2022135647}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (25)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -18620,7 +18640,7 @@ GameObject:
   - component: {fileID: 2031306866}
   - component: {fileID: 2031306865}
   - component: {fileID: 2031306870}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (23)
   m_TagString: Pickupable
   m_Icon: {fileID: 0}
@@ -19140,7 +19160,7 @@ GameObject:
   - component: {fileID: 2100681670}
   - component: {fileID: 2100681672}
   - component: {fileID: 2100681671}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tre
   m_TagString: Untagged
   m_Icon: {fileID: 0}

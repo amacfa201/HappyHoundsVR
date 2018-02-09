@@ -14,7 +14,7 @@ public class CreateGrid : MonoBehaviour {
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawCube(transform.position, new Vector3(gridSize.x, 1, gridSize.y));
+        Gizmos.DrawWireCube(transform.position, new Vector3(gridSize.x, 1, gridSize.y));
         if (nodeGrid != null)
         {
             foreach (Node n in nodeGrid)
@@ -25,7 +25,7 @@ public class CreateGrid : MonoBehaviour {
         }
     }
 
-    void Start()
+    void Update()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridSize.x / nodeDiameter);
