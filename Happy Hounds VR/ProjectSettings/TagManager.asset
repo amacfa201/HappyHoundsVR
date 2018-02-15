@@ -25,6 +25,7 @@ TagManager:
   - ExcludeFromTeleport
   - PlayerHelmet
   - Bin
+  - GridGenerator
   layers:
   - Default
   - TransparentFX
