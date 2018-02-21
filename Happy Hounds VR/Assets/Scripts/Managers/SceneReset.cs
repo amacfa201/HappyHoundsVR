@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneReset : MonoBehaviour {
     public GameObject dog;
+    public GameObject bunker;
     public GameObject reset;
 	// Use this for initialization
 	void Start ()
@@ -30,5 +31,11 @@ public class SceneReset : MonoBehaviour {
         {
             dog.transform.position = reset.transform.position;
         }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            bunker.SetActive(false);
+        }
+
     }
 }
