@@ -6,6 +6,7 @@ public class ObjectGravScript : MonoBehaviour
 {
     Rigidbody rigid;
     GravityButton gravScript;
+    [SerializeField]
     bool localGrav;
     //public bool onDog = false;
 

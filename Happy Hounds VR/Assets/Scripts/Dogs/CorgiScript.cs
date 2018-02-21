@@ -126,6 +126,7 @@ public class CorgiScript : MonoBehaviour {
         #region attempt2
         if (ballThrown && !currentlyEating)
         {
+            ball.AddComponent<Rigidbody>();
             fetching = true;
             //lastInteraction = 0;
             //ResetRand();
@@ -136,6 +137,7 @@ public class CorgiScript : MonoBehaviour {
             }
             else
             {
+                ball.GetComponent<Rigidbody>().useGravity = false;
                 DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
             }
             transform.position += desiredVelocity * Time.deltaTime;
@@ -156,6 +158,7 @@ public class CorgiScript : MonoBehaviour {
             fetching = false;
             //lastInteraction = 0;
             //ResetRand();
+            Destroy(ball.GetComponent<Rigidbody>());
             ball.transform.position = nose.transform.position;
             inMotion = true;
             if (gravScript.grav)
@@ -172,13 +175,16 @@ public class CorgiScript : MonoBehaviour {
 
         if (Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) < ballRadius && ballDropped == true)
         {
-            //ball.transform.position = new Vector3(headSetTarget.transform.position.x, 0.05f, headSetTarget.transform.position.z);
-            //ballRadius = 0;
+            ball.AddComponent<Rigidbody>();
+            ball.GetComponent<Rigidbody>().useGravity = true;
+            ball.transform.position = new Vector3(headSetTarget.transform.position.x, 0.05f, headSetTarget.transform.position.z);
+            ballRadius = 0;
             ballCollected = false;
             ballThrown = false;
             //lastInteraction = 0;
             //ResetRand();
             ballDropped = false;
+      
         }
 
         ///////////////////////////////////////////////////

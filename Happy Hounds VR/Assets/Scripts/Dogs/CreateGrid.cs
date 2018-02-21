@@ -14,7 +14,7 @@ public class CreateGrid : MonoBehaviour {
 
     public List<Node> path;
 
-    void Start()
+    void Awake()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridSize.x / nodeDiameter);
@@ -121,9 +121,9 @@ public class CreateGrid : MonoBehaviour {
     public List<Node> GetNeighbours(Node node)
     {
         List<Node> neighbours = new List<Node>();
-        for (int x = -1; x <= +1; x++)
+        for (int x = -1; x <= 1; x++)
         {
-            for (int y = -1; x <= +1; y++)
+            for (int y = -1; y <= 1; y++)
             {
                 if (x == 0 && y == 0)
                 {

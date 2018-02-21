@@ -8,19 +8,21 @@ public class DoorControl : MonoBehaviour
     public GameObject doors2;
     public CreateGrid Grid;
 
-   
+
     public bool RoomDoor; // False = Shut
 
     Animator doorAnim;
 
     public AudioManager audioManager;
-    
+
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
         doorAnim = GameObject.FindGameObjectWithTag("InnerDoorScript").GetComponent<Animator>();
         Grid = GameObject.FindGameObjectWithTag("GridGenerator").GetComponent<CreateGrid>();
         //Grid.CreateTheGrid();
+        StartCoroutine(FixDoorOnStart());
+
     }
 
     void Update()
@@ -75,9 +77,13 @@ public class DoorControl : MonoBehaviour
 
     IEnumerator OneTimeUpdate() // Called a few seconds after game start to regenerate grid with the dome doors shut
     {
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1.4f);
         Grid.CreateTheGrid();
     }
 
-
+    IEnumerator FixDoorOnStart() // Called a few seconds after game start to regenerate grid with the dome doors shut
+    {
+        yield return new WaitForSeconds(1f);
+        Grid.CreateTheGrid();
+    }
 }

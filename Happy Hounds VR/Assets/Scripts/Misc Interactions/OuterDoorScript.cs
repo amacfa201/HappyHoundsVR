@@ -47,9 +47,9 @@ public class OuterDoorScript : MonoBehaviour
         }
     }
 
-     IEnumerator OneTimeUpdate() // Called a few seconds after game start to regenerate grid with the dome doors shut
+    IEnumerator OneTimeUpdate() // Called a few seconds after game start to regenerate grid with the dome doors shut
     {
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1.4f);
         Grid.CreateTheGrid();
     }
 }
