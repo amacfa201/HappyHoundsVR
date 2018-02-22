@@ -41,8 +41,8 @@ public class DogGrav : MonoBehaviour
     {
         if (!localGrav)
         {
-            this.gameObject.AddComponent<Rigidbody>();
-            rigid = GetComponent<Rigidbody>();
+            //this.gameObject.AddComponent<Rigidbody>();
+            //rigid = GetComponent<Rigidbody>();
             rigid.useGravity = false;
             rigid.AddForce(Vector3.up * 15f);
             localGrav = true;

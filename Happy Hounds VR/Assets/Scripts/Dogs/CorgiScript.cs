@@ -133,7 +133,7 @@ public class CorgiScript : MonoBehaviour {
             inMotion = true;
             if (gravScript.grav)
             {
-                DogMovement(transform.position, new Vector3(ball.transform.position.x, 0.0f, ball.transform.position.z));
+                DogMovement(transform.position, new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z));
             }
             else
             {

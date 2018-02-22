@@ -32,23 +32,6 @@ public class DoorControl : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        //if (other.gameObject.tag == "GameController")
-        //{
-        //    if (doorAnim.GetBool("InnerDoorOpen") == true)
-        //    {
-        //        doorAnim.SetBool("InnerDoorOpen", false);
-        //        audioManager.PlayOnce("DoorOpening");
-        //        Grid.CreateTheGrid();
-        //        print("DC door to false");
-        //    }
-        //   else
-        //    {
-        //        doorAnim.SetBool("InnerDoorOpen", true);
-        //        audioManager.PlayOnce("DoorOpening");
-        //        Grid.CreateTheGrid();
-        //        print("DC door to true");
-        //    }
-        //}
 
         if (other.gameObject.tag == "GameController")
         {
