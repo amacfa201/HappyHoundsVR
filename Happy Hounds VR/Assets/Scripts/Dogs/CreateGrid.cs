@@ -11,6 +11,7 @@ public class CreateGrid : MonoBehaviour {
     float nodeDiameter;
     int gridSizeX, gridSizeY;
     public Transform player;
+    public bool showGrid;
 
     public List<Node> path;
 
@@ -22,45 +23,55 @@ public class CreateGrid : MonoBehaviour {
         CreateTheGrid();
     }
 
+    public int MaxSize {
+        get { return gridSizeX * gridSizeY; }
+    }
+
+
     void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridSize.x, 1 ,gridSize.y));
-        if (nodeGrid != null)
+        #region OG Gizmos
+        if (showGrid)
         {
-            Node playerNode = NodeFromWorldPoint(player.position);
-            
-            foreach (Node n in nodeGrid)
+            if (nodeGrid != null)
             {
-                //Gizmos.color = (n.traversable) ? Color.white : Color.red;
-                //Gizmos.color = Color.red;
+                Node playerNode = NodeFromWorldPoint(player.position);
 
-                if (!n.traversable)
+                foreach (Node n in nodeGrid)
                 {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawCube(n.nodePos, Vector3.one * (nodeDiameter - 0.1f));
-                }
-                else
-                {
-                    Gizmos.color = Color.white;
-                    Gizmos.DrawCube(n.nodePos, Vector3.one * (nodeDiameter - 0.1f));
-                }
+                    //Gizmos.color = (n.traversable) ? Color.white : Color.red;
+                    //Gizmos.color = Color.red;
 
-                if (playerNode == n)
-                {
-                    Gizmos.color = Color.cyan;
-                    Gizmos.DrawCube(n.nodePos, Vector3.one * (nodeDiameter - 0.1f));
-                }
-                if (path != null)
-                {
-                    if (path.Contains(n))
+                    if (!n.traversable)
                     {
-                        Gizmos.color = Color.black;
+                        Gizmos.color = Color.red;
                         Gizmos.DrawCube(n.nodePos, Vector3.one * (nodeDiameter - 0.1f));
                     }
-                }
+                    else
+                    {
+                        Gizmos.color = Color.white;
+                        Gizmos.DrawCube(n.nodePos, Vector3.one * (nodeDiameter - 0.1f));
+                    }
 
+                    if (playerNode == n)
+                    {
+                        Gizmos.color = Color.cyan;
+                        Gizmos.DrawCube(n.nodePos, Vector3.one * (nodeDiameter - 0.1f));
+                    }
+                    if (path != null)
+                    {
+                        if (path.Contains(n))
+                        {
+                            Gizmos.color = Color.black;
+                            Gizmos.DrawCube(n.nodePos, Vector3.one * (nodeDiameter - 0.1f));
+                        }
+                    }
+
+                }
             }
         }
+        #endregion
     }
 
     void Update()
@@ -114,7 +125,6 @@ public class CreateGrid : MonoBehaviour {
 
         int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
-        //print(x + "/" + y);
         return nodeGrid[x, y];
     }
 

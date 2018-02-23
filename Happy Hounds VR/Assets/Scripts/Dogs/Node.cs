@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node  {
+public class Node : IHeapItem<Node>  {
 
     public bool traversable;
     public Vector3 nodePos;
@@ -12,6 +12,7 @@ public class Node  {
     public int gridX;
     public int gridY;
     public Node parent;
+    int heapIndex;
 
     public Node(bool _traversable, Vector3 _nodePos, int _gridX, int _gridY)
     {
@@ -21,16 +22,23 @@ public class Node  {
         gridY = _gridY;
     }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public int HeapIndex
+    {
+        get { return heapIndex; }
+        set { heapIndex = value; }
+    }
 
+    public int CompareTo(Node nodeToCompare)
+    {
+        int compare = fCost.CompareTo(nodeToCompare.fCost);
+        if (compare == 0)
+        {
+            compare = hCost.CompareTo(nodeToCompare.hCost);
+        }
+
+        return -compare;
+
+    }
     public int fCost
     { 
       get{

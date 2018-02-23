@@ -18,7 +18,7 @@ public class ObjectPickupScript: MonoBehaviour {
     public GameObject foodBox;
    
 
-    public CorgiScript testScript;
+    public CorgiScript _corgiScript;
     List<GameObject> foodList;
 
     private Rigidbody rigid;
@@ -45,7 +45,7 @@ public class ObjectPickupScript: MonoBehaviour {
         steamVRTrackedObject = GetComponent<SteamVR_TrackedObject>();
         //controller = SteamVR_Controller.Input((int)trackedObj.index);
         viveJoint = GetComponent<FixedJoint>();
-        testScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<CorgiScript>();
+        _corgiScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<CorgiScript>();
     }
 
     // Update is called once per frame
@@ -63,23 +63,22 @@ public class ObjectPickupScript: MonoBehaviour {
         if (viveCont.GetPressDown(controllerTrigger))
         {
             PickupObj();
-            //SpawnFood();
         }
         if (viveCont.GetPressUp(controllerTrigger))
         {
             DropObj();
         }
-        if (viveCont.GetPressDown(squeezePads) && testScript.currentlyEating == false && Vector3.Distance(new Vector3(testScript.headSetTarget.transform.position.x, 0.0f, testScript.headSetTarget.transform.position.z), testScript.transform.position) > testScript.callRadius)
+        if (viveCont.GetPressDown(squeezePads) && _corgiScript.currentlyEating == false && Vector3.Distance(new Vector3(_corgiScript.headSetTarget.transform.position.x, 0.0f, _corgiScript.headSetTarget.transform.position.z), _corgiScript.transform.position) > _corgiScript.callRadius)
         {
             //print("button down");
-            testScript.stopRadius = 1.25f;
-            testScript.calledDog = true;
+            _corgiScript.stopRadius = 1.25f;
+            _corgiScript.calledDog = true;
             FindObjectOfType<AudioManager>().PlayOnce("DogWhistle");
         }
         pourTime -= Time.deltaTime;
         if (pourTime <= 0)
         {
-            if (testScript.currentlyEating == false && holdingBox == true)
+            if (_corgiScript.currentlyEating == false)
             {
                 if ((Mathf.Abs(foodBox.transform.rotation.x) > 0.60f))
                 {
@@ -87,7 +86,7 @@ public class ObjectPickupScript: MonoBehaviour {
                     pouring = true;
                     createFood();
                     pourTime = 0.5f;
-                    testScript.numPellets++;
+                    _corgiScript.numPellets++;
                 }
             }
         }
@@ -148,19 +147,19 @@ public class ObjectPickupScript: MonoBehaviour {
         if (other.gameObject.tag == "Corgi" || other.gameObject.tag == "corgi")
         {
             print("CorgiCollision");
-            if (!testScript.currentlyEating)
+            if (!_corgiScript.currentlyEating)
             {
                 petting = true;
                 viveCont.TriggerHapticPulse(3999);
-                testScript.animState = CorgiScript.dogState.Petting;
+                _corgiScript.animState = CorgiScript.dogState.Petting;
             }
             else
             {
                 aggro = true;
                 viveCont.TriggerHapticPulse(3999);
-                testScript.animState = CorgiScript.dogState.Aggro;
+                _corgiScript.animState = CorgiScript.dogState.Aggro;
             }
-            testScript.lastInteraction = 0f;
+            _corgiScript.lastInteraction = 0f;
         }
     }
 
@@ -194,22 +193,21 @@ public class ObjectPickupScript: MonoBehaviour {
             viveJoint.connectedBody = null;
             objThrown = true;
             holdingBall = false;
-            testScript.ballThrown = true;
+            _corgiScript.ballThrown = true;
         }
 
     }
 
-    IEnumerator spawnFood()
-    {
-        yield return new WaitForSeconds(2f);
-        createFood();
-        
-    }
 
     void OnTriggerExit(Collider other)
     {
         interactObject = null;
-        holdingBox = false;
+
+        if (other.gameObject.tag == "FoodBox")
+        {
+            holdingBox = false;
+        }
+       
         petting = false;
         aggro = false;
 
@@ -217,7 +215,7 @@ public class ObjectPickupScript: MonoBehaviour {
         {
             aggro = false;
             petting = false;
-            testScript.animState = CorgiScript.dogState.Idle;
+            _corgiScript.animState = CorgiScript.dogState.Idle;
             print("state back to idle");
         }
     }
