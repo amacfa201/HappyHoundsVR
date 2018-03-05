@@ -26,7 +26,7 @@ public class ObjectPickupScript: MonoBehaviour {
     public int maxPellets = 20;
     public int DisNumPellets;
 
-    public float pourTime = 0.5f;
+    public float pourTime = 0.0f;
     //public AudioSource foodSource;
     //public AudioClip thud; // when box is dropped
     //conall

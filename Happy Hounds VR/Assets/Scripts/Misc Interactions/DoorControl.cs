@@ -7,7 +7,7 @@ public class DoorControl : MonoBehaviour
     public GameObject doors;
     public GameObject doors2;
     public CreateGrid Grid;
-
+    public bool openDoor;
 
     public bool RoomDoor; // False = Shut
 
@@ -27,13 +27,31 @@ public class DoorControl : MonoBehaviour
 
     void Update()
     {
-        print("DC  = " + doorAnim.GetBool("InnerDoorOpen"));
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (RoomDoor)
+            {
+                doorAnim.SetBool("InnerDoorOpen", false);
+                audioManager.PlayOnce("DoorOpening");
+                print("DC door to false");
+                RoomDoor = false;
+                StartCoroutine(OneTimeUpdate());
+            }
+            else
+            {
+                doorAnim.SetBool("InnerDoorOpen", true);
+                audioManager.PlayOnce("DoorOpening");
+                print("DC door to false");
+                RoomDoor = true;
+                StartCoroutine(OneTimeUpdate());
+            }
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.tag == "GameController")
+        if (other.gameObject.tag == "GameController" )
         {
             if (RoomDoor)
             {
