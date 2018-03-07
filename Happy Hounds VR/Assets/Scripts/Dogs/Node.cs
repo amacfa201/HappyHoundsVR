@@ -11,15 +11,17 @@ public class Node : IHeapItem<Node>  {
     public int hCost;
     public int gridX;
     public int gridY;
+    public int gridZ;
     public Node parent;
     int heapIndex;
 
-    public Node(bool _traversable, Vector3 _nodePos, int _gridX, int _gridY)
+    public Node(bool _traversable, Vector3 _nodePos, int _gridX, int _gridY, int _gridZ)
     {
         traversable = _traversable;
         nodePos = _nodePos;
         gridX = _gridX;
         gridY = _gridY;
+        gridZ = _gridZ;
     }
 
     public int HeapIndex

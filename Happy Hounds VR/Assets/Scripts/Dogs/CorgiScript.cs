@@ -203,7 +203,7 @@ public class CorgiScript : MonoBehaviour {
         {
             lastInteraction = 0;
             ResetRand();
-            DogMovement(transform.position, new Vector3 (bowlWaypoint.transform.position.x, bowlWaypoint.transform.position.y, bowlWaypoint.transform.position.z));
+            DogMovement(transform.position, bowlWaypoint.transform.position);
            
             //transform.position += desiredVelocity * Time.deltaTime;
         }
@@ -221,14 +221,13 @@ public class CorgiScript : MonoBehaviour {
         }
         else if (Vector3.Distance(transform.position, bowlWaypoint.transform.position) < bowlNum && currentlyEating == true)
         {
-            moveScript.StopCoroutine("FollowPath");
             print("test2");
             currentlyEating = false;
             animState = dogState.Idle;
             inBowl = 0;
         }
 
-        if (inBowl == 0 && !currentlyEating && !fetching)
+        if (inBowl == 1 && !currentlyEating && !fetching)
         {
             lastInteraction = 0;
             ResetRand();
@@ -373,12 +372,6 @@ public class CorgiScript : MonoBehaviour {
 
         moveScript.MoveTo(agent, target);
         animState = dogState.Walking;
-
-       
-        //if (desiredVelocity.sqrMagnitude > 0.0f)
-       // {
-           // transform.forward = Vector3.Normalize(target);
-       // }
     }
 
     public void IdleAnimations(int randNum)
