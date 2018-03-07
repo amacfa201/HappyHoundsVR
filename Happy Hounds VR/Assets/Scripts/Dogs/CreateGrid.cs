@@ -49,11 +49,11 @@ public class CreateGrid : MonoBehaviour {
                         Gizmos.color = Color.red;
                         Gizmos.DrawCube(n.nodePos, Vector3.one * (nodeDiameter - 0.1f));
                     }
-                    //else
-                    //{
-                    //    Gizmos.color = Color.white;
-                    //    Gizmos.DrawCube(n.nodePos, Vector3.one * (nodeDiameter - 0.1f));
-                    //}
+                    else
+                    {
+                        //Gizmos.color = Color.white;
+                        //Gizmos.DrawCube(n.nodePos, Vector3.one * (nodeDiameter - 0.1f));
+                    }
 
                     if (playerNode == n)
                     {

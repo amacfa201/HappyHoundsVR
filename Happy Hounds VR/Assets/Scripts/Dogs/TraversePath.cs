@@ -30,6 +30,10 @@ public class TraversePath : MonoBehaviour
         pathfinding = GameObject.FindGameObjectWithTag("GridGenerator").GetComponent<PathFindingScript>();
     }
 
+     void Update()
+    {
+        print(path.Length);
+    }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
@@ -89,6 +93,7 @@ public class TraversePath : MonoBehaviour
         //rotate us over time according to speed until we are in the required rotation
         transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * RotationSpeed);
     }
+
     public void OnDrawGizmos()
     {
         if (drawPath)
