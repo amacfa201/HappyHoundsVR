@@ -9,6 +9,7 @@ public class PathFindingScript : MonoBehaviour
     PathRequestManager requestManager;
     CreateGrid grid;
     WanderScript wanderScript;
+    public GameObject theDog;
 
     void Awake()
     {
@@ -23,6 +24,7 @@ public class PathFindingScript : MonoBehaviour
         StartCoroutine(FindPath(startPos, targetPos));
     }
 
+    
     IEnumerator FindPath(Vector3 startPos, Vector3 targetPos)
     {
 
@@ -32,7 +34,7 @@ public class PathFindingScript : MonoBehaviour
         Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
 
-
+        
         if (startNode.traversable && targetNode.traversable)
         {
             Heap<Node> openSet = new Heap<Node>(grid.MaxSize);

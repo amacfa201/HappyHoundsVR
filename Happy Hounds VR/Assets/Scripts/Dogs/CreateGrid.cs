@@ -83,7 +83,7 @@ public class CreateGrid : MonoBehaviour {
 
      
         //gridSizeZ = Mathf.RoundToInt(gridSize.z / nodeDiameter);
-       CreateTheGrid();
+       //CreateTheGrid();
         //StartCoroutine(OneTimeUpdate());
         //InvokeRepeating("CreateTheGrid", 0.8f, 2f);
     }

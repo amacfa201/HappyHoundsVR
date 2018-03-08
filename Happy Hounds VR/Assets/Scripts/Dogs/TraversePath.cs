@@ -48,32 +48,34 @@ public class TraversePath : MonoBehaviour
     
 
 
-    IEnumerator FollowPath()
+    public IEnumerator FollowPath()
     {
-
-        Vector3 currentWaypoint = path[0];
-        while (true)
+        if (path != null)
         {
-            //print(targetIndex);
-            if (transform.position == currentWaypoint)
+            Vector3 currentWaypoint = path[0];
+            while (true)
             {
-                targetIndex++;
-                pointIndex++;
-                if (targetIndex >= path.Length)
+                //print(targetIndex);
+                if (transform.position == currentWaypoint)
                 {
-                    yield break;
+                    targetIndex++;
+                    pointIndex++;
+                    if (targetIndex >= path.Length)
+                    {
+                        yield break;
+                    }
+                    currentWaypoint = path[targetIndex];
                 }
-                currentWaypoint = path[targetIndex];
+
+                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+
+
+
+                LookAt(currentWaypoint);
+
+                yield return null;
+
             }
-
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-
-            
-
-            LookAt(currentWaypoint);
-
-            yield return null;
-
         }
     }
 
@@ -97,7 +99,7 @@ public class TraversePath : MonoBehaviour
             for (int i = targetIndex; i < path.Length; i++)
             {
                 Gizmos.color = Color.black;
-                Gizmos.DrawCube(path[i], Vector3.one);
+                Gizmos.DrawCube(path[i], new Vector3(0.25f,0.25f,0.25f));
 
                 if (i == targetIndex)
                 {
