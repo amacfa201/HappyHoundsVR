@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CreateGrid : MonoBehaviour {
 
-    Node[,,] nodeGrid;
-    public Vector3 gridSize;
+    Node[,] nodeGrid;
+    public Vector2 gridSize;
     public float nodeRadius;
     public LayerMask untraversableMask;
     float nodeDiameter;
-    int gridSizeX, gridSizeY, gridSizeZ;
+    int gridSizeX, gridSizeY;
     public Transform player;
     public bool showGrid;
 
@@ -20,18 +20,17 @@ public class CreateGrid : MonoBehaviour {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridSize.y / nodeDiameter);
-        gridSizeZ = Mathf.RoundToInt(gridSize.z / nodeDiameter);
         CreateTheGrid();
     }
 
     public int MaxSize {
-        get { return gridSizeX * gridSizeY * gridSizeZ; }
+        get { return gridSizeX * gridSizeY; }
     }
 
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridSize.x, gridSize.y ,gridSize.z));
+        Gizmos.DrawWireCube(transform.position, new Vector3(gridSize.x, 1 ,gridSize.y));
         #region OG Gizmos
         if (showGrid)
         {
@@ -51,8 +50,8 @@ public class CreateGrid : MonoBehaviour {
                     }
                     else
                     {
-                        //Gizmos.color = Color.white;
-                        //Gizmos.DrawCube(n.nodePos, Vector3.one * (nodeDiameter - 0.1f));
+                        Gizmos.color = Color.white;
+                        Gizmos.DrawCube(n.nodePos, Vector3.one * (nodeDiameter - 0.1f));
                     }
 
                     if (playerNode == n)
@@ -81,30 +80,30 @@ public class CreateGrid : MonoBehaviour {
         //print("y = " + Vector3.forward * gridSize.y / 2);
         //print("z = " + Vector3.up * gridSize.z / 2);
         //print("BL = " + (transform.position - Vector3.right * gridSize.x / 2 - Vector3.forward * gridSize.y / 2 - Vector3.up * gridSize.z / 2));
-        
+
+     
         //gridSizeZ = Mathf.RoundToInt(gridSize.z / nodeDiameter);
-       //CreateTheGrid();
+       CreateTheGrid();
         //StartCoroutine(OneTimeUpdate());
         //InvokeRepeating("CreateTheGrid", 0.8f, 2f);
     }
 
     public void CreateTheGrid()
     {
-        nodeGrid = new Node[gridSizeX, gridSizeY, gridSizeZ];
+        nodeGrid = new Node[gridSizeX, gridSizeY];
         //Vector3 worldBottomLeft = transform.position - Vector3.right * gridSize.x / 2  -Vector3.forward * gridSize.y / 2 -Vector3.up * gridSize.z/2;
-        Vector3 worldBottomLeft = transform.position - Vector3.right * gridSize.x / 2 - Vector3.up * gridSize.y / 2 -Vector3.forward * gridSize.z / 2; 
+        Vector3 worldBottomLeft = transform.position - Vector3.right * gridSize.x / 2 - Vector3.forward * gridSize.y / 2; 
         //print("BL = " + worldBottomLeft);
         for (int i = 0; i < gridSizeX; i++)
         {
             for (int j = 0; j < gridSizeY; j++)
             {
-                for (int k = 0; k < gridSizeZ; k++)
-                {
-                    Vector3 worldPoint = worldBottomLeft + Vector3.right * (i * nodeDiameter + nodeRadius) + Vector3.up * (j * nodeDiameter + nodeRadius) + Vector3.forward * (k * nodeDiameter + nodeRadius);
 
+                Vector3 worldPoint = worldBottomLeft + Vector3.right * (i * nodeDiameter + nodeRadius) + Vector3.forward * (j * nodeDiameter + nodeRadius);
+    
                     bool traversable = !(Physics.CheckSphere(worldPoint, nodeRadius, untraversableMask));
-                    nodeGrid[i, j, k] = new Node(traversable, worldPoint, i, j, k);
-                }
+                    nodeGrid[i, j] = new Node(traversable, worldPoint, i,j);
+               
             }
         }
     }
@@ -120,17 +119,14 @@ public class CreateGrid : MonoBehaviour {
     public Node NodeFromWorldPoint(Vector3 worldPosition)
     {
         float percentX = (worldPosition.x - transform.position.x) / gridSize.x + 0.5f - (nodeRadius / gridSize.x);
-        float percentY = (worldPosition.y - transform.position.y) / gridSize.y + 0.5f - (nodeRadius / gridSize.y);
-        float percentZ = (worldPosition.z - transform.position.z) / gridSize.z + 0.5f - (nodeRadius / gridSize.z);
+        float percentY = (worldPosition.z - transform.position.z) / gridSize.y + 0.5f - (nodeRadius / gridSize.y);
 
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
-        percentZ = Mathf.Clamp01(percentZ);
 
         int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
-        int z = Mathf.RoundToInt((gridSizeY - 1) * percentZ);
-        return nodeGrid[x, y, z];
+        return nodeGrid[x, y];
     }
 
     public List<Node> GetNeighbours(Node node)
@@ -140,50 +136,40 @@ public class CreateGrid : MonoBehaviour {
         {
             for (int y = -1; y <= 1; y++)
             {
-                for (int z = -1; z <= 1; z++)
+                if (x == 0 && y == 0)
                 {
-
-                    if (x == 0 && y == 0 && z == 0)
-                    {
-                        continue;
-                    }
-
-                    int checkX = node.gridX + x;
-                    int checkY = node.gridY + y;
-                    int checkZ = node.gridZ + y;
-
-                    if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY && checkZ >= 0 && checkZ < gridSizeZ)
-                    {
-                        neighbours.Add(nodeGrid[checkX, checkY, checkZ]);
-                    }
+                    continue;
                 }
+
+                int checkX = node.gridX + x;
+                int checkY = node.gridY + y;
+
+                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+                {
+                    neighbours.Add(nodeGrid[checkX, checkY]);
+                }
+
             }
         }
         return neighbours;
     }
 
-<<<<<<< HEAD
 
     public Node PickRandNode()
     {
         int x = Random.Range(0, gridSizeX);
         int y = Random.Range(0, gridSizeY);
-        int z = Random.Range(0, gridSizeZ);
 
-        Node RandNode = nodeGrid[x, y, z];
+        Node RandNode = nodeGrid[x, y];
 
         while (!RandNode.traversable)
         {
             x = Random.Range(0, gridSizeX);
             y = Random.Range(0, gridSizeY);
-            z = Random.Range(0, gridSizeZ);
-            RandNode = nodeGrid[x, y, z];
+            RandNode = nodeGrid[x, y];
         }
 
         return RandNode;
     }
 
-=======
-    
->>>>>>> parent of 8da3bf0... Fixed wander
 }

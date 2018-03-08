@@ -27,7 +27,7 @@ public class DoorControl : MonoBehaviour
 
     void Update()
     {
-        print("DC  = " + doorAnim.GetBool("InnerDoorOpen"));
+        
     }
 
     void OnTriggerEnter(Collider other)

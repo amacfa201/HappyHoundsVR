@@ -21,7 +21,7 @@ public class CorgiScript : MonoBehaviour {
     public PettingScript _pettingScript;
     public ObjectPickupScript _objectPickup;
 
-    public TraversePath path;
+    public TraversePath moveScript;
 
     public AudioManager audioManager;
 
@@ -60,6 +60,8 @@ public class CorgiScript : MonoBehaviour {
     public bool goEat;
     bool inMotion;
 
+   
+
     private string animatorName;
     //private SteamVR_TrackedObject trackedObj;
     //private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
@@ -79,7 +81,7 @@ public class CorgiScript : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        exterior.SetActive(true);
+        //exterior.SetActive(true);
         anim = GetComponent<Animator>();
         animatorName = anim.name;
         animState = dogState.Idle;
@@ -89,8 +91,8 @@ public class CorgiScript : MonoBehaviour {
         _pettingScript = GetComponent<PettingScript>();
         randInteractionTime = Random.Range(5, 12);
         gravScript = GameObject.FindGameObjectWithTag("GravityButton").GetComponent<GravityButton>();
-        path = GetComponent<TraversePath>();
-        //path.MoveDog(transform.position, testTarget.transform.position);
+        moveScript = GetComponent<TraversePath>();
+        //moveScript.MoveTo(transform.position, testTarget.transform.position);
     }
     // Update is called once per frame
     void Update()
@@ -98,9 +100,9 @@ public class CorgiScript : MonoBehaviour {
         lastInteraction += Time.deltaTime;
         //transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
         //Animation ENums
-        SetDogStates();
+        //SetDogStates();
         CheckDogEat();
-
+        //moveScript.Wander();
 
         //RAND ANIM STUFF
         //if (lastInteraction > randInteractionTime)
@@ -186,7 +188,7 @@ public class CorgiScript : MonoBehaviour {
 
         if (goEat)
         {
-            path.MoveDog(transform.position, testTarget.transform.position);
+            moveScript.MoveTo(transform.position, testTarget.transform.position);
         }
 
         ///////////////////////////////////////////////////
@@ -206,12 +208,8 @@ public class CorgiScript : MonoBehaviour {
         {
             lastInteraction = 0;
             ResetRand();
-<<<<<<< HEAD
-            DogMovement(transform.position, bowlWaypoint.transform.position);
-=======
             stopRadius = bowlRadius;
             DogMovement(transform.position, new Vector3 (bowlWaypoint.transform.position.x, bowlWaypoint.transform.position.y, bowlWaypoint.transform.position.z));
->>>>>>> parent of 8da3bf0... Fixed wander
            
             //transform.position += desiredVelocity * Time.deltaTime;
         }
@@ -235,11 +233,7 @@ public class CorgiScript : MonoBehaviour {
             inBowl = 0;
         }
 
-<<<<<<< HEAD
-        if (inBowl == 1 && !currentlyEating && !fetching)
-=======
         if (inBowl >= 15 && !currentlyEating && !fetching)
->>>>>>> parent of 8da3bf0... Fixed wander
         {
             lastInteraction = 0;
             ResetRand();
@@ -382,8 +376,14 @@ public class CorgiScript : MonoBehaviour {
         //}
         #endregion
 
-        path.MoveDog(agent, target);
+        moveScript.MoveTo(agent, target);
         animState = dogState.Walking;
+
+       
+        //if (desiredVelocity.sqrMagnitude > 0.0f)
+       // {
+           // transform.forward = Vector3.Normalize(target);
+       // }
     }
 
     public void IdleAnimations(int randNum)

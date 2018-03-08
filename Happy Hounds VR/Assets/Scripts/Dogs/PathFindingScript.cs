@@ -8,11 +8,13 @@ public class PathFindingScript : MonoBehaviour
 
     PathRequestManager requestManager;
     CreateGrid grid;
+    WanderScript wanderScript;
 
     void Awake()
     {
         requestManager = GetComponent<PathRequestManager>();
         grid = GetComponent<CreateGrid>();
+        wanderScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<WanderScript>();
     }
 
 
@@ -71,7 +73,12 @@ public class PathFindingScript : MonoBehaviour
         yield return null;
         if (pathSuccess)
         {
+            wanderScript.foundPath = true;
             waypoints = RetracePath(startNode, targetNode);
+        }
+        else
+        {
+            Array.Resize(ref waypoints, 0);
         }
         requestManager.FinishedProcessingPath(waypoints, pathSuccess);
 
@@ -96,11 +103,11 @@ public class PathFindingScript : MonoBehaviour
     Vector3[] SimplifyPath(List<Node> path)
     {
         List<Vector3> waypoints = new List<Vector3>();
-        Vector3 directionOld = Vector3.zero;
+        Vector2 directionOld = Vector2.zero;
 
         for (int i = 1; i < path.Count; i++)
         {
-            Vector3 directionNew = new Vector3(path[i - 1].gridX - path[i].gridX, path[i - 1].gridY - path[i].gridY, path[i - 1].gridZ - path[i].gridZ);
+            Vector2 directionNew = new Vector2(path[i - 1].gridX - path[i].gridX, path[i - 1].gridY - path[i].gridY);
             if (directionNew != directionOld)
             {
                 waypoints.Add(path[i].nodePos);
@@ -114,45 +121,10 @@ public class PathFindingScript : MonoBehaviour
     {
         int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
         int dstY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
-        int dstZ = Mathf.Abs(nodeA.gridZ - nodeB.gridZ);
 
-        return dstX * dstX + dstY * dstY + dstZ * dstZ;
-        //if (dstX > dstY && dstX > dstZ)
-        //{
-        //    if (dstY > dstZ)
-        //    {
-        //        return 17 * dstZ + 14 * (dstY - dstZ) + 10 * (dstX - dstY - dstZ);
-        //    }
-        //    else
-        //    {
-        //        return 17 * dstY + 14 * (dstZ - dstY) + 10 * (dstX - dstZ - dstY);
-        //    }
-
-        //}
-        //else if (dstY > dstX && dstY > dstZ)
-        //{
-        //    if (dstX > dstZ)
-        //    {
-        //        return 17 * dstZ + 14 * (dstX - dstZ) + 10 * (dstY - dstX - dstZ);
-        //    }
-        //    else
-        //    {
-        //        return 17 * dstX + 14 * (dstZ - dstX) + 10 * (dstY - dstZ - dstX);
-        //    }
-
-        //}
-        //else
-        //{
-        //    if (dstX > dstY)
-        //    {
-        //        return 17 * dstY + 14 * (dstX - dstY) + 10 * (dstZ - dstX - dstY);
-        //    }
-        //    else
-        //    {
-        //        return 17 * dstX + 14 * (dstY - dstX) + 10 * (dstZ - dstY - dstX);
-        //    }
-        //}
-
+        if (dstX > dstY)
+            return 14 * dstY + 10 * (dstX - dstY);
+        return 14 * dstX + 10 * (dstY - dstX);
     }
 
 
