@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Happy Hounds VR", "Happy Hounds VR.csproj", "{B83C3CE1-A946-7602-2C8D-1975A782A52B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Happy Hounds VR.Plugins", "Happy Hounds VR.Plugins.csproj", "{00A38E10-B0FF-8647-FD70-617166DB6308}"

@@ -21,24 +21,7 @@ public class OuterDoorScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            if (domeDoor)
-            {
-                doorAnim.SetBool("OuterDoorOpen", false);
-                audioManager.PlayOnce("DoorOpening");
-                print("DC door to false");
-                domeDoor = false;
-                StartCoroutine(OneTimeUpdate());
-            }
-            else
-            {
-                doorAnim.SetBool("OuterDoorOpen", true);
-                audioManager.PlayOnce("DoorOpening");
-                print("DC door to false");
-                domeDoor = true;
-                StartCoroutine(OneTimeUpdate());
-            }
-        }
+
     }
 
     void OnTriggerEnter(Collider other)

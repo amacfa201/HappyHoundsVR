@@ -81,8 +81,7 @@ public class CreateGrid : MonoBehaviour {
         //print("y = " + Vector3.forward * gridSize.y / 2);
         //print("z = " + Vector3.up * gridSize.z / 2);
         //print("BL = " + (transform.position - Vector3.right * gridSize.x / 2 - Vector3.forward * gridSize.y / 2 - Vector3.up * gridSize.z / 2));
-
-     
+        
         //gridSizeZ = Mathf.RoundToInt(gridSize.z / nodeDiameter);
        //CreateTheGrid();
         //StartCoroutine(OneTimeUpdate());
@@ -163,6 +162,7 @@ public class CreateGrid : MonoBehaviour {
         return neighbours;
     }
 
+<<<<<<< HEAD
 
     public Node PickRandNode()
     {
@@ -183,4 +183,7 @@ public class CreateGrid : MonoBehaviour {
         return RandNode;
     }
 
+=======
+    
+>>>>>>> parent of 8da3bf0... Fixed wander
 }

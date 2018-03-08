@@ -8,18 +8,11 @@ public class PathFindingScript : MonoBehaviour
 
     PathRequestManager requestManager;
     CreateGrid grid;
-    WanderScript wanderScript;
-    TraversePath path;
-
-    public Vector3 starty;
-    public Vector3 Endeo;
 
     void Awake()
     {
         requestManager = GetComponent<PathRequestManager>();
         grid = GetComponent<CreateGrid>();
-        wanderScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<WanderScript>();
-        path = GameObject.FindGameObjectWithTag("Corgi").GetComponent<TraversePath>();
     }
 
 
@@ -33,8 +26,7 @@ public class PathFindingScript : MonoBehaviour
 
         Vector3[] waypoints = new Vector3[0];
         bool pathSuccess = false;
-        starty = startPos;
-        Endeo = targetPos;
+
         Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
 
@@ -79,12 +71,7 @@ public class PathFindingScript : MonoBehaviour
         yield return null;
         if (pathSuccess)
         {
-            wanderScript.foundPath = true;
             waypoints = RetracePath(startNode, targetNode);
-        }
-        else
-        {
-            Array.Resize(ref path.path, 0);
         }
         requestManager.FinishedProcessingPath(waypoints, pathSuccess);
 
@@ -168,14 +155,5 @@ public class PathFindingScript : MonoBehaviour
 
     }
 
-
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawCube(starty, new Vector3(0.5f, 0.5f, 0.5f));
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawCube(Endeo, new Vector3(0.5f, 0.5f, 0.5f));
-    }
 
 }

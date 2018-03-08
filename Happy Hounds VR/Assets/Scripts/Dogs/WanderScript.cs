@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class WanderScript : MonoBehaviour
 {
@@ -22,70 +21,179 @@ public class WanderScript : MonoBehaviour
     bool waiting;
     bool checking;
     bool useWhile; //testing only
-    bool doOnce;
-    public bool foundPath;
-
-    public CreateGrid grid;
-    public CorgiScript corgi;
-    public TraversePath path;
-
-    Node StartNode;
-    Node Target;
-
-    void Awake()
-    {
-        grid = GameObject.FindGameObjectWithTag("GridGenerator").GetComponent<CreateGrid>();
-        corgi = GameObject.FindGameObjectWithTag("Corgi").GetComponent<CorgiScript>();
-        path = GetComponent<TraversePath>();
-        
-    }
-
+    // Update is called once per frame
     void Update()
     {
-        
-        Wander();
-       
-    }
-
-    public void Wander()
-    {
-        if (!doOnce)
+        testVec3 = desiredVelocity;
+        if (!waiting && !checking )
         {
-            Target = grid.PickRandNode();
-            path.MoveTo(transform.position, Target.nodePos);
-            doOnce = true;
+            FindNewPoint();
+            StartCoroutine(temp());
+        }
+        else
+        {
+            transform.position += desiredVelocity * Time.deltaTime;
+            transform.position = new Vector3(transform.position.x, 0.0f, transform.position.z);
+        }
+        if (desiredVelocity.sqrMagnitude > 0.0f)
+        {
+            transform.forward = Vector3.Normalize(new Vector3(desiredVelocity.x, 0.0f, desiredVelocity.z));
+        }
+        if (transform.position == testVec3)
+        {
+            waiting = false;
+        }
+    }
+    public Vector3 FindNewPoint()
+    {
+        int numLoops = 0;
+        Vector3 randPoint = Random.insideUnitCircle * circleRadius;
+
+        randPoint += transform.position + new Vector3((transform.forward.x * circleDistance), 0.0f, (transform.forward.z * circleDistance));
+        #region
+        //print("point = " + Physics.OverlapSphere(randPoint, overlapRadius, untraversableMask));
+
+        //for(int i= 0; i < (Physics.OverlapSphere(randPoint, overlapRadius, untraversableMask)).Length; i++)
+
+        //{
+
+        //    if (Physics.OverlapSphere(randPoint, overlapRadius, untraversableMask)[i].)
+        //    {
+
+        //    }
+
+        //}
+
+        //if (Physics2D.OverlapCircle(randPoint, overlapRadius, untraversableMask) == false)
+        //{
+        //    desiredVelocity = Vector3.Normalize(randPoint - transform.position) * 1.25f;
+        //}
+
+        //Vector3[] points = null;
+        //RaycastHit hit;
+        //points[0] = randPoint;
+        //points[1] = new Vector3(randPoint.x += pointOffset, randPoint.y, randPoint.z);
+        //points[2] = new Vector3(randPoint.x -= pointOffset, randPoint.y, randPoint.z);
+        //points[3] = new Vector3(randPoint.x, randPoint.y, randPoint.z += pointOffset);
+        //points[4] = new Vector3(randPoint.x, randPoint.y, randPoint.z += pointOffset);
+        //int clearPoints = 0;
+
+        //if (clearPoints != points.Length)
+        //{
+        //    for (int i = 0; i < points.Length; i++)
+        //    {
+
+        //        Physics.Raycast(points[i], Vector3.down, out hit, 15);
+        //        if (hit.collider.gameObject.tag == "floor")
+        //        {
+        //            clearPoints++;
+        //        }
+        //    }
+
+        //}
+
+
+        //bool pointClear = CheckPoints (randPoint);
+
+
+
+
+        //int loops = 0;
+
+        //while (pointClear == false || loops < 3)
+        //{
+        //    loops++;
+        //    print("loops: " + loops);
+        //    randPoint = Random.insideUnitCircle * circleRadius;
+        //    randPoint += transform.position + new Vector3((transform.forward.x * circleDistance), 0.0f, (transform.forward.z * circleDistance));
+        //    print("while loop");
+        //    if (CheckPoints(randPoint))
+        //    {
+        //        print("while if stat");
+        //        pointClear = true;
+        //    }
+        //}
+
+
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    bool pointClear = false;
+        //    randPoint = Random.insideUnitCircle * circleRadius;
+        //    randPoint += transform.position + new Vector3((transform.forward.x * circleDistance), 0.0f, (transform.forward.z * circleDistance));
+        //    //print("while loop");
+        //    if (CheckPoints(randPoint))
+        //    {
+        //        print("method returned true to for loop");
+        //        pointClear = true;
+        //        desiredVelocity = Vector3.Normalize(randPoint - transform.position) * 1.25f;
+        //        return desiredVelocity;
+        //    }
+        //    else
+        //    { break; }
+        //}
+#endregion
+        bool pointClear = CheckPoints(randPoint);
+
+        while (pointClear == false)
+        {
+            numLoops++;
+            checking = true;
+            randPoint = Random.insideUnitCircle * circleRadius;
+            randPoint += transform.position + new Vector3((transform.forward.x * circleDistance), 0.0f, (transform.forward.z * circleDistance));
+            if (numLoops > 5)
+            {
+                randPoint = resetPoint.transform.position;
+                checking = false;
+                break;
+            }
+            if (CheckPoints(randPoint) == true)
+            {
+                pointClear = true;
+                checking = false;
+                break;
+            }
+        }
+        desiredVelocity = Vector3.Normalize(randPoint - transform.position) * 1.25f;
+        return desiredVelocity;
+    }
+    IEnumerator temp()
+    {
+        waiting = true;
+        yield return new WaitForSeconds(2f);
+        waiting = false;
+    }
+    bool CheckPoints(Vector3 randPoint)
+    {
+        points[0] = new Vector3(randPoint.x, randPoint.y, randPoint.z);
+        points[1] = new Vector3(randPoint.x += pointOffset, randPoint.y, randPoint.z);
+        points[2] = new Vector3(randPoint.x -= pointOffset, randPoint.y, randPoint.z);
+        points[3] = new Vector3(randPoint.x, randPoint.y, randPoint.z += pointOffset);
+        points[4] = new Vector3(randPoint.x, randPoint.y, randPoint.z -= pointOffset);
+        int clearPoints = 0;
+
+        for (int i = 0; i < points.Length; i++)
+        {
+            Ray castDown = new Ray(new Vector3(points[i].x, 10, points[i].z), -Vector3.up);
+			if (Physics.Raycast (castDown, out hit)) {
+                if (hit.collider.gameObject.tag == "plane")
+                {
+                    clearPoints++;
+                }
+                else
+                {
+                }
+			}
         }
 
-        if (Vector3.Distance(transform.position, Target.nodePos) < 1 ||  path.path.Length == 0)
+        if (clearPoints == points.Length)
         {
-            
-            Array.Resize(ref path.path, 0);
-            Target = grid.PickRandNode();
-            path.MoveTo(transform.position, Target.nodePos);
-            
+            print("return true");
+            return true;
         }
-
-        
-    }
-
-    IEnumerator UpdateWander(Node StartNode, Node Target)
-    {
-        yield return new WaitForSeconds(3f);
-
-        if (Vector3.Distance(transform.position, Target.nodePos) < 1 || path.path == null)
+        else
         {
-            StartNode = grid.NodeFromWorldPoint(transform.position);
-            Target = grid.PickRandNode();
-            path.MoveTo(transform.position, Target.nodePos);
+            return false;
         }
-
-    }
-
-
-     void OnOnDrawGizmos()
-    {
-        Gizmos.color = Color.black;
-        Gizmos.DrawCube(Target.nodePos, Vector3.one * (0.4f - 0.1f));
     }
 
 }

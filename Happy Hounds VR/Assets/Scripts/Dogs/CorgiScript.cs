@@ -21,7 +21,7 @@ public class CorgiScript : MonoBehaviour {
     public PettingScript _pettingScript;
     public ObjectPickupScript _objectPickup;
 
-    public TraversePath moveScript;
+    public TraversePath path;
 
     public AudioManager audioManager;
 
@@ -43,7 +43,7 @@ public class CorgiScript : MonoBehaviour {
     public float callRadius = 1.4f;
     public float stopRadius = 1.25f; //0.375f;
     public float bowlNum = 0.75f;
-    public float bowlRadius = 0.45f;
+    public float bowlRadius = 0.38f;
     public float ballRadius = 0.48f;
     public float randInteractionTime;
     public float fetchNum = 0.48f;
@@ -57,10 +57,8 @@ public class CorgiScript : MonoBehaviour {
     public bool ballDropped;
     public bool fetching;
     public bool called;
-    public bool activateIdleState;
+    public bool goEat;
     bool inMotion;
-
-   
 
     private string animatorName;
     //private SteamVR_TrackedObject trackedObj;
@@ -91,8 +89,8 @@ public class CorgiScript : MonoBehaviour {
         _pettingScript = GetComponent<PettingScript>();
         randInteractionTime = Random.Range(5, 12);
         gravScript = GameObject.FindGameObjectWithTag("GravityButton").GetComponent<GravityButton>();
-        moveScript = GetComponent<TraversePath>();
-        moveScript.MoveTo(transform.position, testTarget.transform.position);
+        path = GetComponent<TraversePath>();
+        //path.MoveDog(transform.position, testTarget.transform.position);
     }
     // Update is called once per frame
     void Update()
@@ -102,25 +100,24 @@ public class CorgiScript : MonoBehaviour {
         //Animation ENums
         SetDogStates();
         CheckDogEat();
-        //moveScript.Wander();
+
 
         //RAND ANIM STUFF
-        if (activateIdleState)
-        {
-            if (lastInteraction > randInteractionTime)
-            {
-                GetComponent<IdleBehaviours>().enabled = true;
-            }
-            else
-            {
-                GetComponent<IdleBehaviours>().enabled = false;
-            }
+        //if (lastInteraction > randInteractionTime)
+        //{
+        //    GetComponent<IdleBehaviours>().enabled = true;
+        //}
+        //else
+        //{
+        //    GetComponent<IdleBehaviours>().enabled = false;
+        //}
 
-            if (!GetComponent<IdleBehaviours>().enabled)
-            {
-                anim.SetFloat("idle", 0f);
-            }
+        if (!GetComponent<IdleBehaviours>().enabled)
+        {
+            anim.SetFloat("idle", 0f);
         }
+
+       
 
         ////////////////BALL//////////////////////
         #region attempt2
@@ -184,6 +181,12 @@ public class CorgiScript : MonoBehaviour {
             //lastInteraction = 0;
             //ResetRand();
             ballDropped = false;
+      
+        }
+
+        if (goEat)
+        {
+            path.MoveDog(transform.position, testTarget.transform.position);
         }
 
         ///////////////////////////////////////////////////
@@ -196,14 +199,19 @@ public class CorgiScript : MonoBehaviour {
 
             Vector3 steeringVelocity = Vector3.zero;
             DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z));
-           //transform.position += desiredVelocity * Time.deltaTime;
+           // transform.position += desiredVelocity * Time.deltaTime;
         }
 
         if (dogEat && !calledDog && !fetching)
         {
             lastInteraction = 0;
             ResetRand();
+<<<<<<< HEAD
             DogMovement(transform.position, bowlWaypoint.transform.position);
+=======
+            stopRadius = bowlRadius;
+            DogMovement(transform.position, new Vector3 (bowlWaypoint.transform.position.x, bowlWaypoint.transform.position.y, bowlWaypoint.transform.position.z));
+>>>>>>> parent of 8da3bf0... Fixed wander
            
             //transform.position += desiredVelocity * Time.deltaTime;
         }
@@ -227,7 +235,11 @@ public class CorgiScript : MonoBehaviour {
             inBowl = 0;
         }
 
+<<<<<<< HEAD
         if (inBowl == 1 && !currentlyEating && !fetching)
+=======
+        if (inBowl >= 15 && !currentlyEating && !fetching)
+>>>>>>> parent of 8da3bf0... Fixed wander
         {
             lastInteraction = 0;
             ResetRand();
@@ -370,7 +382,7 @@ public class CorgiScript : MonoBehaviour {
         //}
         #endregion
 
-        moveScript.MoveTo(agent, target);
+        path.MoveDog(agent, target);
         animState = dogState.Walking;
     }
 

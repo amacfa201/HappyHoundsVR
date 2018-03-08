@@ -62,16 +62,12 @@
      <Compile Include="Assets\Scripts\Dogs\CorgiScript.cs" />
      <Compile Include="Assets\Scripts\Dogs\CreateGrid.cs" />
      <Compile Include="Assets\Scripts\Dogs\DogGrav.cs" />
-     <Compile Include="Assets\Scripts\Dogs\Heap.cs" />
      <Compile Include="Assets\Scripts\Dogs\IdleBehaviours.cs" />
      <Compile Include="Assets\Scripts\Dogs\Node.cs" />
      <Compile Include="Assets\Scripts\Dogs\NoseScript.cs" />
-     <Compile Include="Assets\Scripts\Dogs\PathFindingScript.cs" />
-     <Compile Include="Assets\Scripts\Dogs\PathRequestManager.cs" />
+     <Compile Include="Assets\Scripts\Dogs\PathfingScript.cs" />
      <Compile Include="Assets\Scripts\Dogs\PettingScript.cs" />
-     <Compile Include="Assets\Scripts\Dogs\TraversePath.cs" />
      <Compile Include="Assets\Scripts\Dogs\WanderScript.cs" />
-     <Compile Include="Assets\Scripts\Lerp.cs" />
      <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
      <Compile Include="Assets\Scripts\Managers\SceneReset.cs" />
      <Compile Include="Assets\Scripts\Managers\Sound.cs" />
