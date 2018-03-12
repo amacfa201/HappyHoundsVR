@@ -80,7 +80,8 @@ public class CreateGrid : MonoBehaviour {
         //print("y = " + Vector3.forward * gridSize.y / 2);
         //print("z = " + Vector3.up * gridSize.z / 2);
         //print("BL = " + (transform.position - Vector3.right * gridSize.x / 2 - Vector3.forward * gridSize.y / 2 - Vector3.up * gridSize.z / 2));
-        
+
+     
         //gridSizeZ = Mathf.RoundToInt(gridSize.z / nodeDiameter);
        //CreateTheGrid();
         //StartCoroutine(OneTimeUpdate());
@@ -153,5 +154,22 @@ public class CreateGrid : MonoBehaviour {
         return neighbours;
     }
 
-    
+
+    public Node PickRandNode()
+    {
+        int x = Random.Range(0, gridSizeX);
+        int y = Random.Range(0, gridSizeY);
+
+        Node RandNode = nodeGrid[x, y];
+
+        while (!RandNode.traversable)
+        {
+            x = Random.Range(0, gridSizeX);
+            y = Random.Range(0, gridSizeY);
+            RandNode = nodeGrid[x, y];
+        }
+
+        return RandNode;
+    }
+
 }

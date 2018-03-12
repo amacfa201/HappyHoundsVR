@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 68d86202bdb860343b068154bc2f82b5
 timeCreated: 1520508337
 licenseType: Free
+=======
+guid: b24eddf0bf817c641ae155e410e3d7f4
+timeCreated: 1520504228
+licenseType: Pro
+>>>>>>> 1b591dde839d4da822ad31252bf089b53bacd3cb
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:

@@ -8,11 +8,14 @@ public class PathFindingScript : MonoBehaviour
 
     PathRequestManager requestManager;
     CreateGrid grid;
+    WanderScript wanderScript;
+    public GameObject theDog;
 
     void Awake()
     {
         requestManager = GetComponent<PathRequestManager>();
         grid = GetComponent<CreateGrid>();
+        wanderScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<WanderScript>();
     }
 
 
@@ -21,6 +24,7 @@ public class PathFindingScript : MonoBehaviour
         StartCoroutine(FindPath(startPos, targetPos));
     }
 
+    
     IEnumerator FindPath(Vector3 startPos, Vector3 targetPos)
     {
 
@@ -30,7 +34,7 @@ public class PathFindingScript : MonoBehaviour
         Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
 
-
+        
         if (startNode.traversable && targetNode.traversable)
         {
             Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
@@ -71,7 +75,12 @@ public class PathFindingScript : MonoBehaviour
         yield return null;
         if (pathSuccess)
         {
+            wanderScript.foundPath = true;
             waypoints = RetracePath(startNode, targetNode);
+        }
+        else
+        {
+            Array.Resize(ref waypoints, 0);
         }
         requestManager.FinishedProcessingPath(waypoints, pathSuccess);
 

@@ -21,7 +21,7 @@ public class CorgiScript : MonoBehaviour {
     public PettingScript _pettingScript;
     public ObjectPickupScript _objectPickup;
 
-    public TraversePath path;
+    public TraversePath moveScript;
 
     public AudioManager audioManager;
 
@@ -60,6 +60,8 @@ public class CorgiScript : MonoBehaviour {
     public bool goEat;
     bool inMotion;
 
+   
+
     private string animatorName;
     //private SteamVR_TrackedObject trackedObj;
     //private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
@@ -79,7 +81,7 @@ public class CorgiScript : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        exterior.SetActive(true);
+        //exterior.SetActive(true);
         anim = GetComponent<Animator>();
         animatorName = anim.name;
         animState = dogState.Idle;
@@ -89,8 +91,8 @@ public class CorgiScript : MonoBehaviour {
         _pettingScript = GetComponent<PettingScript>();
         randInteractionTime = Random.Range(5, 12);
         gravScript = GameObject.FindGameObjectWithTag("GravityButton").GetComponent<GravityButton>();
-        path = GetComponent<TraversePath>();
-        //path.MoveDog(transform.position, testTarget.transform.position);
+        moveScript = GetComponent<TraversePath>();
+        //moveScript.MoveTo(transform.position, testTarget.transform.position);
     }
     // Update is called once per frame
     void Update()
@@ -98,9 +100,9 @@ public class CorgiScript : MonoBehaviour {
         lastInteraction += Time.deltaTime;
         //transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
         //Animation ENums
-        SetDogStates();
+        //SetDogStates();
         CheckDogEat();
-
+        //moveScript.Wander();
 
         //RAND ANIM STUFF
         //if (lastInteraction > randInteractionTime)
@@ -117,7 +119,7 @@ public class CorgiScript : MonoBehaviour {
             anim.SetFloat("idle", 0f);
         }
 
-       
+
 
         ////////////////BALL//////////////////////
         #region attempt2
@@ -181,12 +183,7 @@ public class CorgiScript : MonoBehaviour {
             //lastInteraction = 0;
             //ResetRand();
             ballDropped = false;
-      
-        }
 
-        if (goEat)
-        {
-            path.MoveDog(transform.position, testTarget.transform.position);
         }
 
         ///////////////////////////////////////////////////
@@ -199,20 +196,18 @@ public class CorgiScript : MonoBehaviour {
 
             Vector3 steeringVelocity = Vector3.zero;
             DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z));
-           // transform.position += desiredVelocity * Time.deltaTime;
+            // transform.position += desiredVelocity * Time.deltaTime;
         }
 
         if (dogEat && !calledDog && !fetching)
         {
             lastInteraction = 0;
             ResetRand();
-            stopRadius = bowlRadius;
-            DogMovement(transform.position, new Vector3 (bowlWaypoint.transform.position.x, bowlWaypoint.transform.position.y, bowlWaypoint.transform.position.z));
-           
+            DogMovement(transform.position, new Vector3(bowlWaypoint.transform.position.x, bowlWaypoint.transform.position.y, bowlWaypoint.transform.position.z));
+
             //transform.position += desiredVelocity * Time.deltaTime;
         }
         #endregion
-       
     }
 
     private void CheckDogEat()
@@ -223,12 +218,15 @@ public class CorgiScript : MonoBehaviour {
             ResetRand();
             StartCoroutine(WaitForPellets());
         }
-        else if (Vector3.Distance(transform.position, bowlWaypoint.transform.position) < bowlNum && currentlyEating == true)
+
+        if (Vector3.Distance(transform.position, bowlWaypoint.transform.position) < bowlNum)// && currentlyEating == true)
         {
+            StopCoroutine(moveScript.FollowPath());
             print("test2");
             currentlyEating = false;
             animState = dogState.Idle;
             inBowl = 0;
+            
         }
 
         if (inBowl >= 15 && !currentlyEating && !fetching)
@@ -374,10 +372,9 @@ public class CorgiScript : MonoBehaviour {
         //}
         #endregion
 
-        path.MoveDog(agent, target);
+        moveScript.MoveTo(agent, target);
         animState = dogState.Walking;
 
-       
         //if (desiredVelocity.sqrMagnitude > 0.0f)
        // {
            // transform.forward = Vector3.Normalize(target);
@@ -408,10 +405,9 @@ public class CorgiScript : MonoBehaviour {
         {
             currentlyEating = true;
             animState = dogState.Eating;
-            //transform.forward = -1 * (Vector3.Normalize(bowlWaypoint.transform.position));
-            //transform.LookAt(bowlWaypoint.transform.localPosition);
+            transform.forward = -1 * (Vector3.Normalize(bowlWaypoint.transform.position));
+            transform.LookAt(bowlWaypoint.transform.localPosition);
         }
-        
     }
 
     public void ResetRand()
