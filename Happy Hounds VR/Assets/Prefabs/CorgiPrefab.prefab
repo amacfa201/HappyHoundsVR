@@ -1128,7 +1128,7 @@ Transform:
   m_GameObject: {fileID: 1823609701990852}
   m_LocalRotation: {x: -0.00000008406545, y: -0.8746298, z: -0.000000029570439, w: -0.4847914}
   m_LocalPosition: {x: 8.82, y: 0.73, z: 15.12}
-  m_LocalScale: {x: 1.5, y: 55, z: 1.5}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4580972164701488}
   - {fileID: 4500873574699148}
@@ -1454,6 +1454,8 @@ MonoBehaviour:
   _CorgiScript: {fileID: 0}
   timeSinceChange: 0
   timeLimit: 0
+  watsitDoing: 
+  actionNum: 0
 --- !u!114 &114193412254531666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1552,6 +1554,7 @@ MonoBehaviour:
   fetching: 0
   called: 0
   goEat: 0
+  inMotion: 0
   animState: 0
 --- !u!114 &114972581720153948
 MonoBehaviour:
@@ -1564,6 +1567,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3169191bc3796e439c1bce3529cdccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collected: 0
+  target: {fileID: 0}
+  player: {fileID: 0}
+  dogNose: {fileID: 0}
+  helmet: {fileID: 0}
+  helmetPosition: {fileID: 0}
+  RotationSpeed: 2
+  boneRB: {fileID: 0}
+  boneCol: {fileID: 0}
+  clear: 0
 --- !u!114 &114989307286739126
 MonoBehaviour:
   m_ObjectHideFlags: 1

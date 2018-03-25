@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
+using UnityEngine.SceneManagement;
 
 public class ObjectPickupScript: MonoBehaviour {
     private Valve.VR.EVRButtonId controllerTrigger = EVRButtonId.k_EButton_SteamVR_Trigger;
@@ -16,7 +17,9 @@ public class ObjectPickupScript: MonoBehaviour {
     public GameObject foodPellet;
     public GameObject SpawnPoint;
     public GameObject foodBox;
-   
+    public GameObject VR;
+    public GameObject dog;
+    DogGrav _dogGrav;
 
     public CorgiScript _corgiScript;
     List<GameObject> foodList;
@@ -38,6 +41,8 @@ public class ObjectPickupScript: MonoBehaviour {
     public bool petting;
     public bool aggro;
     public bool holdingBall;
+    public GameObject corgi;
+    GravityButton _gravityButton;
 
     // Use this for initialization
     void Start()
@@ -46,6 +51,9 @@ public class ObjectPickupScript: MonoBehaviour {
         //controller = SteamVR_Controller.Input((int)trackedObj.index);
         viveJoint = GetComponent<FixedJoint>();
         _corgiScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<CorgiScript>();
+        _dogGrav = GameObject.FindGameObjectWithTag("Corgi").GetComponent<DogGrav>();
+        corgi = GameObject.FindGameObjectWithTag("Corgi");
+        _gravityButton = GameObject.FindGameObjectWithTag("GravityButton").GetComponent<GravityButton>();
     }
 
     // Update is called once per frame
@@ -53,6 +61,7 @@ public class ObjectPickupScript: MonoBehaviour {
     {
         //print("eating = " + testScript.currentlyEating + " box = " +  holdingBox);
         //DisNumPellets = testScript.numPellets;
+        
         if (viveCont == null)
         {
             Debug.Log("Controller Not Initilalised");
@@ -68,11 +77,13 @@ public class ObjectPickupScript: MonoBehaviour {
         {
             DropObj();
         }
-        if (viveCont.GetPressDown(squeezePads) && _corgiScript.currentlyEating == false && Vector3.Distance(new Vector3(_corgiScript.headSetTarget.transform.position.x, 0.0f, _corgiScript.headSetTarget.transform.position.z), _corgiScript.transform.position) > _corgiScript.callRadius)
+        if (viveCont.GetPressDown(squeezePads) && _corgiScript.currentlyEating == false && Vector3.Distance(new Vector3(_corgiScript.headSetTarget.transform.position.x, 0.0f, _corgiScript.headSetTarget.transform.position.z), _corgiScript.transform.position) > _corgiScript.callRadius && _gravityButton.grav )
         {
             //print("button down");
-            _corgiScript.stopRadius = 1.25f;
-            _corgiScript.calledDog = true;
+            // _corgiScript.stopRadius = 1.25f;
+            // _corgiScript.calledDog = true;
+            _corgiScript.DogMovement(corgi.transform.position, new Vector3(_corgiScript.headSetTarget.transform.position.x, 0.0f, _corgiScript.headSetTarget.transform.position.z));
+            _corgiScript.animState = CorgiScript.dogState.Walking;
             FindObjectOfType<AudioManager>().PlayOnce("DogWhistle");
         }
         pourTime -= Time.deltaTime;
@@ -126,6 +137,20 @@ public class ObjectPickupScript: MonoBehaviour {
    {
         GameObject food = (GameObject)Instantiate(foodPellet, SpawnPoint.transform.position, transform.rotation);
     }
+
+     void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "RocketDoor")
+        {
+            VR.transform.position = new Vector3(-12.91f, -7.72f, 6.63f);
+            dog.transform.position = new Vector3(8.5f, 5.325f, -0.8f);
+        }
+        //if (other.tag == "Lever")
+        //{
+        //    SceneManager.LoadScene("TheBeachPlanet");
+        //}
+    }
+
 
     void OnTriggerStay(Collider other)
     {

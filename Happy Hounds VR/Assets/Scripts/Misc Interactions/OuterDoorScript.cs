@@ -24,32 +24,51 @@ public class OuterDoorScript : MonoBehaviour
 
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "GameController")
-        {
-            if (domeDoor)
-            {
-                doorAnim.SetBool("OuterDoorOpen", false);
-                audioManager.PlayOnce("DoorOpening");
-                print("DC door to false");
-                domeDoor = false;
-                StartCoroutine(OneTimeUpdate());
-            }
-            else
-            {
-                doorAnim.SetBool("OuterDoorOpen", true);
-                audioManager.PlayOnce("DoorOpening");
-                print("DC door to false");
-                domeDoor = true;
-                StartCoroutine(OneTimeUpdate());
-            }
-        }
-    }
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.tag == "GameController")
+    //    {
+    //        if (domeDoor)
+    //        {
+    //            doorAnim.SetBool("OuterDoorOpen", false);
+    //            audioManager.PlayOnce("DoorOpening");
+    //            print("DC door to false");
+    //            domeDoor = false;
+    //            StartCoroutine(OneTimeUpdate());
+    //        }
+    //        else
+    //        {
+    //            doorAnim.SetBool("OuterDoorOpen", true);
+    //            audioManager.PlayOnce("DoorOpening");
+    //            print("DC door to false");
+    //            domeDoor = true;
+    //            StartCoroutine(OneTimeUpdate());
+    //        }
+    //    }
+    //}
 
     IEnumerator OneTimeUpdate() // Called a few seconds after game start to regenerate grid with the dome doors shut
     {
         yield return new WaitForSeconds(1.4f);
         Grid.CreateTheGrid();
+    }
+
+
+    public void AffectDoor()
+    {
+        if (domeDoor)
+        {
+            doorAnim.SetBool("OuterDoorOpen", false);
+            audioManager.PlayOnce("DoorOpening");
+            domeDoor = false;
+            StartCoroutine(OneTimeUpdate());
+        }
+        else
+        {
+            doorAnim.SetBool("OuterDoorOpen", true);
+            audioManager.PlayOnce("DoorOpening");
+            domeDoor = true;
+            StartCoroutine(OneTimeUpdate());
+        }
     }
 }

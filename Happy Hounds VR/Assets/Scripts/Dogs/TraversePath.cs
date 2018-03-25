@@ -21,11 +21,16 @@ public class TraversePath : MonoBehaviour
     public int pointIndex = 1;
     CreateGrid grid;
     PathFindingScript pathfinding;
-    
+    CorgiScript _corgiScript;
+    IdleBehaviours _idleBehaviours;
+
+
 
     void Awake() {
         grid = GameObject.FindGameObjectWithTag("GridGenerator").GetComponent<CreateGrid>();
         pathfinding = GameObject.FindGameObjectWithTag("GridGenerator").GetComponent<PathFindingScript>();
+        _corgiScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<CorgiScript>();
+        _idleBehaviours = GameObject.FindGameObjectWithTag("Corgi").GetComponent<IdleBehaviours>();
     }
 
 
@@ -45,12 +50,12 @@ public class TraversePath : MonoBehaviour
         PathRequestManager.RequestPath(DogPos, Target, OnPathFound);
     }
 
-    
+
 
 
     public IEnumerator FollowPath()
     {
-        if (path != null)
+        if (path != null && _idleBehaviours.actionNum != 2)
         {
             Vector3 currentWaypoint = path[0];
             while (true)
@@ -66,11 +71,9 @@ public class TraversePath : MonoBehaviour
                     }
                     currentWaypoint = path[targetIndex];
                 }
+                _corgiScript.inMotion = true;
 
                 transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-
-
-
                 LookAt(currentWaypoint);
 
                 yield return null;

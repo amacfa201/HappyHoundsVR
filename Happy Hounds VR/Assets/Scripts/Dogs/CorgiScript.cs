@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-public class CorgiScript : MonoBehaviour {
+public class CorgiScript : MonoBehaviour
+{
 
     // Valve.VR.EVRButtonId dPadDown = EVRButtonId.k_EButton_DPad_Down;
     private Animator anim;
@@ -58,9 +59,9 @@ public class CorgiScript : MonoBehaviour {
     public bool fetching;
     public bool called;
     public bool goEat;
-    bool inMotion;
+    public bool inMotion;
 
-   
+
 
     private string animatorName;
     //private SteamVR_TrackedObject trackedObj;
@@ -80,7 +81,8 @@ public class CorgiScript : MonoBehaviour {
     public dogState animState;
 
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
         //exterior.SetActive(true);
         anim = GetComponent<Animator>();
         animatorName = anim.name;
@@ -90,6 +92,7 @@ public class CorgiScript : MonoBehaviour {
         //dogAudioSource.PlayOneShot(dogWhistle);
         _pettingScript = GetComponent<PettingScript>();
         randInteractionTime = Random.Range(5, 12);
+        randInteractionTime = 2f;
         gravScript = GameObject.FindGameObjectWithTag("GravityButton").GetComponent<GravityButton>();
         moveScript = GetComponent<TraversePath>();
         //moveScript.MoveTo(transform.position, testTarget.transform.position);
@@ -97,6 +100,11 @@ public class CorgiScript : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (inMotion)
+        {
+            animState = dogState.Walking;
+        }
+        //print("AnimState" + animState);
         lastInteraction += Time.deltaTime;
         //transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
         //Animation ENums
@@ -118,7 +126,6 @@ public class CorgiScript : MonoBehaviour {
         {
             anim.SetFloat("idle", 0f);
         }
-
 
 
         ////////////////BALL//////////////////////
@@ -187,17 +194,17 @@ public class CorgiScript : MonoBehaviour {
         }
 
         ///////////////////////////////////////////////////
-        if (calledDog && !dogEat && !fetching && Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) > 1f)
-        {
-            lastInteraction = 0;
-            ResetRand();
-            inMotion = true;
-            //dogAudioSource.PlayOneShot(dogWhistle);
+        //if (calledDog && !dogEat && !fetching && Vector3.Distance(new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z), transform.position) > 1f)
+        //{
+        //    lastInteraction = 0;
+        //    ResetRand();
+        //    inMotion = true;
+        //    //dogAudioSource.PlayOneShot(dogWhistle);
 
-            Vector3 steeringVelocity = Vector3.zero;
-            DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z));
-            // transform.position += desiredVelocity * Time.deltaTime;
-        }
+        //    Vector3 steeringVelocity = Vector3.zero;
+        //    DogMovement(transform.position, new Vector3(headSetTarget.transform.position.x, 0.0f, headSetTarget.transform.position.z));
+        //    // transform.position += desiredVelocity * Time.deltaTime;
+        //}
 
         if (dogEat && !calledDog && !fetching)
         {
@@ -207,6 +214,8 @@ public class CorgiScript : MonoBehaviour {
 
             //transform.position += desiredVelocity * Time.deltaTime;
         }
+
+        SetDogStates();
         #endregion
     }
 
@@ -226,7 +235,7 @@ public class CorgiScript : MonoBehaviour {
             currentlyEating = false;
             animState = dogState.Idle;
             inBowl = 0;
-            
+
         }
 
         if (inBowl >= 15 && !currentlyEating && !fetching)
@@ -239,6 +248,7 @@ public class CorgiScript : MonoBehaviour {
 
     private void SetDogStates()
     {
+        ResetAnims();
         if (animState == dogState.Idle)
         {
             //audioManager.StopAllSFX();
@@ -282,10 +292,6 @@ public class CorgiScript : MonoBehaviour {
         if (animState == dogState.Petting)
         {
             _pettingScript.RandAnimTime();
-            anim.SetFloat("Move", 0.0f);
-            anim.SetBool("eating", false);
-            anim.SetBool("drinking", false);
-            //currentlyEating = false;
             audioManager.PlayOnce("DogPanting");
             if (_pettingScript.currentAnim == "corgipettingstand1")
             {
@@ -313,7 +319,18 @@ public class CorgiScript : MonoBehaviour {
         }
     }
 
-    private void DogMovement(Vector3 agent, Vector3 target)
+    public void ResetAnims()
+    {
+        anim.SetFloat("petting", 0f);
+        anim.SetBool("Aggro", false);
+        anim.SetFloat("Move", 0.0f);
+        anim.SetBool("eating", false);
+        anim.SetBool("drinking", false);
+        anim.SetBool("isFloating", false);
+        anim.SetFloat("idle", 0.0f);
+    }
+
+    public void DogMovement(Vector3 agent, Vector3 target)
     {
         #region OGMovement
         //lastInteraction = 0;
@@ -376,9 +393,9 @@ public class CorgiScript : MonoBehaviour {
         animState = dogState.Walking;
 
         //if (desiredVelocity.sqrMagnitude > 0.0f)
-       // {
-           // transform.forward = Vector3.Normalize(target);
-       // }
+        // {
+        // transform.forward = Vector3.Normalize(target);
+        // }
     }
 
     public void IdleAnimations(int randNum)
@@ -393,7 +410,7 @@ public class CorgiScript : MonoBehaviour {
         }
     }
 
-     public void ResetAnimVal()
+    public void ResetAnimVal()
     {
         anim.SetFloat("idle", 0f);
     }
@@ -416,86 +433,4 @@ public class CorgiScript : MonoBehaviour {
         GetComponent<IdleBehaviours>().enabled = false;
         GetComponent<WanderScript>().enabled = false;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    void CorgiCheck()
-    {
-        Debug.Log("Conall");
-    }
 }
-
-
-

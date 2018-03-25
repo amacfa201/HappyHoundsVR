@@ -26,6 +26,21 @@ TagManager:
   - PlayerHelmet
   - Bin
   - GridGenerator
+  - Computer
+  - CorgiHelmZone
+  - CorgiHelmet
+  - PlayerHelmZone
+  - InnerButton
+  - OuterButton
+  - Bone
+  - Rocket
+  - Lever
+  - UI
+  - Platform
+  - platformButton
+  - platformBarrier
+  - RocketDoor
+  - Retriever
   layers:
   - Default
   - TransparentFX

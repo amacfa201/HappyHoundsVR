@@ -34,6 +34,7 @@ public class GravityButton : MonoBehaviour
                 audioManager.PlayOnce("ButtonSound");
                 grav = false;
                 _testScript.animState = CorgiScript.dogState.Floating;
+                
             }
             else
             {

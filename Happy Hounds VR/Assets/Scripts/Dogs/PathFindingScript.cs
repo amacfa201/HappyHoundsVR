@@ -9,6 +9,7 @@ public class PathFindingScript : MonoBehaviour
     PathRequestManager requestManager;
     CreateGrid grid;
     WanderScript wanderScript;
+    TraversePath path;
     public GameObject theDog;
 
     void Awake()
@@ -16,6 +17,7 @@ public class PathFindingScript : MonoBehaviour
         requestManager = GetComponent<PathRequestManager>();
         grid = GetComponent<CreateGrid>();
         wanderScript = GameObject.FindGameObjectWithTag("Corgi").GetComponent<WanderScript>();
+        path = GameObject.FindGameObjectWithTag("Corgi").GetComponent<TraversePath>();
     }
 
 
@@ -80,7 +82,7 @@ public class PathFindingScript : MonoBehaviour
         }
         else
         {
-            Array.Resize(ref waypoints, 0);
+            Array.Resize(ref path.path, 0);
         }
         requestManager.FinishedProcessingPath(waypoints, pathSuccess);
 

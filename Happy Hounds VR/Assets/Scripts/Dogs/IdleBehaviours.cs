@@ -11,8 +11,9 @@ public class IdleBehaviours : MonoBehaviour {
     public float timeLimit;
     float limiter = 0;
     float limit;
+    public string watsitDoing;
 
-    int actionNum;
+    public int actionNum;
     int animNum;
 // Use this for initialization
     void Start () {
@@ -36,22 +37,26 @@ public class IdleBehaviours : MonoBehaviour {
         //print("AN = " + actionNum);
         if (actionNum == 1) // wander 
         {
-            _CorgiScript.ResetAnimVal();
-            _wander.enabled = true;
+            
             _CorgiScript.animState = CorgiScript.dogState.Walking;
+            _wander.enabled = true;
+            _CorgiScript.inMotion = true;
+            watsitDoing = "wandering";
         }
 
         if (actionNum == 2)// RandomAnimation;
         {
             limiter += Time.deltaTime;
             _wander.enabled = false;
+            _CorgiScript.inMotion = false;
+            _CorgiScript.animState = CorgiScript.dogState.Idle;
+            watsitDoing = "Idle Anim";
             if (limiter > limit)
             {
               limiter = 0;
               animNum = Random.Range(1, 3);
             }
             
-            _CorgiScript.animState = CorgiScript.dogState.Idle;
             _CorgiScript.IdleAnimations(animNum);
         }
 	}

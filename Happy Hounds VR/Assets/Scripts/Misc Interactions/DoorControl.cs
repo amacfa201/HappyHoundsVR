@@ -69,4 +69,23 @@ public class DoorControl : MonoBehaviour
         yield return new WaitForSeconds(1f);
         Grid.CreateTheGrid();
     }
+
+
+    public void AffectDoor()
+    {
+        if (RoomDoor)
+        {
+            doorAnim.SetBool("InnerDoorOpen", false);
+            audioManager.PlayOnce("DoorOpening");
+            RoomDoor = false;
+            StartCoroutine(OneTimeUpdate());
+        }
+        else
+        {
+            doorAnim.SetBool("InnerDoorOpen", true);
+            audioManager.PlayOnce("DoorOpening");
+            RoomDoor = true;
+            StartCoroutine(OneTimeUpdate());
+        }
+    }
 }
