@@ -145,10 +145,10 @@ public class ObjectPickupScript: MonoBehaviour {
             VR.transform.position = new Vector3(-12.91f, -7.72f, 6.63f);
             dog.transform.position = new Vector3(8.5f, 5.325f, -0.8f);
         }
-        //if (other.tag == "Lever")
-        //{
-        //    SceneManager.LoadScene("TheBeachPlanet");
-        //}
+        if (other.tag == "Lever")
+        {
+            SceneManager.LoadScene("TheBeachPlanet");
+        }
     }
 
 

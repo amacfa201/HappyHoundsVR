@@ -6,6 +6,7 @@ public class platformScript : MonoBehaviour {
 
     public GameObject target;
     public GameObject platform;
+    public GameObject walls;
 
 
     public float maxHeight;
@@ -48,7 +49,7 @@ public class platformScript : MonoBehaviour {
         //transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
         //platform.transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
 
-        if (platform.transform.position.y < maxHeight)
+        if (platform.transform.position.y < maxHeight && walls.transform.position.y < maxHeight)
         {
             //platformRB.AddForce(Vector3.up * speed);
             //buttonRB.AddForce(Vector3.up * speed);
@@ -91,7 +92,7 @@ public class platformScript : MonoBehaviour {
     public void MoveDown()
     {
 
-        if (platform.transform.position.y > minHeight)
+        if (platform.transform.position.y > minHeight && walls.transform.position.y > minHeight)
         {
             //platformRB.AddForce(-Vector3.up * speed);
             //buttonRB.AddForce(-Vector3.up * speed);
